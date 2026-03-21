@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Message Sent — KJJ Tech</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .thanks {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      gap: 1.5rem;
+    }
+    .thanks__icon {
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--gray-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--black);
+    }
+    .thanks__icon svg { width: 24px; height: 24px; }
+    .thanks__logo { height: 32px; width: auto; margin-bottom: 1rem; }
+    .thanks h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+    .thanks p  { max-width: 420px; }
+  </style>
+</head>
+<body>
+  <div class="thanks">
+    <a href="/"><img src="logo.jpg" alt="KJJ Tech" class="thanks__logo" /></a>
+    <div class="thanks__icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20,6 9,17 4,12"/></svg>
+    </div>
+    <h1>Message received.</h1>
+    <p>Thanks for reaching out. We typically respond within 2 hours during business hours — we'll be in touch shortly.</p>
+    <a href="/" class="btn btn--ghost">Back to home</a>
+  </div>
+</body>
+</html>
