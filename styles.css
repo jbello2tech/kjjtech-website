@@ -783,6 +783,13 @@ input::placeholder, textarea::placeholder { color: var(--gray-300); }
   gap: 1.5rem;
 }
 
+.testimonial__stars {
+  font-size: 1rem;
+  color: #f59e0b;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
 .testimonial__quote {
   font-size: 0.9rem;
   line-height: 1.8;
