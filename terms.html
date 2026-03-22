@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — KJJ Tech</title>
+  <meta name="description" content="Terms of Service for KJJ Tech — the rules and guidelines for using our services." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;600&display=swap" rel="stylesheet" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBC70RYJEC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZBC70RYJEC');
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .policy {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: calc(var(--nav-h) + 4rem) 1.5rem 6rem;
+    }
+    .policy__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 3rem;
+      transition: color 0.15s;
+    }
+    .policy__back:hover { color: var(--black); }
+    .policy__back svg { width: 14px; height: 14px; }
+    .policy h1 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      margin-bottom: 0.5rem;
+    }
+    .policy__date {
+      font-size: 0.78rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--gray-300);
+      margin-bottom: 3rem;
+      display: block;
+    }
+    .policy h2 {
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .policy p {
+      font-size: 0.9rem;
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+    .policy ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .policy ul li {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--gray-500);
+      padding-left: 1.25rem;
+      position: relative;
+      line-height: 1.7;
+    }
+    .policy ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gray-300);
+    }
+    .policy a { color: var(--black); text-decoration: underline; }
+    .policy hr {
+      border: none;
+      border-top: 1px solid var(--gray-100);
+      margin: 2.5rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo"><img src="logo.jpg" alt="KJJ Tech" /></a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="policy">
+
+    <a href="/" class="policy__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15,18 9,12 15,6"/></svg>
+      Back to home
+    </a>
+
+    <h1>Terms of Service</h1>
+    <span class="policy__date">Last updated: March 2026</span>
+
+    <p>These Terms of Service ("Terms") govern your use of the website at <strong>www.kjjtech.com</strong> and any services provided by KJJ Tech ("we", "us", or "our"). By accessing our site or purchasing our services, you agree to be bound by these Terms.</p>
+
+    <hr />
+
+    <h2>Services</h2>
+    <p>KJJ Tech provides networking, IT consulting, Unifi support, cybersecurity, system integration, and managed support services. Services are delivered either onsite in the Orlando, FL area or remotely nationwide.</p>
+    <p>All work is performed on a time-based billing model. You may purchase time in the following increments:</p>
+    <ul>
+      <li>Standard Hour — $200/hour, billed as a single hour</li>
+      <li>2-Hour Block — $340, valid for 2 hours of service</li>
+      <li>5-Hour Block — $750, valid for 5 hours of service</li>
+    </ul>
+    <p>Time is billed in 5-minute increments. A detailed breakdown of time used is provided at the end of every session.</p>
+
+    <hr />
+
+    <h2>Payments</h2>
+    <p>All payments are processed securely through Stripe. By completing a purchase, you agree to Stripe's <a href="https://stripe.com/legal" target="_blank" rel="noopener">Terms of Service</a>. KJJ Tech does not store your payment card details.</p>
+    <p>Prices are listed in US dollars and are subject to change. Any price changes will not affect purchases already completed.</p>
+
+    <hr />
+
+    <h2>Hour Blocks & Expiration</h2>
+    <p>Purchased hour blocks are valid for <strong>one year</strong> from the date of purchase. Unused hours expire after this period and are non-refundable once expired.</p>
+    <p>Hour blocks are non-transferable and may only be used by the purchasing client for their own projects and infrastructure.</p>
+
+    <hr />
+
+    <h2>Refund Policy</h2>
+    <ul>
+      <li>If you purchase a block and have not used any hours, you are eligible for a full refund within 30 days of purchase</li>
+      <li>Partially used blocks are refunded pro-rata for unused hours, at the standard hourly rate of $200/hour</li>
+      <li>Refunds are not available for hours already worked and delivered</li>
+      <li>To request a refund, contact us at <a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
+    </ul>
+
+    <hr />
+
+    <h2>Scheduling & Availability</h2>
+    <p>Sessions are scheduled based on mutual availability. We aim to confirm bookings within one business day of your request. KJJ Tech reserves the right to reschedule sessions with reasonable notice in the event of an emergency or conflict.</p>
+    <p>If you need to reschedule, please notify us at least 24 hours in advance. No-shows or cancellations with less than 24 hours notice may result in forfeiture of the scheduled session hour.</p>
+
+    <hr />
+
+    <h2>Scope of Work</h2>
+    <p>All billable work includes networking configuration, troubleshooting, consulting calls, infrastructure setup, and documentation. Work performed outside of a confirmed session or scope must be agreed upon in advance.</p>
+    <p>KJJ Tech will make reasonable efforts to resolve issues within the purchased time. Complex issues may require additional hours, which will always be communicated before proceeding.</p>
+
+    <hr />
+
+    <h2>Client Responsibilities</h2>
+    <p>To ensure sessions run smoothly, clients agree to:</p>
+    <ul>
+      <li>Provide accurate information about their network environment and any issues</li>
+      <li>Grant necessary access to equipment, systems, or credentials required to perform the work</li>
+      <li>Ensure remote access tools are available and working prior to a remote session</li>
+      <li>Be available or designate a point of contact during the session</li>
+    </ul>
+
+    <hr />
+
+    <h2>Limitation of Liability</h2>
+    <p>KJJ Tech will perform all work with reasonable care and professional skill. However, we are not liable for any data loss, hardware failure, network outages, or damages arising from pre-existing conditions, third-party equipment, or unforeseen circumstances outside our control.</p>
+    <p>We strongly recommend maintaining current backups of all data before any work is performed. Our total liability in any matter shall not exceed the amount paid for the specific service session in question.</p>
+
+    <hr />
+
+    <h2>Confidentiality</h2>
+    <p>Any information shared with KJJ Tech during a service session — including network credentials, infrastructure details, and business information — will be kept strictly confidential and will not be shared with any third party.</p>
+
+    <hr />
+
+    <h2>Intellectual Property</h2>
+    <p>All content on this website, including text, design, and graphics, is the property of KJJ Tech. You may not reproduce, distribute, or use any content from this site without written permission.</p>
+
+    <hr />
+
+    <h2>Changes to These Terms</h2>
+    <p>We may update these Terms from time to time. Any changes will be posted on this page with an updated date. Continued use of our services after changes are posted constitutes acceptance of the updated Terms.</p>
+
+    <hr />
+
+    <h2>Governing Law</h2>
+    <p>These Terms are governed by the laws of the State of Florida. Any disputes arising from these Terms or our services shall be resolved in the courts of Florida.</p>
+
+    <hr />
+
+    <h2>Contact Us</h2>
+    <p>If you have any questions about these Terms, please contact us:</p>
+    <ul>
+      <li>Email: <a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
+      <li>Phone: <a href="tel:+13473357350">(347) 335-7350</a></li>
+    </ul>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container footer__bottom">
+      <p class="footer__copy">&copy; 2026 KJJ Tech. All rights reserved.</p>
+      <div class="footer__bottom-contact">
+        <a href="mailto:support@kjjtech.com">support@kjjtech.com</a>
+        <span>&middot;</span>
+        <a href="tel:+13473357350">(347) 335-7350</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
