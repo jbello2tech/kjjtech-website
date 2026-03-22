@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — KJJ Tech</title>
+  <meta name="description" content="Privacy Policy for KJJ Tech — how we collect, use, and protect your information." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;600&display=swap" rel="stylesheet" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBC70RYJEC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZBC70RYJEC');
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .policy {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: calc(var(--nav-h) + 4rem) 1.5rem 6rem;
+    }
+    .policy__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 3rem;
+      transition: color 0.15s;
+    }
+    .policy__back:hover { color: var(--black); }
+    .policy__back svg { width: 14px; height: 14px; }
+    .policy h1 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      margin-bottom: 0.5rem;
+    }
+    .policy__date {
+      font-size: 0.78rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--gray-300);
+      margin-bottom: 3rem;
+      display: block;
+    }
+    .policy h2 {
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-top: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .policy p {
+      font-size: 0.9rem;
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+    .policy ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .policy ul li {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--gray-500);
+      padding-left: 1.25rem;
+      position: relative;
+      line-height: 1.7;
+    }
+    .policy ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gray-300);
+    }
+    .policy a { color: var(--black); text-decoration: underline; }
+    .policy hr {
+      border: none;
+      border-top: 1px solid var(--gray-100);
+      margin: 2.5rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo"><img src="logo.jpg" alt="KJJ Tech" /></a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="policy">
+
+    <a href="/" class="policy__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15,18 9,12 15,6"/></svg>
+      Back to home
+    </a>
+
+    <h1>Privacy Policy</h1>
+    <span class="policy__date">Last updated: March 2026</span>
+
+    <p>KJJ Tech ("we", "us", or "our") operates the website at <strong>www.kjjtech.com</strong>. This Privacy Policy explains what information we collect, how we use it, and your rights in relation to it. By using our site, you agree to the practices described here.</p>
+
+    <hr />
+
+    <h2>Information We Collect</h2>
+    <p>We collect information in two ways — information you provide directly, and information collected automatically when you visit our site.</p>
+
+    <p><strong>Information you provide:</strong></p>
+    <ul>
+      <li>Name, email address, and phone number submitted through our contact form</li>
+      <li>Payment information submitted through Stripe when purchasing a service block (we do not store card details — these are handled entirely by Stripe)</li>
+    </ul>
+
+    <p><strong>Information collected automatically:</strong></p>
+    <ul>
+      <li>Pages visited, time spent on site, and general location (country/region) via Google Analytics</li>
+      <li>Browser type, device type, and operating system</li>
+      <li>Referring URL (how you found our site)</li>
+    </ul>
+
+    <hr />
+
+    <h2>How We Use Your Information</h2>
+    <ul>
+      <li>To respond to inquiries submitted through our contact form</li>
+      <li>To process and fulfill service purchases made through Stripe</li>
+      <li>To understand how visitors use our site so we can improve it (via Google Analytics)</li>
+      <li>To communicate with you about your service sessions or account</li>
+    </ul>
+
+    <hr />
+
+    <h2>Third-Party Services</h2>
+    <p>We use the following third-party services that may collect or process your data:</p>
+    <ul>
+      <li><strong>Formspree</strong> — handles contact form submissions and forwards them to our email. See <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">Formspree's Privacy Policy</a>.</li>
+      <li><strong>Stripe</strong> — processes all payments securely. We never see or store your card details. See <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe's Privacy Policy</a>.</li>
+      <li><strong>Google Analytics</strong> — tracks anonymous usage data to help us improve the site. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>. You can opt out via <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google's opt-out tool</a>.</li>
+    </ul>
+
+    <hr />
+
+    <h2>Data Sharing</h2>
+    <p>We do not sell, rent, or trade your personal information to any third parties. We only share your data with the service providers listed above, and only to the extent necessary to operate our business.</p>
+
+    <hr />
+
+    <h2>Data Retention</h2>
+    <p>Contact form submissions are retained in our email inbox for as long as needed to respond and follow up. Payment records are retained as required by law and Stripe's policies. Analytics data is retained per Google Analytics' default retention settings.</p>
+
+    <hr />
+
+    <h2>Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+      <li>Request a copy of the personal information we hold about you</li>
+      <li>Request that we correct or delete your personal information</li>
+      <li>Opt out of Google Analytics tracking at any time</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at <a href="mailto:support@kjjtech.com">support@kjjtech.com</a>.</p>
+
+    <hr />
+
+    <h2>Cookies</h2>
+    <p>Our site uses cookies only through Google Analytics to track anonymous usage. We do not use advertising cookies or sell browsing data. You can disable cookies in your browser settings at any time.</p>
+
+    <hr />
+
+    <h2>Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated date. We encourage you to review this page periodically.</p>
+
+    <hr />
+
+    <h2>Contact Us</h2>
+    <p>If you have any questions about this Privacy Policy, please contact us:</p>
+    <ul>
+      <li>Email: <a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
+      <li>Phone: <a href="tel:+13473357350">(347) 335-7350</a></li>
+    </ul>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container footer__bottom">
+      <p class="footer__copy">&copy; 2026 KJJ Tech. All rights reserved.</p>
+      <div class="footer__bottom-contact">
+        <a href="mailto:support@kjjtech.com">support@kjjtech.com</a>
+        <span>&middot;</span>
+        <a href="tel:+13473357350">(347) 335-7350</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
