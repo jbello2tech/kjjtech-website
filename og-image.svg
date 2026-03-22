@@ -1,36 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <defs>
-    <style>
-      @font-face {
-        font-family: 'BDSans';
-        src: url('BDSans-Regular.ttf');
-      }
-    </style>
-  </defs>
-  <rect width="1200" height="630" fill="#0a0a0a"/>
-  <!-- Subtle dot grid -->
-  <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-    <circle cx="20" cy="20" r="1" fill="#333333"/>
+  <rect width="1200" height="630" fill="#000000"/>
+  <!-- dot grid -->
+  <pattern id="dots" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+    <circle cx="1" cy="1" r="1" fill="#1a1a1a"/>
   </pattern>
-  <rect width="1200" height="630" fill="url(#dots)" opacity="0.5"/>
-  <!-- KJJ TECH text -->
-  <text
-    x="600"
-    y="310"
-    font-family="'BDSans', sans-serif"
-    font-size="100"
-    fill="white"
-    text-anchor="middle"
-    letter-spacing="20"
-  >KJJ TECH</text>
-  <!-- Tagline -->
-  <text
-    x="600"
-    y="380"
-    font-family="'BDSans', sans-serif"
-    font-size="22"
-    fill="#767676"
-    text-anchor="middle"
-    letter-spacing="8"
-  >NETWORKING &amp; IT SUPPORT</text>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <text x="600" y="320" font-family="'Beautifully Delicious Sans', 'BDSans', sans-serif" font-size="100" fill="white" text-anchor="middle" letter-spacing="20">KJJ TECH</text>
+  <text x="600" y="390" font-family="'Beautifully Delicious Sans', 'BDSans', sans-serif" font-size="22" fill="#767676" text-anchor="middle" letter-spacing="8">NETWORKING &amp; IT SUPPORT</text>
 </svg>
