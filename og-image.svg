@@ -1,4 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'BDSans';
+        src: url('BDSans-Regular.ttf');
+      }
+    </style>
+  </defs>
   <rect width="1200" height="630" fill="#0a0a0a"/>
   <!-- Subtle dot grid -->
   <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -8,21 +16,19 @@
   <!-- KJJ TECH text -->
   <text
     x="600"
-    y="295"
-    font-family="'Josefin Sans', Arial, sans-serif"
-    font-size="96"
-    font-weight="200"
+    y="310"
+    font-family="'BDSans', sans-serif"
+    font-size="100"
     fill="white"
     text-anchor="middle"
-    letter-spacing="28"
+    letter-spacing="20"
   >KJJ TECH</text>
   <!-- Tagline -->
   <text
     x="600"
-    y="365"
-    font-family="'Josefin Sans', Arial, sans-serif"
+    y="380"
+    font-family="'BDSans', sans-serif"
     font-size="22"
-    font-weight="200"
     fill="#767676"
     text-anchor="middle"
     letter-spacing="8"
