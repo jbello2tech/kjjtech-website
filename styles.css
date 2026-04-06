@@ -748,6 +748,43 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ─── CTA Banner ─── */
+.cta-banner {
+  background: var(--black);
+  padding: 3.5rem 0;
+}
+
+.cta-banner__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.cta-banner h2 {
+  color: var(--white);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  margin-bottom: 0.4rem;
+}
+
+.cta-banner p {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.cta-banner .btn--primary {
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+  flex-shrink: 0;
+}
+.cta-banner .btn--primary:hover {
+  background: var(--gray-100);
+  border-color: var(--gray-100);
+}
+
 /* ─── Contact ─── */
 .contact {
   background: var(--gray-50);

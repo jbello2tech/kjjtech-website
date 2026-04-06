@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Started — KJJ Tech | Book a Call & Onboard as a Client</title>
+  <meta name="description" content="Get started with KJJ Tech. Book a free 30-minute discovery call and tell us about your network needs. Onsite in Orlando, FL and remote nationwide." />
+  <meta property="og:title" content="Get Started — KJJ Tech" />
+  <meta property="og:description" content="Book a free 30-minute discovery call and get your network sorted." />
+  <meta property="og:image" content="https://kjjtech.com/og-image.png" />
+  <meta property="og:url" content="https://kjjtech.com/get-started.html" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;600&display=swap" rel="stylesheet" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBC70RYJEC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZBC70RYJEC');
+  </script>
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .onboard-hero {
+      padding: calc(var(--bar-h) + var(--nav-h) + 4rem) 1.5rem 3rem;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .onboard-hero h1 { margin-bottom: 0.75rem; }
+    .onboard-hero p { font-size: 1.05rem; max-width: 520px; margin: 0 auto; }
+
+    .onboard-sections {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem 6rem;
+    }
+
+    .onboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* Calendly side */
+    .onboard-book {
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--white);
+    }
+
+    .onboard-book__header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .onboard-book__header h2 {
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 0.4rem;
+    }
+
+    .onboard-book__header p {
+      font-size: 0.82rem;
+      margin: 0;
+    }
+
+    .onboard-book__step {
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--black);
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+
+    .calendly-embed {
+      min-height: 660px;
+    }
+
+    /* Intake form side */
+    .onboard-form {
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius);
+      background: var(--white);
+    }
+
+    .onboard-form__header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .onboard-form__header h2 {
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 0.4rem;
+    }
+
+    .onboard-form__header p {
+      font-size: 0.82rem;
+      margin: 0;
+    }
+
+    .onboard-form__step {
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--black);
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+
+    .onboard-form__body {
+      padding: 2rem;
+    }
+
+    .onboard-form__body .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .onboard-form__body .form-group:last-of-type {
+      margin-bottom: 1.5rem;
+    }
+
+    .onboard-form__body select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--gray-100);
+      border-radius: 8px;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      background: var(--white);
+      color: var(--black);
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23767676' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 12px;
+      cursor: pointer;
+    }
+    .onboard-form__body select:focus { border-color: var(--black); }
+
+    .form__success-onboard {
+      display: none;
+      color: #16a34a;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .form__success-onboard.show { display: block; }
+
+    @media (max-width: 900px) {
+      .onboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo"><img src="/logo.jpg" alt="KJJ Tech" /></a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="onboard-hero">
+    <p class="section-tag">Get Started</p>
+    <h1>Let's work together.</h1>
+    <p>Book a free discovery call and tell us about your setup. We'll take it from there.</p>
+  </section>
+
+  <!-- TWO-COLUMN: CALENDLY + INTAKE FORM -->
+  <section class="onboard-sections">
+    <div class="onboard-grid">
+
+      <!-- LEFT: Calendly -->
+      <div class="onboard-book">
+        <div class="onboard-book__header">
+          <span class="onboard-book__step">Step 1</span>
+          <h2>Book a Discovery Call</h2>
+          <p>Pick a time that works for you. 30 minutes, no pressure, no commitment.</p>
+        </div>
+        <div class="calendly-embed">
+          <iframe
+            src="https://calendly.com/jbello-kjjtech/30min?hide_gdpr_banner=1"
+            width="100%"
+            height="660"
+            frameborder="0"
+            title="Schedule a call with KJJ Tech"
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- RIGHT: Intake Form -->
+      <div class="onboard-form">
+        <div class="onboard-form__header">
+          <span class="onboard-form__step">Step 2</span>
+          <h2>Tell Us About Your Setup</h2>
+          <p>The more we know upfront, the more productive our first call will be.</p>
+        </div>
+        <div class="onboard-form__body">
+          <form action="https://formspree.io/f/xreydwyb" method="POST">
+            <input type="hidden" name="_subject" value="New client intake from KJJ Tech website" />
+            <input type="hidden" name="_next" value="https://kjjtech.com/thanks.html" />
+            <input type="hidden" name="form_type" value="client_intake" />
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="intake-name">Name *</label>
+                <input type="text" id="intake-name" name="name" placeholder="Jane Smith" required />
+              </div>
+              <div class="form-group">
+                <label for="intake-email">Email *</label>
+                <input type="email" id="intake-email" name="email" placeholder="jane@company.com" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="intake-phone">Phone</label>
+                <input type="tel" id="intake-phone" name="phone" placeholder="(555) 123-4567" />
+              </div>
+              <div class="form-group">
+                <label for="intake-business">Business Name</label>
+                <input type="text" id="intake-business" name="business_name" placeholder="Acme Corp" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="intake-service">What do you need help with? *</label>
+              <select id="intake-service" name="service_needed" required>
+                <option value="" disabled selected>Select a service</option>
+                <option value="Network Setup">Network Setup / Installation</option>
+                <option value="Troubleshooting">Troubleshooting / Repair</option>
+                <option value="Unifi Support">Unifi / Ubiquiti Support</option>
+                <option value="IT Consulting">IT Consulting</option>
+                <option value="Cloud Infrastructure">Cloud Infrastructure</option>
+                <option value="Cybersecurity">Cybersecurity</option>
+                <option value="Managed Support">Managed / Ongoing Support</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="intake-current">Current network setup</label>
+              <select id="intake-current" name="current_setup">
+                <option value="" disabled selected>Select your current setup</option>
+                <option value="Unifi">Unifi / Ubiquiti</option>
+                <option value="Meraki">Cisco Meraki</option>
+                <option value="Consumer Router">Consumer router (Netgear, TP-Link, etc.)</option>
+                <option value="ISP Provided">ISP-provided equipment only</option>
+                <option value="Mixed">Mixed / unsure</option>
+                <option value="None">No setup yet — starting fresh</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="intake-devices">Approx. number of devices</label>
+                <input type="text" id="intake-devices" name="device_count" placeholder="e.g., 15" />
+              </div>
+              <div class="form-group">
+                <label for="intake-locations">Number of locations</label>
+                <input type="text" id="intake-locations" name="location_count" placeholder="e.g., 1" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="intake-details">Describe your needs *</label>
+              <textarea id="intake-details" name="project_details" rows="4" placeholder="What's going on with your network? What are you looking to achieve?" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="intake-referral">How did you hear about us?</label>
+              <select id="intake-referral" name="referral_source">
+                <option value="" disabled selected>Select one</option>
+                <option value="Google Search">Google Search</option>
+                <option value="Reddit">Reddit</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="YouTube">YouTube</option>
+                <option value="Referral">Referral / word of mouth</option>
+                <option value="Ubiquiti Community">Ubiquiti Community</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn--primary" style="width:100%;text-align:center;">Submit Intake Form</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__top">
+      <div class="footer__col">
+        <a href="/" class="footer__brand"><img src="/logo.jpg" alt="KJJ Tech" /></a>
+        <p class="footer__tagline">Technology that works for you.</p>
+        <div class="footer__socials">
+          <a href="https://www.linkedin.com/company/kjjtech" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="mailto:support@kjjtech.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Navigate</p>
+        <ul class="footer__links">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Contact</p>
+        <ul class="footer__contact-list">
+          <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p class="footer__copy">&copy; 2026 KJJ Tech. All rights reserved. <a href="/privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms.html" style="color:inherit;text-decoration:underline;">Terms of Service</a></p>
+      <div class="footer__bottom-contact">
+        <a href="mailto:support@kjjtech.com">support@kjjtech.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>
