@@ -1,3 +1,107 @@
+// Hero interactive network canvas
+(function () {
+  const canvas = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, nodes, mouse = { x: -1000, y: -1000 };
+  const NODE_COUNT = 60;
+  const CONNECT_DIST = 100;
+  const MOUSE_RADIUS = 150;
+
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    w = rect.width;
+    h = rect.height;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function initNodes() {
+    nodes = [];
+    for (let i = 0; i < NODE_COUNT; i++) {
+      nodes.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.5 + 1,
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      // drift
+      a.x += a.vx;
+      a.y += a.vy;
+      if (a.x < 0 || a.x > w) a.vx *= -1;
+      if (a.y < 0 || a.y > h) a.vy *= -1;
+
+      // mouse repel
+      const dx = a.x - mouse.x;
+      const dy = a.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < MOUSE_RADIUS && dist > 0) {
+        const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS * 0.8;
+        a.x += (dx / dist) * force;
+        a.y += (dy / dist) * force;
+      }
+
+      // draw connections
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j];
+        const cdx = a.x - b.x;
+        const cdy = a.y - b.y;
+        const cd = Math.sqrt(cdx * cdx + cdy * cdy);
+        if (cd < CONNECT_DIST) {
+          const opacity = (1 - cd / CONNECT_DIST) * 0.2;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = 'rgba(0,0,0,' + opacity + ')';
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+
+      // draw node
+      const mouseProx = Math.max(0, 1 - dist / MOUSE_RADIUS);
+      const alpha = 0.15 + mouseProx * 0.5;
+      ctx.beginPath();
+      ctx.arc(a.x, a.y, a.r + mouseProx * 1.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0,0,0,' + alpha + ')';
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  canvas.addEventListener('mousemove', function (e) {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+
+  canvas.addEventListener('mouseleave', function () {
+    mouse.x = -1000;
+    mouse.y = -1000;
+  });
+
+  window.addEventListener('resize', function () {
+    resize();
+    initNodes();
+  });
+
+  resize();
+  initNodes();
+  draw();
+})();
+
 // Nav scroll shadow
 const nav = document.querySelector('.nav');
 window.addEventListener('scroll', () => {
