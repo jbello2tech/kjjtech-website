@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Set Up VLANs on a Unifi Dream Machine | KJJ Tech</title>
+  <meta name="description" content="Step-by-step guide to setting up VLANs on a Unifi Dream Machine. Learn how to segment your network for better security, performance, and device management." />
+  <meta property="og:title" content="How to Set Up VLANs on a Unifi Dream Machine" />
+  <meta property="og:description" content="Step-by-step guide to setting up VLANs on Unifi for better security and network performance." />
+  <meta property="og:image" content="https://kjjtech.com/og-image.png" />
+  <meta property="og:url" content="https://kjjtech.com/blog/unifi-vlan-setup-guide.html" />
+  <meta property="og:type" content="article" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;600&display=swap" rel="stylesheet" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBC70RYJEC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZBC70RYJEC');
+  </script>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="blog.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Set Up VLANs on a Unifi Dream Machine",
+    "description": "Step-by-step guide to setting up VLANs on Unifi for better security and network performance.",
+    "author": { "@type": "Organization", "name": "KJJ Tech", "url": "https://kjjtech.com" },
+    "publisher": { "@type": "Organization", "name": "KJJ Tech", "logo": { "@type": "ImageObject", "url": "https://kjjtech.com/logo.jpg" } },
+    "datePublished": "2026-04-06",
+    "mainEntityOfPage": "https://kjjtech.com/blog/unifi-vlan-setup-guide.html"
+  }
+  </script>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo"><img src="/logo.jpg" alt="KJJ Tech" /></a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <article class="post">
+    <a href="/blog/" class="post__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15,18 9,12 15,6"/></svg>
+      Back to Blog
+    </a>
+
+    <span class="post__tag">Guide</span>
+    <h1 class="post__title">How to Set Up VLANs on a Unifi Dream Machine</h1>
+    <p class="post__meta">April 2026 &middot; 8 min read</p>
+
+    <div class="post__body">
+      <p>If every device on your network shares the same broadcast domain, you're leaving performance and security on the table. VLANs (Virtual Local Area Networks) let you split one physical network into multiple isolated segments — and the Unifi Dream Machine makes it straightforward to set up.</p>
+
+      <p>Whether you're separating IoT devices from your main network, isolating guest Wi-Fi, or building out a home lab, this guide walks you through the entire process.</p>
+
+      <h2>What Is a VLAN and Why Does It Matter?</h2>
+
+      <p>A VLAN is a way to logically divide a single physical network into separate, isolated networks. Devices on one VLAN can't communicate with devices on another VLAN unless you explicitly allow it through firewall rules.</p>
+
+      <p>This matters for three reasons:</p>
+
+      <ul>
+        <li><strong>Security</strong> — Your smart thermostat doesn't need access to your file server. VLANs keep things contained.</li>
+        <li><strong>Performance</strong> — Fewer devices per broadcast domain means less noise and faster communication.</li>
+        <li><strong>Organization</strong> — Grouping devices logically makes troubleshooting and monitoring much easier.</li>
+      </ul>
+
+      <h2>Common VLAN Setups</h2>
+
+      <p>Here are the most common segments we set up for clients:</p>
+
+      <ul>
+        <li><strong>Default / Management (VLAN 1)</strong> — Your Unifi gear, switches, and APs.</li>
+        <li><strong>Trusted (VLAN 10)</strong> — Personal or work devices: laptops, desktops, phones.</li>
+        <li><strong>IoT (VLAN 20)</strong> — Smart home devices, cameras, voice assistants.</li>
+        <li><strong>Guest (VLAN 30)</strong> — Visitor access with internet only, no local network access.</li>
+        <li><strong>Servers / Lab (VLAN 40)</strong> — Home lab, NAS, or self-hosted services.</li>
+      </ul>
+
+      <h2>Step 1: Create a New Network</h2>
+
+      <p>Open your Unifi Network application and navigate to <strong>Settings &rarr; Networks</strong>. Click <strong>Create New Network</strong>.</p>
+
+      <ul>
+        <li>Give it a descriptive name (e.g., "IoT")</li>
+        <li>Set the <strong>Router</strong> to your UDM/UDM Pro</li>
+        <li>Under <strong>Advanced</strong>, set the <strong>VLAN ID</strong> (e.g., 20)</li>
+        <li>Set the <strong>Gateway IP / Subnet</strong> — for example, <code>192.168.20.1/24</code></li>
+        <li>Enable the <strong>DHCP Server</strong> so devices on this VLAN get IPs automatically</li>
+      </ul>
+
+      <p>Repeat for each VLAN you want to create.</p>
+
+      <h2>Step 2: Create Wi-Fi Networks Per VLAN</h2>
+
+      <p>Go to <strong>Settings &rarr; WiFi</strong> and create a new wireless network for each VLAN that needs Wi-Fi access.</p>
+
+      <ul>
+        <li>Name it clearly (e.g., "Home-IoT" or "Guest")</li>
+        <li>Under <strong>Network</strong>, select the VLAN you just created</li>
+        <li>Set a strong password (or use an open network with a captive portal for guests)</li>
+      </ul>
+
+      <p>Each SSID maps to a specific VLAN — so when a device connects to "Home-IoT", it lands on VLAN 20 automatically.</p>
+
+      <h2>Step 3: Assign Switch Ports</h2>
+
+      <p>For wired devices, you need to assign switch ports to VLANs. Go to <strong>Devices</strong>, select your switch, and click on a port.</p>
+
+      <ul>
+        <li>Under <strong>Port Profile</strong>, select the VLAN network you want that port to use</li>
+        <li>For ports connecting to other switches or APs, use a <strong>Trunk / All</strong> profile so all VLANs pass through</li>
+      </ul>
+
+      <h2>Step 4: Set Up Firewall Rules</h2>
+
+      <p>By default, VLANs on Unifi can still talk to each other. You'll want to create firewall rules to block inter-VLAN traffic and then allow specific exceptions.</p>
+
+      <p>Navigate to <strong>Settings &rarr; Firewall &amp; Security &rarr; Firewall Rules</strong> and create a new rule:</p>
+
+      <ul>
+        <li><strong>Type:</strong> LAN In</li>
+        <li><strong>Action:</strong> Drop</li>
+        <li><strong>Source:</strong> Your IoT network</li>
+        <li><strong>Destination:</strong> Your Trusted network</li>
+      </ul>
+
+      <p>This blocks IoT devices from reaching your trusted devices while still allowing them to access the internet. Repeat for each VLAN pair you want to isolate.</p>
+
+      <h2>Step 5: Test and Verify</h2>
+
+      <p>Connect a device to each VLAN and verify:</p>
+
+      <ol>
+        <li>It gets an IP in the correct subnet (e.g., 192.168.20.x for IoT)</li>
+        <li>It can reach the internet</li>
+        <li>It <strong>cannot</strong> ping or access devices on other VLANs</li>
+        <li>Any intentional exceptions (like a printer shared across VLANs) work correctly</li>
+      </ol>
+
+      <h2>Common Mistakes to Avoid</h2>
+
+      <ul>
+        <li><strong>Forgetting trunk ports</strong> — If your AP is on a non-trunk port, it won't be able to serve multiple SSIDs across VLANs.</li>
+        <li><strong>Not setting firewall rules</strong> — VLANs without firewall rules still allow cross-VLAN traffic by default on Unifi.</li>
+        <li><strong>Too many VLANs</strong> — Start simple. Three to four VLANs covers most use cases. You can always add more later.</li>
+        <li><strong>Locking yourself out</strong> — Always keep a device on the management VLAN so you can still access the Unifi controller.</li>
+      </ul>
+
+      <h2>When to Call a Professional</h2>
+
+      <p>VLANs are powerful, but they can get complex — especially when you're dealing with inter-VLAN routing exceptions, mDNS across VLANs (for AirPlay, Chromecast, etc.), or larger environments with multiple switches and APs.</p>
+
+      <p>If you're not sure about your setup or want it done right the first time, that's exactly what we do.</p>
+
+      <div class="post__cta">
+        <h3>Need help setting up VLANs?</h3>
+        <p>We configure Unifi networks every day. Let us handle the setup so you can focus on everything else.</p>
+        <a href="/#contact" class="btn btn--primary">Get in touch</a>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__top">
+      <div class="footer__col">
+        <a href="/" class="footer__brand"><img src="/logo.jpg" alt="KJJ Tech" /></a>
+        <p class="footer__tagline">Technology that works for you.</p>
+        <div class="footer__socials">
+          <a href="https://www.linkedin.com/company/kjjtech" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="mailto:support@kjjtech.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Navigate</p>
+        <ul class="footer__links">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Contact</p>
+        <ul class="footer__contact-list">
+          <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p class="footer__copy">&copy; 2026 KJJ Tech. All rights reserved. <a href="/privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms.html" style="color:inherit;text-decoration:underline;">Terms of Service</a></p>
+      <div class="footer__bottom-contact">
+        <a href="mailto:support@kjjtech.com">support@kjjtech.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>
