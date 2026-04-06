@@ -488,11 +488,11 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
 
 .pricing__guarantee {
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  max-width: 520px;
-  margin: 3rem auto 0;
-  padding: 1.5rem;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 420px;
+  margin: 2rem auto 0;
+  padding: 0.85rem 1.25rem;
   border: 1px solid var(--gray-100);
   border-radius: var(--radius);
   background: var(--gray-50);
@@ -500,24 +500,24 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
 }
 
 .pricing__guarantee svg {
-  width: 28px;
-  height: 28px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
   color: var(--black);
 }
 
 .pricing__guarantee strong {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.06em;
   color: var(--black);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.1rem;
 }
 
 .pricing__guarantee p {
-  font-size: 0.8rem;
-  line-height: 1.6;
+  font-size: 0.72rem;
+  line-height: 1.5;
   margin: 0;
 }
 
