@@ -147,6 +147,10 @@
 
       <h2>Step 4: Set Up Firewall Rules</h2>
 
+      <blockquote class="post__callout">
+        <strong>Note:</strong> The steps below use the <em>legacy</em> Firewall Rules interface. If you're on UniFi Network 9.0 or newer, UI recommends using the new <a href="/blog/unifi-zone-based-firewall.html">zone-based firewall</a> instead — it's simpler and more powerful. Both approaches still work, but new setups should start with zones.
+      </blockquote>
+
       <p>By default, VLANs on Unifi can still talk to each other. You'll want to create firewall rules to block inter-VLAN traffic and then allow specific exceptions.</p>
 
       <p>Navigate to <strong>Settings &rarr; Firewall &amp; Security &rarr; Firewall Rules</strong> and create a new rule:</p>

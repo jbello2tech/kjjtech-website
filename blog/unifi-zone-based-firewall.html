@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniFi Zone-Based Firewall: A Practical Setup Guide | KJJ Tech</title>
+  <meta name="description" content="Step-by-step guide to the new UniFi zone-based firewall. Learn how to set up zones, build policies between them, and migrate from legacy firewall rules." />
+  <meta property="og:title" content="UniFi Zone-Based Firewall: A Practical Setup Guide" />
+  <meta property="og:description" content="How to set up the new zone-based firewall in UniFi Network 9.0+ — zones, policies, and migration tips." />
+  <meta property="og:image" content="https://kjjtech.com/og-image.png" />
+  <meta property="og:url" content="https://kjjtech.com/blog/unifi-zone-based-firewall.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="KJJ Tech" />
+  <link rel="canonical" href="https://kjjtech.com/blog/unifi-zone-based-firewall.html" />
+  <link rel="icon" href="/kjjtech_icon.svg" type="image/svg+xml" />
+  <link rel="mask-icon" href="/kjjtech_mask_icon.svg" color="#0a0a0a" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;600&display=swap" rel="stylesheet" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBC70RYJEC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZBC70RYJEC');
+  </script>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="blog.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "UniFi Zone-Based Firewall: A Practical Setup Guide",
+    "description": "How to set up the new zone-based firewall in UniFi Network 9.0+ — zones, policies, and migration tips from legacy firewall rules.",
+    "image": "https://kjjtech.com/og-image.png",
+    "author": { "@type": "Person", "name": "Jorge Bello", "url": "https://kjjtech.com/#about", "jobTitle": "Founder, KJJ Tech" },
+    "publisher": { "@type": "Organization", "name": "KJJ Tech", "logo": { "@type": "ImageObject", "url": "https://kjjtech.com/logo.jpg" } },
+    "datePublished": "2026-04-13",
+    "dateModified": "2026-04-13",
+    "mainEntityOfPage": "https://kjjtech.com/blog/unifi-zone-based-firewall.html"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kjjtech.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://kjjtech.com/blog/" },
+      { "@type": "ListItem", "position": 3, "name": "UniFi Zone-Based Firewall: A Practical Setup Guide", "item": "https://kjjtech.com/blog/unifi-zone-based-firewall.html" }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo"><img src="/logo.jpg" alt="KJJ Tech" width="120" height="40" /></a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/getintouch.html">Get in Touch</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <article class="post">
+    <a href="/blog/" class="post__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15,18 9,12 15,6"/></svg>
+      Back to Blog
+    </a>
+
+    <span class="post__tag">Guide</span>
+    <h1 class="post__title">UniFi Zone-Based Firewall: A Practical Setup Guide</h1>
+    <p class="post__meta">April 2026 &middot; 10 min read</p>
+
+    <div class="post__body">
+      <p>Starting with UniFi Network 9.0, Ubiquiti introduced a <strong>zone-based firewall</strong> that replaces the old per-rule model with something closer to what enterprise firewalls (Palo Alto, Fortinet) have used for years. Instead of writing individual allow/deny rules between networks, you group networks into <em>zones</em> and define policies <em>between</em> zones.</p>
+
+      <p>If you've ever hand-crafted dozens of LAN In rules to isolate an IoT VLAN from your trusted network, you already know why this matters. Zones scale better, are easier to audit, and dramatically reduce the chance of a misconfigured rule.</p>
+
+      <p>This guide walks you through setting up a clean zone-based firewall from scratch — including how to migrate if you're coming from the legacy rules system.</p>
+
+      <h2>What Is a Zone?</h2>
+
+      <p>A zone is a logical grouping of one or more networks (VLANs) that share the same trust level. Instead of writing rules between every VLAN pair, you put each VLAN in a zone, then write a single policy between zones.</p>
+
+      <p>UniFi ships with these default zones:</p>
+
+      <ul>
+        <li><strong>Internal</strong> — your main trusted networks</li>
+        <li><strong>Gateway</strong> — the UniFi gateway itself</li>
+        <li><strong>External</strong> — WAN / internet</li>
+        <li><strong>DMZ</strong> — for externally-reachable servers</li>
+        <li><strong>VPN</strong> — VPN client networks</li>
+        <li><strong>Hotspot</strong> — guest captive portal networks</li>
+      </ul>
+
+      <p>You can also create custom zones — and this is where the real power lives.</p>
+
+      <h2>Prerequisites</h2>
+
+      <ul>
+        <li>A UniFi gateway running <strong>Network 9.0 or newer</strong> (UDM, UDM Pro, UDM SE, UXG, UCG, Cloud Gateway, etc.)</li>
+        <li>At least two VLANs already configured (if you haven't set those up yet, start with our <a href="/blog/unifi-vlan-setup-guide.html">VLAN setup guide</a>)</li>
+        <li>A device you can test with on each VLAN</li>
+      </ul>
+
+      <h2>Step 1: Enable the Zone-Based Firewall</h2>
+
+      <p>Navigate to <strong>Settings &rarr; Security &rarr; Zone-Based Firewall</strong>. If you're on a fresh install with Network 9.0+, this is already the default. If you're upgrading from an older firmware, you'll see an option to enable it.</p>
+
+      <blockquote class="post__callout">
+        <strong>Important:</strong> Enabling zones <em>converts</em> your existing legacy rules automatically, but the auto-conversion isn't always perfect. Before flipping the switch, export your current config or take screenshots of your existing rules so you can verify nothing is missing afterward.
+      </blockquote>
+
+      <h2>Step 2: Plan Your Zones</h2>
+
+      <p>Before you click anything, sketch out what zones you actually need. For a typical small business or home network, something like this works well:</p>
+
+      <ul>
+        <li><strong>Trusted</strong> — your main LAN, work devices, servers</li>
+        <li><strong>IoT</strong> — smart home gear, cameras, smart TVs</li>
+        <li><strong>Guest</strong> — the network your guests' phones land on</li>
+        <li><strong>Management</strong> — your UniFi controller, switches, APs (optional but recommended)</li>
+      </ul>
+
+      <p>The golden rule: <em>group networks by how much you trust them, not by what they do.</em> Two networks that should have identical firewall treatment belong in the same zone.</p>
+
+      <h2>Step 3: Create Your Custom Zones</h2>
+
+      <p>In <strong>Settings &rarr; Security &rarr; Zone-Based Firewall &rarr; Zones</strong>, click <strong>Create Zone</strong>:</p>
+
+      <ol>
+        <li>Give the zone a clear name (e.g., <code>IoT</code>, <code>Guest</code>, <code>Trusted</code>)</li>
+        <li>Assign the VLANs that belong in this zone</li>
+        <li>Save</li>
+      </ol>
+
+      <p>Each network can only belong to <strong>one zone</strong> at a time. UniFi enforces this — you can't accidentally double-assign.</p>
+
+      <h2>Step 4: Define Policies Between Zones</h2>
+
+      <p>This is where the zone model shines. Click <strong>Policies</strong> and you'll see a matrix: rows are source zones, columns are destination zones. Each cell represents the traffic flow between them.</p>
+
+      <p>For a typical home/SMB setup, you want something like:</p>
+
+      <table style="width:100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem;">
+        <thead>
+          <tr style="border-bottom: 1px solid currentColor;">
+            <th style="text-align:left; padding: 0.5rem;">From &rarr; To</th>
+            <th style="text-align:left; padding: 0.5rem;">Trusted</th>
+            <th style="text-align:left; padding: 0.5rem;">IoT</th>
+            <th style="text-align:left; padding: 0.5rem;">Guest</th>
+            <th style="text-align:left; padding: 0.5rem;">External</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding: 0.5rem;"><strong>Trusted</strong></td><td>Allow</td><td>Allow</td><td>Block</td><td>Allow</td></tr>
+          <tr><td style="padding: 0.5rem;"><strong>IoT</strong></td><td>Block</td><td>Allow</td><td>Block</td><td>Allow</td></tr>
+          <tr><td style="padding: 0.5rem;"><strong>Guest</strong></td><td>Block</td><td>Block</td><td>Allow</td><td>Allow</td></tr>
+        </tbody>
+      </table>
+
+      <p>Trusted can reach IoT (so you can control your smart lights), but IoT can't reach Trusted (so a compromised smart plug can't pivot to your laptop). Guest can reach the internet and other Guests, and nothing else.</p>
+
+      <p>Click any cell to edit that policy. You can add exceptions within a block — for example, <strong>Block IoT &rarr; Trusted, except allow IoT to reach 192.168.1.50 on port 80</strong> (for a shared printer).</p>
+
+      <h2>Step 5: Test Each Zone</h2>
+
+      <p>Connect a device to each VLAN and verify:</p>
+
+      <ol>
+        <li>Trusted devices can still reach IoT devices (your phone controls the lights)</li>
+        <li>IoT devices <strong>cannot</strong> ping Trusted devices</li>
+        <li>Guest devices can reach the internet but nothing internal</li>
+        <li>Everything can still reach the internet (External)</li>
+      </ol>
+
+      <p>If a device can't get online, check whether its zone has an Allow policy to External. That's the #1 mistake during migration.</p>
+
+      <h2>Migrating From Legacy Firewall Rules</h2>
+
+      <p>If you had a lot of existing rules before enabling zones, here's the process I recommend:</p>
+
+      <ol>
+        <li><strong>Screenshot everything.</strong> Every legacy rule, every group. You'll thank yourself later.</li>
+        <li><strong>Enable zones in a maintenance window.</strong> Don't do this on a Friday afternoon when the office is trying to leave.</li>
+        <li><strong>Let UniFi auto-convert</strong> your rules into zone policies. Then open each policy and verify it matches your intent.</li>
+        <li><strong>Consolidate redundant rules.</strong> A lot of legacy rules become unnecessary under zones — you were often writing the same rule 3 times for 3 different VLANs that could've been in one zone.</li>
+        <li><strong>Keep the exception rules.</strong> Anywhere you had a specific "allow X device to reach Y" rule, that needs to live on as a specific allow inside the zone policy.</li>
+      </ol>
+
+      <h2>Common Mistakes to Avoid</h2>
+
+      <ul>
+        <li><strong>Too many zones.</strong> If you have 12 zones for 14 VLANs, you're back to per-rule territory. Aim for 3–5 zones max in most environments.</li>
+        <li><strong>Forgetting the Gateway zone.</strong> DNS and DHCP run on the gateway — if you block everything to the Gateway zone, devices can't resolve names. Always allow traffic to Gateway for services like DNS, DHCP, and NTP.</li>
+        <li><strong>Blocking mDNS and then being confused why AirPlay doesn't work.</strong> If you want cross-VLAN AirPlay or Chromecast, enable <strong>Multicast DNS</strong> between the relevant zones.</li>
+        <li><strong>Not locking down Management.</strong> If you put your controller and switches in a Management zone, only allow Trusted &rarr; Management. Don't leave it reachable from IoT.</li>
+      </ul>
+
+      <h2>When to Call a Professional</h2>
+
+      <p>Zone-based firewalls are a huge improvement, but they're still a firewall — and a misconfiguration can leave you exposed or locked out. If you're running a business network, dealing with compliance requirements (HIPAA, PCI), or trying to migrate a complex legacy ruleset without downtime, it's worth having a second set of eyes.</p>
+
+      <div class="post__cta">
+        <h3>Need help with your UniFi firewall?</h3>
+        <p>We set up and audit zone-based firewalls for homes and businesses every week. Let's get yours dialed in properly.</p>
+        <a href="/getintouch.html" class="btn btn--primary">Book a free call</a>
+      </div>
+
+      <div class="post__related">
+        <h3>Related reading</h3>
+        <div class="post__related-grid">
+          <a href="/blog/unifi-vlan-setup-guide.html" class="blog-card">
+            <span class="blog-card__tag">Guide</span>
+            <h2 class="blog-card__title">How to Set Up VLANs on a Unifi Dream Machine</h2>
+            <p class="blog-card__excerpt">A step-by-step walkthrough for segmenting your network with VLANs using Unifi — why it matters and how to do it right.</p>
+            <div class="blog-card__meta">
+              <span class="blog-card__date">April 2026</span>
+              <span class="blog-card__read">Read &rarr;</span>
+            </div>
+          </a>
+          <a href="/blog/unifi-ap-placement-guide.html" class="blog-card">
+            <span class="blog-card__tag">Guide</span>
+            <h2 class="blog-card__title">Unifi AP Placement: Where to Mount for the Best Coverage</h2>
+            <p class="blog-card__excerpt">Stop guessing where to put your access points. Plan placement based on building layout, materials, and real-world performance.</p>
+            <div class="blog-card__meta">
+              <span class="blog-card__date">April 2026</span>
+              <span class="blog-card__read">Read &rarr;</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__top">
+      <div class="footer__col">
+        <a href="/" class="footer__brand"><img src="/logo.jpg" alt="KJJ Tech" loading="lazy" width="120" height="40" /></a>
+        <p class="footer__tagline">Technology that works for you.</p>
+        <div class="footer__socials">
+          <a href="https://www.linkedin.com/company/kjjtech" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="mailto:support@kjjtech.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Navigate</p>
+        <ul class="footer__links">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/getintouch.html">Get in Touch</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Contact</p>
+        <ul class="footer__contact-list">
+          <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
+          <li><a href="tel:+19145279957">(914) 527-9957</a></li>
+          <li>Serving Orlando, FL &amp; nationwide</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p class="footer__copy">&copy; 2026 KJJ Tech. All rights reserved. <a href="/privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms.html" style="color:inherit;text-decoration:underline;">Terms of Service</a></p>
+      <div class="footer__bottom-contact">
+        <a href="mailto:support@kjjtech.com">support@kjjtech.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>

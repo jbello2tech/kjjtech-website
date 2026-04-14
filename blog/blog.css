@@ -239,6 +239,18 @@
   margin-bottom: 1.25rem;
 }
 
+.post__callout {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--black);
+  background: var(--gray-50);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.post__callout strong { font-weight: 600; }
+.post__callout a { color: var(--black); text-decoration: underline; }
+
 .post__related {
   margin-top: 3rem;
   padding-top: 2rem;
