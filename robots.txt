@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.kjjtech.com/sitemap.xml
+Sitemap: https://kjjtech.com/sitemap.xml
