@@ -239,6 +239,31 @@
   margin-bottom: 1.25rem;
 }
 
+.post__related {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--gray-100);
+}
+.post__related h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  color: var(--gray-600);
+  margin-bottom: 1rem;
+}
+.post__related ul { list-style: none; padding: 0; margin: 0; }
+.post__related li { margin-bottom: 0.5rem; }
+.post__related a {
+  color: var(--black);
+  text-decoration: none;
+  font-weight: 300;
+  border-bottom: 1px solid var(--gray-100);
+  padding-bottom: 2px;
+  transition: border-color 0.2s;
+}
+.post__related a:hover { border-bottom-color: var(--black); }
+
 @media (max-width: 900px) {
   .blog-grid .container { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
 }

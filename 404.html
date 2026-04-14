@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Not Found — KJJ Tech</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" href="/kjjtech_icon.svg" type="image/svg+xml" />
+  <link rel="mask-icon" href="/kjjtech_mask_icon.svg" color="#0a0a0a" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .notfound {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      gap: 1.5rem;
+    }
+    .notfound__code {
+      font-size: clamp(4rem, 12vw, 8rem);
+      font-weight: 200;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .notfound__logo { height: 32px; width: auto; margin-bottom: 1rem; }
+    .notfound h1 { font-size: clamp(1.4rem, 3vw, 2rem); }
+    .notfound p { max-width: 420px; }
+    .notfound__links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  </style>
+</head>
+<body>
+  <div class="notfound">
+    <a href="/"><img src="/logo.jpg" alt="KJJ Tech" class="notfound__logo" width="120" height="40" /></a>
+    <div class="notfound__code">404</div>
+    <h1>Page not found.</h1>
+    <p>The page you're looking for doesn't exist or has been moved. Let's get you back on track.</p>
+    <div class="notfound__links">
+      <a href="/" class="btn btn--primary">Back to home</a>
+      <a href="/getintouch.html" class="btn btn--ghost">Contact us</a>
+    </div>
+  </div>
+</body>
+</html>
