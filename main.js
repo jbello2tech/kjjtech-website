@@ -17,15 +17,6 @@ navLinks.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => navLinks.classList.remove('open'));
 });
 
-// Contact form
-function handleSubmit(e) {
-  e.preventDefault();
-  const success = document.getElementById('form-success');
-  success.classList.add('show');
-  e.target.reset();
-  setTimeout(() => success.classList.remove('show'), 5000);
-}
-
 // Back to top
 const backToTop = document.getElementById('backToTop');
 window.addEventListener('scroll', () => {

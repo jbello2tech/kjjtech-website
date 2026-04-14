@@ -777,6 +777,63 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ─── Trust / Partner Badges ─── */
+.trust { padding: 6rem 0; background: var(--white); }
+
+.trust__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.trust__badge {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius);
+  background: var(--gray-50);
+  transition: border-color 0.2s;
+}
+.trust__badge:hover { border-color: var(--gray-300); }
+
+.trust__icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trust__icon svg {
+  width: 32px;
+  height: 32px;
+  color: var(--black);
+}
+
+.trust__badge h3 {
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 0.6rem;
+}
+
+.trust__badge p {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .trust__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .trust__grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+}
+
 /* ─── CTA Banner ─── */
 .cta-banner {
   background: var(--black);
