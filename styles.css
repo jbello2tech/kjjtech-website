@@ -394,9 +394,13 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
 
 .pricing__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
   align-items: stretch;
+}
+
+@media (max-width: 1100px) {
+  .pricing__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
 }
 
 .pricing-card {
