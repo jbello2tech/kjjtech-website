@@ -81,6 +81,20 @@ document.querySelectorAll('.card, .stat, .about__text').forEach(el => {
   prev.addEventListener('click', () => { if (start > 0) { start--; render(); } });
   next.addEventListener('click', () => { if (start < maxStart) { start++; render(); } });
 
+  // Touch swipe on mobile — horizontal drag over the grid
+  let touchStartX = null;
+  grid.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].clientX;
+  }, { passive: true });
+  grid.addEventListener('touchend', (e) => {
+    if (touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    touchStartX = null;
+    if (Math.abs(dx) < 50) return;
+    if (dx < 0 && start < maxStart) { start++; render(); }       // swipe left = older
+    else if (dx > 0 && start > 0) { start--; render(); }          // swipe right = newer
+  }, { passive: true });
+
   nav.hidden = false;
   render();
 })();

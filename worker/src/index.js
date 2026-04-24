@@ -66,10 +66,35 @@ async function makeSubmitLinks(env, id) {
 function buildTestimonialBlock(review) {
   const rating = Math.max(1, Math.min(5, parseInt(review.rating, 10) || 5));
   const stars = '★'.repeat(rating);
-  const displayName = review.display_anonymously === 'Yes' ? 'Verified Client' : review.name;
+  const isAnon = review.display_anonymously === 'Yes';
+  const displayName = isAnon ? 'Verified Client' : review.name;
   const role = review.service_type || 'Client Review';
   const quote = String(review.review || '').trim();
   const id = review.id;
+  const datePublished = (review.decided_at || review.created_at || new Date().toISOString().slice(0, 10)).slice(0, 10);
+
+  // Google's Review structured data rejects generic author names like "Verified Client".
+  // Emit JSON-LD only when we have a real person name to cite.
+  const jsonLd = isAnon ? '' : `
+          <script type="application/ld+json">
+          ${JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Review",
+            "itemReviewed": {
+              "@type": "LocalBusiness",
+              "name": "KJJ Tech",
+              "url": "https://kjjtech.com"
+            },
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": String(rating),
+              "bestRating": "5"
+            },
+            "author": { "@type": "Person", "name": review.name },
+            "reviewBody": quote,
+            "datePublished": datePublished
+          })}
+          </script>`;
 
   return `        <!-- review:${id} -->
         <div class="testimonial" data-review-id="${escapeHtml(id)}">
@@ -78,7 +103,7 @@ function buildTestimonialBlock(review) {
           <div class="testimonial__author">
             <span class="testimonial__name">${escapeHtml(displayName)}</span>
             <span class="testimonial__role">${escapeHtml(role)}</span>
-          </div>
+          </div>${jsonLd}
         </div>
         <!-- /review:${id} -->
         `;
@@ -318,6 +343,55 @@ export default {
             '<p>The testimonial has been stripped from <code>index.html</code>. GitHub Pages will redeploy in about a minute.</p>'
           );
         }
+      }
+
+      // Weekly digest — posts a summary to Discord and returns JSON
+      if (pathname === '/admin/digest' && req.method === 'GET') {
+        const key = url.searchParams.get('key') || '';
+        if (!env.ADMIN_KEY || !(await timingSafeEqual(key, env.ADMIN_KEY))) {
+          return new Response('forbidden', { status: 403 });
+        }
+
+        const pending = await env.DB
+          .prepare("SELECT id, name, rating, created_at FROM reviews WHERE status = 'pending' ORDER BY created_at ASC")
+          .all();
+        const weekStats = await env.DB
+          .prepare("SELECT status, COUNT(*) AS n FROM reviews WHERE decided_at >= datetime('now', '-7 days') OR created_at >= datetime('now', '-7 days') GROUP BY status")
+          .all();
+
+        const counts = { pending: 0, approved: 0, denied: 0, removed: 0 };
+        for (const row of weekStats.results || []) counts[row.status] = row.n;
+        const pendingCount = (pending.results || []).length;
+
+        const lines = [];
+        if (pendingCount === 0) {
+          lines.push('No pending reviews this week.');
+        } else {
+          lines.push(`**${pendingCount} pending review${pendingCount === 1 ? '' : 's'} waiting for you:**`);
+          for (const r of pending.results.slice(0, 10)) {
+            const age = Math.floor((Date.now() - new Date(r.created_at + 'Z').getTime()) / 86400000);
+            lines.push(`• **${r.name}** — ${'★'.repeat(r.rating)} — submitted ${age}d ago`);
+          }
+          if (pendingCount > 10) lines.push(`…and ${pendingCount - 10} more.`);
+        }
+
+        const embed = {
+          title: 'Weekly review digest',
+          color: 0x0a0a0a,
+          description: lines.join('\n'),
+          fields: [
+            { name: 'Last 7 days', value: `Approved: **${counts.approved}** · Denied: **${counts.denied}** · Removed: **${counts.removed}**` },
+          ],
+          timestamp: new Date().toISOString(),
+        };
+
+        await fetch(env.DISCORD_WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ embeds: [embed] }),
+        });
+
+        return Response.json({ ok: true, pending: pendingCount, last_7_days: counts });
       }
 
       // Debug listing
