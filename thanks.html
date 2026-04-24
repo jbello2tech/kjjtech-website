@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Message Sent — KJJ Tech</title>
   <meta name="robots" content="noindex,nofollow" />
+  <meta http-equiv="refresh" content="10;url=/" />
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
-  <link rel="icon" href="/kjjtech_icon.svg" type="image/svg+xml" />
   <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png" />
   <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
@@ -58,7 +58,19 @@
     </div>
     <h1>Message received.</h1>
     <p>Thanks for reaching out. We typically respond within 2 hours during business hours — we'll be in touch shortly.</p>
-    <a href="/" class="btn btn--ghost">Back to home</a>
+    <p style="font-size:0.85rem;color:var(--gray-500);">Returning to home in <span id="countdown">10</span> seconds…</p>
+    <a href="/" class="btn btn--ghost">Back to home now</a>
   </div>
+  <script>
+    (function(){
+      var n = 10;
+      var el = document.getElementById('countdown');
+      var t = setInterval(function(){
+        n--;
+        if (el) el.textContent = n;
+        if (n <= 0) { clearInterval(t); window.location.href = '/'; }
+      }, 1000);
+    })();
+  </script>
 </body>
 </html>
