@@ -1,8 +1,9 @@
 // KJJ Tech review approval worker
 // Routes:
-//   POST /submit                         — Formspree webhook; stores review + pings Discord
+//   POST /submit                         — form POST from leave-review.html; stores + pings Discord
 //   GET  /review/:id/approve?t=<hmac>    — approve + auto-commit to GitHub
 //   GET  /review/:id/deny?t=<hmac>       — deny (stays in DB, never published)
+//   GET  /review/:id/remove?t=<hmac>     — remove an already-published review from GitHub
 //   GET  /list?key=<ADMIN_KEY>           — list recent reviews (for debugging)
 
 const enc = new TextEncoder();
@@ -12,6 +13,10 @@ function escapeHtml(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
   }[c]));
+}
+
+function escapeRegExp(s) {
+  return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 function b64encodeUtf8(str) {
@@ -46,13 +51,15 @@ async function timingSafeEqual(a, b) {
   return diff === 0;
 }
 
-async function makeLinks(env, id) {
-  const origin = env.WORKER_ORIGIN;
-  const approve = await hmac(env.HMAC_SECRET, `${id}:approve`);
-  const deny = await hmac(env.HMAC_SECRET, `${id}:deny`);
+async function signAction(env, id, action) {
+  const sig = await hmac(env.HMAC_SECRET, `${id}:${action}`);
+  return `${env.WORKER_ORIGIN}/review/${id}/${action}?t=${sig}`;
+}
+
+async function makeSubmitLinks(env, id) {
   return {
-    approve: `${origin}/review/${id}/approve?t=${approve}`,
-    deny: `${origin}/review/${id}/deny?t=${deny}`,
+    approve: await signAction(env, id, 'approve'),
+    deny: await signAction(env, id, 'deny'),
   };
 }
 
@@ -62,8 +69,10 @@ function buildTestimonialBlock(review) {
   const displayName = review.display_anonymously === 'Yes' ? 'Verified Client' : review.name;
   const role = review.service_type || 'Client Review';
   const quote = String(review.review || '').trim();
+  const id = review.id;
 
-  return `        <div class="testimonial">
+  return `        <!-- review:${id} -->
+        <div class="testimonial" data-review-id="${escapeHtml(id)}">
           <div class="testimonial__stars">${stars}</div>
           <p class="testimonial__quote">"${escapeHtml(quote)}"</p>
           <div class="testimonial__author">
@@ -71,10 +80,11 @@ function buildTestimonialBlock(review) {
             <span class="testimonial__role">${escapeHtml(role)}</span>
           </div>
         </div>
+        <!-- /review:${id} -->
         `;
 }
 
-async function sendDiscord(env, review, links) {
+async function sendSubmissionDiscord(env, review, links) {
   const ratingStars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
   const displayAs = review.display_anonymously === 'Yes'
     ? `Verified Client (real name: ${review.name})`
@@ -105,48 +115,94 @@ async function sendDiscord(env, review, links) {
   if (!res.ok) throw new Error(`Discord webhook failed: ${res.status} ${await res.text()}`);
 }
 
-async function commitToGitHub(env, review) {
-  const repo = env.GITHUB_REPO;
-  const branch = env.GITHUB_BRANCH || 'main';
-  const path = 'index.html';
-  const headers = {
+async function sendApprovedDiscord(env, review, removeUrl) {
+  const displayName = review.display_anonymously === 'Yes' ? 'Verified Client' : review.name;
+  const embed = {
+    title: 'Review published',
+    description: `"${String(review.review || '').slice(0, 200)}${(review.review || '').length > 200 ? '…' : ''}"`,
+    color: 0x22c55e,
+    fields: [
+      { name: 'Display As', value: displayName, inline: true },
+      { name: 'Rating', value: '★'.repeat(review.rating), inline: true },
+    ],
+    footer: { text: `ID: ${review.id}` },
+    timestamp: new Date().toISOString(),
+  };
+  const content = `Live on kjjtech.com within ~60s. Need to pull it down later? **[🗑 Remove from site](${removeUrl})**`;
+  await fetch(env.DISCORD_WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ content, embeds: [embed] }),
+  });
+}
+
+async function ghHeaders(env) {
+  return {
     'Authorization': `Bearer ${env.GITHUB_TOKEN}`,
     'Accept': 'application/vnd.github+json',
     'X-GitHub-Api-Version': '2022-11-28',
     'User-Agent': 'kjjtech-review-worker',
   };
+}
 
-  const getRes = await fetch(
-    `https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`,
+async function fetchIndexHtml(env) {
+  const repo = env.GITHUB_REPO;
+  const branch = env.GITHUB_BRANCH || 'main';
+  const headers = await ghHeaders(env);
+  const res = await fetch(
+    `https://api.github.com/repos/${repo}/contents/index.html?ref=${branch}`,
     { headers }
   );
-  if (!getRes.ok) throw new Error(`GitHub GET failed: ${getRes.status} ${await getRes.text()}`);
-  const cur = await getRes.json();
-  const content = b64decodeUtf8(cur.content);
+  if (!res.ok) throw new Error(`GitHub GET failed: ${res.status} ${await res.text()}`);
+  const cur = await res.json();
+  return { content: b64decodeUtf8(cur.content), sha: cur.sha };
+}
 
-  const marker = '<!-- REVIEWS:END -->';
-  if (!content.includes(marker)) {
-    throw new Error('Insertion marker <!-- REVIEWS:END --> not found in index.html');
-  }
-
-  const block = buildTestimonialBlock(review);
-  const newContent = content.replace(marker, `${block}${marker}`);
-  const displayName = review.display_anonymously === 'Yes' ? 'Verified Client' : review.name;
-
-  const putRes = await fetch(
-    `https://api.github.com/repos/${repo}/contents/${path}`,
+async function putIndexHtml(env, newContent, sha, commitMessage) {
+  const repo = env.GITHUB_REPO;
+  const branch = env.GITHUB_BRANCH || 'main';
+  const headers = await ghHeaders(env);
+  const res = await fetch(
+    `https://api.github.com/repos/${repo}/contents/index.html`,
     {
       method: 'PUT',
       headers: { ...headers, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        message: `Publish approved review from ${displayName}`,
+        message: commitMessage,
         content: b64encodeUtf8(newContent),
-        sha: cur.sha,
+        sha,
         branch,
       }),
     }
   );
-  if (!putRes.ok) throw new Error(`GitHub PUT failed: ${putRes.status} ${await putRes.text()}`);
+  if (!res.ok) throw new Error(`GitHub PUT failed: ${res.status} ${await res.text()}`);
+}
+
+async function commitApprovalToGitHub(env, review) {
+  const { content, sha } = await fetchIndexHtml(env);
+  const marker = '<!-- REVIEWS:END -->';
+  if (!content.includes(marker)) {
+    throw new Error('Insertion marker <!-- REVIEWS:END --> not found in index.html');
+  }
+  const block = buildTestimonialBlock(review);
+  const newContent = content.replace(marker, `${block}${marker}`);
+  const displayName = review.display_anonymously === 'Yes' ? 'Verified Client' : review.name;
+  await putIndexHtml(env, newContent, sha, `Publish approved review from ${displayName}`);
+}
+
+async function commitRemovalToGitHub(env, review) {
+  const { content, sha } = await fetchIndexHtml(env);
+  const id = review.id;
+  const blockRe = new RegExp(
+    `[ \\t]*<!-- review:${escapeRegExp(id)} -->[\\s\\S]*?<!-- /review:${escapeRegExp(id)} -->[ \\t]*\\n?`,
+    ''
+  );
+  if (!blockRe.test(content)) {
+    throw new Error(`Could not find review block ${id} in index.html — it may have been edited or already removed.`);
+  }
+  const newContent = content.replace(blockRe, '');
+  const displayName = review.display_anonymously === 'Yes' ? 'Verified Client' : review.name;
+  await putIndexHtml(env, newContent, sha, `Remove review from ${displayName}`);
 }
 
 function htmlPage(title, body, opts = {}) {
@@ -169,7 +225,7 @@ export default {
     const { pathname } = url;
 
     try {
-      // Formspree webhook
+      // Submission from leave-review.html
       if (pathname === '/submit' && req.method === 'POST') {
         const ct = req.headers.get('content-type') || '';
         let body;
@@ -201,49 +257,70 @@ export default {
           body.display_anonymously || 'No'
         ).run();
 
-        const links = await makeLinks(env, id);
-        await sendDiscord(env, { ...body, id, rating }, links);
+        const links = await makeSubmitLinks(env, id);
+        await sendSubmissionDiscord(env, { ...body, id, rating }, links);
 
-        // Browser form POST → redirect to the thanks page
         return Response.redirect('https://kjjtech.com/thanks.html', 303);
       }
 
-      // Approve / deny
-      const m = pathname.match(/^\/review\/([^/]+)\/(approve|deny)$/);
+      // Approve / deny / remove
+      const m = pathname.match(/^\/review\/([^/]+)\/(approve|deny|remove)$/);
       if (m && req.method === 'GET') {
         const [, id, action] = m;
         const token = url.searchParams.get('t') || '';
         const expected = await hmac(env.HMAC_SECRET, `${id}:${action}`);
         if (!(await timingSafeEqual(token, expected))) {
-          return htmlPage('Invalid link', '<p>This approval link is invalid or has been tampered with.</p>', { status: 403, error: true });
+          return htmlPage('Invalid link', '<p>This link is invalid or has been tampered with.</p>', { status: 403, error: true });
         }
 
         const row = await env.DB.prepare('SELECT * FROM reviews WHERE id = ?').bind(id).first();
         if (!row) {
           return htmlPage('Not found', '<p>No review matches this link.</p>', { status: 404, error: true });
         }
-        if (row.status !== 'pending') {
+
+        // State machine:
+        //   pending → approve | deny
+        //   approved → remove
+        //   denied | removed → no further actions
+
+        if (action === 'approve') {
+          if (row.status !== 'pending') {
+            return htmlPage('Already handled', `<p>This review was already marked <strong>${escapeHtml(row.status)}</strong>.</p>`);
+          }
+          await commitApprovalToGitHub(env, row);
+          await env.DB.prepare("UPDATE reviews SET status = 'approved', decided_at = datetime('now') WHERE id = ?").bind(id).run();
+          const removeUrl = await signAction(env, id, 'remove');
+          try { await sendApprovedDiscord(env, row, removeUrl); } catch (e) { console.error('Discord followup failed', e); }
           return htmlPage(
-            'Already handled',
-            `<p>This review was already marked <strong>${escapeHtml(row.status)}</strong>.</p>`
+            'Review approved',
+            `<p>Committed to <code>main</code>. GitHub Pages will redeploy in about a minute.</p>
+             <p><a href="https://kjjtech.com/#testimonials">View testimonials →</a></p>
+             <p style="margin-top:2rem;font-size:0.85rem;color:#888;">Need to take it down later? <a href="${removeUrl}">Remove from site</a></p>`
           );
         }
 
         if (action === 'deny') {
+          if (row.status !== 'pending') {
+            return htmlPage('Already handled', `<p>This review was already marked <strong>${escapeHtml(row.status)}</strong>.</p>`);
+          }
           await env.DB.prepare("UPDATE reviews SET status = 'denied', decided_at = datetime('now') WHERE id = ?").bind(id).run();
           return htmlPage('Review denied', '<p>The review was rejected. It will never be published.</p>');
         }
 
-        // approve → commit to GitHub
-        await commitToGitHub(env, row);
-        await env.DB.prepare("UPDATE reviews SET status = 'approved', decided_at = datetime('now') WHERE id = ?").bind(id).run();
-        return htmlPage(
-          'Review approved',
-          '<p>Committed to <code>main</code>. GitHub Pages will redeploy in about a minute.</p><p><a href="https://kjjtech.com/#testimonials">View testimonials →</a></p>'
-        );
+        if (action === 'remove') {
+          if (row.status !== 'approved') {
+            return htmlPage('Cannot remove', `<p>Only approved reviews can be removed. This review is currently <strong>${escapeHtml(row.status)}</strong>.</p>`, { status: 409, error: true });
+          }
+          await commitRemovalToGitHub(env, row);
+          await env.DB.prepare("UPDATE reviews SET status = 'removed', decided_at = datetime('now') WHERE id = ?").bind(id).run();
+          return htmlPage(
+            'Review removed',
+            '<p>The testimonial has been stripped from <code>index.html</code>. GitHub Pages will redeploy in about a minute.</p>'
+          );
+        }
       }
 
-      // Simple listing for debugging
+      // Debug listing
       if (pathname === '/list' && req.method === 'GET') {
         const key = url.searchParams.get('key') || '';
         if (!env.ADMIN_KEY || !(await timingSafeEqual(key, env.ADMIN_KEY))) {
