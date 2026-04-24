@@ -1,0 +1,17 @@
+{
+  "name": "kjjtech-review-worker",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create kjjtech_reviews",
+    "db:migrate": "wrangler d1 execute kjjtech_reviews --remote --file=./schema.sql",
+    "db:migrate:local": "wrangler d1 execute kjjtech_reviews --local --file=./schema.sql",
+    "db:shell": "wrangler d1 execute kjjtech_reviews --remote --command",
+    "logs": "wrangler tail"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

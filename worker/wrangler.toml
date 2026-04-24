@@ -1,0 +1,17 @@
+name = "kjjtech-reviews"
+main = "src/index.js"
+compatibility_date = "2026-04-01"
+
+[vars]
+GITHUB_REPO = "jbello2tech/kjjtech-website"
+GITHUB_BRANCH = "main"
+WORKER_ORIGIN = "https://reviews.kjjtech.com"
+
+[[routes]]
+pattern = "reviews.kjjtech.com"
+custom_domain = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "kjjtech_reviews"
+database_id = "14c3bc55-6130-43eb-87d0-197fa39cc90d"
