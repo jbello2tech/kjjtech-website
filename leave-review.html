@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leave a Review — KJJ Tech | Share Your Experience</title>
+  <meta name="description" content="Worked with KJJ Tech? Share your experience. Reviews are personally reviewed before being published on our site." />
+  <meta name="robots" content="noindex,follow" />
+  <meta property="og:title" content="Leave a Review — KJJ Tech" />
+  <meta property="og:description" content="Share your experience working with KJJ Tech." />
+  <meta property="og:image" content="https://kjjtech.com/og-image.png" />
+  <meta property="og:url" content="https://kjjtech.com/leave-review.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="KJJ Tech" />
+  <link rel="canonical" href="https://kjjtech.com/leave-review.html" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+  <link rel="mask-icon" href="/kjjtech_mask_icon.svg" color="#0a0a0a" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/fonts.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBC70RYJEC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZBC70RYJEC');
+  </script>
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    .review-hero {
+      padding: calc(var(--bar-h) + var(--nav-h) + 4rem) 1.5rem 2rem;
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .review-hero h1 { margin-bottom: 0.75rem; }
+    .review-hero p { font-size: 1.05rem; margin: 0 auto 0.5rem; }
+
+    .review-section {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 1.5rem 6rem;
+    }
+
+    .review-form {
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius);
+      background: var(--white);
+      padding: 2rem;
+    }
+
+    .review-notice {
+      font-size: 0.85rem;
+      background: var(--gray-50, #f7f7f7);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--radius);
+      padding: 0.9rem 1rem;
+      margin-bottom: 1.75rem;
+      line-height: 1.5;
+    }
+
+    .rating-group {
+      display: flex;
+      gap: 0.25rem;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      margin-top: 0.25rem;
+    }
+    .rating-group input { position: absolute; opacity: 0; pointer-events: none; }
+    .rating-group label {
+      font-size: 2rem;
+      color: var(--gray-100);
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.15s ease;
+      padding: 0 0.1rem;
+    }
+    .rating-group label:hover,
+    .rating-group label:hover ~ label,
+    .rating-group input:checked ~ label {
+      color: #f5b50a;
+    }
+
+    @media (max-width: 640px) {
+      .review-form { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo"><img src="/logo.jpg" alt="KJJ Tech" /></a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/getintouch.html">Get in Touch</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="review-hero">
+    <p class="section-tag">Client Feedback</p>
+    <h1>Leave a review.</h1>
+    <p>Worked with KJJ Tech? We'd love to hear how it went.</p>
+  </section>
+
+  <!-- FORM -->
+  <section class="review-section">
+    <div class="review-form">
+      <div class="review-notice">
+        <strong>Before it goes live:</strong> Every review is sent to us first and personally read before it's published on the site. If you'd prefer your name not be shown publicly, just check the box below and we'll display it as "Verified Client."
+      </div>
+
+      <form action="https://formspree.io/f/xreydwyb" method="POST">
+        <input type="hidden" name="_subject" value="New review submission from KJJ Tech website" />
+        <input type="hidden" name="_next" value="https://kjjtech.com/thanks.html" />
+        <input type="hidden" name="form_type" value="client_review" />
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="review-name">Your name *</label>
+            <input type="text" id="review-name" name="name" placeholder="Jane Smith" required />
+          </div>
+          <div class="form-group">
+            <label for="review-email">Email *</label>
+            <input type="email" id="review-email" name="email" placeholder="jane@company.com" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="review-business">Business / role (optional)</label>
+          <input type="text" id="review-business" name="business_or_role" placeholder="Owner, Acme Corp" />
+        </div>
+
+        <div class="form-group">
+          <label>Your rating *</label>
+          <div class="rating-group" role="radiogroup" aria-label="Star rating">
+            <input type="radio" id="star5" name="rating" value="5" required /><label for="star5" aria-label="5 stars">★</label>
+            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" aria-label="4 stars">★</label>
+            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" aria-label="3 stars">★</label>
+            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" aria-label="2 stars">★</label>
+            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" aria-label="1 star">★</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="review-service">What did we help with?</label>
+          <select id="review-service" name="service_type">
+            <option value="" disabled selected>Select a service</option>
+            <option value="Network Setup">Network Setup / Installation</option>
+            <option value="Troubleshooting">Troubleshooting / Repair</option>
+            <option value="Unifi Support">Unifi / Ubiquiti Support</option>
+            <option value="IT Consulting">IT Consulting</option>
+            <option value="Cloud Infrastructure">Cloud Infrastructure</option>
+            <option value="Cybersecurity">Cybersecurity</option>
+            <option value="Managed Support">Managed / Ongoing Support</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="review-text">Your review *</label>
+          <textarea id="review-text" name="review" rows="6" placeholder="Tell us about your experience working with KJJ Tech." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label style="display:flex;align-items:flex-start;gap:0.6rem;font-weight:400;cursor:pointer;">
+            <input type="checkbox" name="display_anonymously" value="Yes" style="margin-top:0.25rem;width:auto;" />
+            <span>Display my review anonymously as "Verified Client" (recommended for privacy).</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label style="display:flex;align-items:flex-start;gap:0.6rem;font-weight:400;cursor:pointer;">
+            <input type="checkbox" name="permission_to_publish" value="Yes" required style="margin-top:0.25rem;width:auto;" />
+            <span>I give KJJ Tech permission to publish this review on kjjtech.com once approved. *</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn--primary" style="width:100%;text-align:center;">Submit Review</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__top">
+      <div class="footer__col">
+        <a href="/" class="footer__brand"><img src="/logo.jpg" alt="KJJ Tech" /></a>
+        <p class="footer__tagline">Technology that works for you.</p>
+        <div class="footer__socials">
+          <a href="https://www.linkedin.com/company/kjjtech" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="mailto:support@kjjtech.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Navigate</p>
+        <ul class="footer__links">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/getintouch.html">Get in Touch</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Contact</p>
+        <ul class="footer__contact-list">
+          <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
+          <li><a href="tel:+19145279957">(914) 527-9957</a></li>
+          <li>Serving Orlando, FL &amp; nationwide</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p class="footer__copy">&copy; 2026 KJJ Tech. All rights reserved. <a href="/privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms.html" style="color:inherit;text-decoration:underline;">Terms of Service</a></p>
+      <div class="footer__bottom-contact">
+        <a href="mailto:support@kjjtech.com">support@kjjtech.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>
