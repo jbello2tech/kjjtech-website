@@ -19,6 +19,64 @@ function escapeRegExp(s) {
   return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+// ---- Spam filtering ----------------------------------------------------
+// Conservative content heuristics for the /submit endpoint. Real client
+// reviews come from real email domains and contain readable text with no
+// links in the name/business fields, so these signals don't catch them.
+// Anything flagged is stored as status='spam' (auditable) and never pings
+// Discord. Tune SPAM_THRESHOLD up to be stricter, down to be looser.
+
+const SPAM_THRESHOLD = 3;
+
+// Disposable / throwaway email domains seen in the spam (and common ones).
+const DISPOSABLE_EMAIL_DOMAINS = new Set([
+  'web-library.net', 'mailinator.com', 'guerrillamail.com', 'sharklasers.com',
+  'guerrillamail.info', 'grr.la', 'temp-mail.org', 'tempmail.com', '10minutemail.com',
+  'yopmail.com', 'trashmail.com', 'getnada.com', 'dispostable.com', 'maildrop.cc',
+  'throwawaymail.com', 'fakeinbox.com', 'mohmal.com', 'emailondeck.com',
+]);
+
+// URL / link patterns. Anything link-shaped in a name or business field is a
+// near-certain spam signal — clients never put a URL there.
+const URL_RE = /(https?:\/\/|www\.|\b[a-z0-9-]+\.(?:com|net|org|io|ru|xyz|top|info|biz|online|site|link|click|me|cc|tk|app|shop|store|live|vip)\b|t\.me\/|telegra\.ph|graph\.org)/i;
+
+// Phrase markers common to crypto/sex/transfer spam.
+const SPAM_MARKERS = [
+  '>>', '<<', 'transfer to you', 'transaction to you', 'us-dollars', 'us dollars',
+  'balance-', 'bitcoin', 'btc', 'crypto', 'wallet', 'girlfriend', 'sex', 'porn',
+  'earn $', 'make money', 'click here', 'free gift', 'viagra', 'casino', 'forex',
+];
+
+function emailDomain(email) {
+  const at = String(email || '').lastIndexOf('@');
+  return at === -1 ? '' : email.slice(at + 1).trim().toLowerCase();
+}
+
+// Returns { spam: bool, score: number, reasons: string[] }.
+function scoreSpam(body) {
+  const name = String(body.name || '');
+  const business = String(body.business_or_role || '');
+  const review = String(body.review || '');
+  const haystack = `${name}\n${business}\n${review}`.toLowerCase();
+
+  let score = 0;
+  const reasons = [];
+
+  if (URL_RE.test(name)) { score += 3; reasons.push('url-in-name'); }
+  if (URL_RE.test(business)) { score += 3; reasons.push('url-in-business'); }
+  if (URL_RE.test(review)) { score += 2; reasons.push('url-in-review'); }
+
+  const dom = emailDomain(body.email);
+  if (dom && DISPOSABLE_EMAIL_DOMAINS.has(dom)) { score += 3; reasons.push(`disposable-email:${dom}`); }
+
+  for (const marker of SPAM_MARKERS) {
+    if (haystack.includes(marker)) { score += 2; reasons.push(`marker:${marker}`); }
+  }
+
+  return { spam: score >= SPAM_THRESHOLD, score, reasons };
+}
+// ------------------------------------------------------------------------
+
 function b64encodeUtf8(str) {
   const bytes = enc.encode(str);
   let bin = '';
@@ -268,9 +326,15 @@ export default {
         const id = crypto.randomUUID();
         const rating = Math.max(1, Math.min(5, parseInt(body.rating, 10) || 5));
 
+        // Spam screening. Flagged submissions are recorded as status='spam'
+        // (auditable, queryable) but never pinged to Discord. We still return
+        // the normal thank-you redirect so bots get no signal they were caught.
+        const verdict = scoreSpam(body);
+        const status = verdict.spam ? 'spam' : 'pending';
+
         await env.DB.prepare(
           `INSERT INTO reviews (id, name, email, business_or_role, rating, service_type, review, display_anonymously, status, created_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending', datetime('now'))`
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))`
         ).bind(
           id,
           body.name || '',
@@ -279,11 +343,16 @@ export default {
           rating,
           body.service_type || '',
           body.review || '',
-          body.display_anonymously || 'No'
+          body.display_anonymously || 'No',
+          status
         ).run();
 
-        const links = await makeSubmitLinks(env, id);
-        await sendSubmissionDiscord(env, { ...body, id, rating }, links);
+        if (verdict.spam) {
+          console.log(`Spam blocked ${id} (score ${verdict.score}): ${verdict.reasons.join(', ')}`);
+        } else {
+          const links = await makeSubmitLinks(env, id);
+          await sendSubmissionDiscord(env, { ...body, id, rating }, links);
+        }
 
         return Response.redirect('https://kjjtech.com/thanks.html', 303);
       }
@@ -359,7 +428,7 @@ export default {
           .prepare("SELECT status, COUNT(*) AS n FROM reviews WHERE decided_at >= datetime('now', '-7 days') OR created_at >= datetime('now', '-7 days') GROUP BY status")
           .all();
 
-        const counts = { pending: 0, approved: 0, denied: 0, removed: 0 };
+        const counts = { pending: 0, approved: 0, denied: 0, removed: 0, spam: 0 };
         for (const row of weekStats.results || []) counts[row.status] = row.n;
         const pendingCount = (pending.results || []).length;
 
@@ -380,7 +449,7 @@ export default {
           color: 0x0a0a0a,
           description: lines.join('\n'),
           fields: [
-            { name: 'Last 7 days', value: `Approved: **${counts.approved}** · Denied: **${counts.denied}** · Removed: **${counts.removed}**` },
+            { name: 'Last 7 days', value: `Approved: **${counts.approved}** · Denied: **${counts.denied}** · Removed: **${counts.removed}** · Blocked spam: **${counts.spam}**` },
           ],
           timestamp: new Date().toISOString(),
         };
