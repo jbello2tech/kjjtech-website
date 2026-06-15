@@ -47,6 +47,28 @@ const SPAM_MARKERS = [
   'earn $', 'make money', 'click here', 'free gift', 'viagra', 'casino', 'forex',
 ];
 
+// ---- Cloudflare Turnstile ----------------------------------------------
+// Verifies the cf-turnstile-response token a real browser obtains from the
+// widget on leave-review.html. Bots that POST directly to /submit never
+// render the page, so they carry no valid token and get rejected. Only
+// enforced when TURNSTILE_SECRET is set, so the form keeps working during
+// rollout until the secret is in place.
+async function verifyTurnstile(env, token, ip) {
+  if (!token) return false;
+  const form = new URLSearchParams();
+  form.append('secret', env.TURNSTILE_SECRET);
+  form.append('response', token);
+  if (ip) form.append('remoteip', ip);
+  const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    body: form,
+  });
+  if (!res.ok) return false;
+  const data = await res.json();
+  return data.success === true;
+}
+// ------------------------------------------------------------------------
+
 function emailDomain(email) {
   const at = String(email || '').lastIndexOf('@');
   return at === -1 ? '' : email.slice(at + 1).trim().toLowerCase();
@@ -321,6 +343,21 @@ export default {
 
         if (body.form_type !== 'client_review') {
           return new Response('ignored (not a review submission)', { status: 200 });
+        }
+
+        // Turnstile gate (front line). Only enforced once TURNSTILE_SECRET is
+        // set, so deploying this code before the secret never breaks the form.
+        if (env.TURNSTILE_SECRET) {
+          const tsToken = body['cf-turnstile-response'] || '';
+          const ip = req.headers.get('CF-Connecting-IP') || '';
+          if (!(await verifyTurnstile(env, tsToken, ip))) {
+            return htmlPage(
+              'Verification failed',
+              `<p>We couldn't confirm you're human. Please go back, complete the verification box, and submit again.</p>
+               <p><a href="https://kjjtech.com/leave-review.html">← Back to the review form</a></p>`,
+              { status: 403, error: true }
+            );
+          }
         }
 
         const id = crypto.randomUUID();
