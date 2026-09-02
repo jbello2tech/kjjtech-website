@@ -295,8 +295,8 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
 .device-udm svg { width: 72px; height: 72px; }
 .device-ap1 { top: 5%; left: 15%; animation: float-a 7s ease-in-out infinite; }
 .device-ap1 svg { width: 48px; height: 48px; }
-.device-ap2 { top: 12%; right: 10%; animation: float-b 9s ease-in-out infinite; }
-.device-ap2 svg { width: 44px; height: 44px; }
+.device-nvr { top: 12%; right: 10%; animation: float-b 9s ease-in-out infinite; }
+.device-nvr svg { width: 44px; height: 44px; }
 .device-switch { bottom: 25%; left: 5%; animation: float-c 8.5s ease-in-out infinite; }
 .device-switch svg { width: 56px; height: 56px; }
 .device-rack { bottom: 5%; left: 45%; transform: translateX(-50%); animation: float-d 7.5s ease-in-out infinite; }

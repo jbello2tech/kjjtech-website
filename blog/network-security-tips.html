@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12 Network Security Tips Every Small Business Should Follow | KJJ Tech</title>
+  <meta name="description" content="Practical, no-nonsense network security tips for small businesses and home networks — router hardening, Wi-Fi, VLANs, firmware, and more." />
+  <meta property="og:title" content="12 Network Security Tips Every Small Business Should Follow" />
+  <meta property="og:description" content="From router hardening to VLAN segmentation — practical network security tips that actually move the needle." />
+  <meta property="og:image" content="https://kjjtech.com/og-image.png" />
+  <meta property="og:url" content="https://kjjtech.com/blog/network-security-tips.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="KJJ Tech" />
+  <link rel="canonical" href="https://kjjtech.com/blog/network-security-tips.html" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+  <link rel="mask-icon" href="/kjjtech_mask_icon.svg" color="#0a0a0a" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/fonts.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBC70RYJEC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZBC70RYJEC');
+  </script>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="blog.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "12 Network Security Tips Every Small Business Should Follow",
+    "description": "Practical, no-nonsense network security tips for small businesses and home networks — router hardening, Wi-Fi, VLANs, firmware, and more.",
+    "image": "https://kjjtech.com/og-image.png",
+    "author": { "@type": "Person", "name": "Jorge Bello", "url": "https://kjjtech.com/#about", "jobTitle": "Founder, KJJ Tech" },
+    "publisher": { "@type": "Organization", "name": "KJJ Tech", "logo": { "@type": "ImageObject", "url": "https://kjjtech.com/logo.jpg" } },
+    "datePublished": "2026-09-02",
+    "dateModified": "2026-09-02",
+    "mainEntityOfPage": "https://kjjtech.com/blog/network-security-tips.html"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kjjtech.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://kjjtech.com/blog/" },
+      { "@type": "ListItem", "position": 3, "name": "12 Network Security Tips Every Small Business Should Follow", "item": "https://kjjtech.com/blog/network-security-tips.html" }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo"><img src="/logo.jpg" alt="KJJ Tech" width="120" height="40" /></a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/getintouch.html">Get in Touch</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <article class="post">
+    <a href="/blog/" class="post__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15,18 9,12 15,6"/></svg>
+      Back to Blog
+    </a>
+
+    <span class="post__tag">Security</span>
+    <h1 class="post__title">12 Network Security Tips Every Small Business Should Follow</h1>
+    <p class="post__meta">September 2026 &middot; 9 min read</p>
+
+    <div class="post__body">
+      <p>Most of the network breaches we get called in to clean up don't start with some exotic zero-day exploit. They start with a default admin password nobody changed, a router that hasn't been patched in two years, or a guest network that was never actually separated from the office file server.</p>
+
+      <p>Good network security isn't about buying the most expensive firewall. It's about consistently doing the boring, unglamorous things that close off the easiest paths in. Here are the 12 that matter most, roughly in order of impact.</p>
+
+      <h2>1. Change Every Default Credential</h2>
+
+      <p>Routers, switches, access points, cameras, NVRs &mdash; anything with a web login ships with a well-known default username and password. Attackers and botnets scan the internet constantly for devices still using them. The very first thing to do with any new piece of network gear is set a unique, strong password before it ever touches production traffic.</p>
+
+      <h2>2. Keep Firmware Up to Date</h2>
+
+      <p>Firmware updates aren't just new features &mdash; they're patches for vulnerabilities that are often already being exploited in the wild by the time the update ships. Set a recurring reminder (or better, use a platform like UniFi that can notify you) to check for and apply firmware updates on your gateway, switches, and APs at least monthly.</p>
+
+      <blockquote class="post__callout">
+        <strong>Tip:</strong> Read the release notes before updating production equipment during business hours. Schedule major firmware jumps for a maintenance window in case a rollback is needed.
+      </blockquote>
+
+      <h2>3. Segment Your Network with VLANs</h2>
+
+      <p>A flat network means that if one device gets compromised &mdash; a smart thermostat, an employee's phone, a guest's laptop &mdash; it can potentially reach everything else on the network. Segmenting devices into VLANs by trust level (trusted staff devices, IoT, guest, cameras, servers) limits how far an attacker can move if they get a foothold. See our <a href="/blog/unifi-vlan-setup-guide.html">VLAN setup guide</a> if you haven't done this yet &mdash; it's one of the highest-impact changes you can make.</p>
+
+      <h2>4. Use a Real Firewall Policy, Not "Allow All"</h2>
+
+      <p>Plenty of small business networks are running with the equivalent of no firewall at all &mdash; every VLAN can talk to every other VLAN, unrestricted. If you're on UniFi Network 9.0 or newer, the <a href="/blog/unifi-zone-based-firewall.html">zone-based firewall</a> makes it straightforward to define exactly which zones can reach which, and block everything else by default.</p>
+
+      <h2>5. Separate Your Guest Wi-Fi Completely</h2>
+
+      <p>Guest Wi-Fi should be on its own VLAN with no route to your internal network, printers, or file shares &mdash; not just a different SSID on the same broadcast domain. This is a five-minute fix on most modern equipment and closes off one of the most common ways outsiders end up with a foothold on internal resources.</p>
+
+      <h2>6. Use WPA3 (or WPA2-Enterprise) &mdash; Never Open or WEP</h2>
+
+      <p>WPA3 is standard on any access point sold in the last few years and offers meaningfully better protection against offline password-cracking attempts than WPA2. For business networks with more than a handful of staff, WPA2/WPA3-Enterprise with per-user 802.1X credentials is even better &mdash; it means you can revoke a single employee's Wi-Fi access without changing the password for everyone else.</p>
+
+      <h2>7. Disable WPS and UPnP</h2>
+
+      <p>WPS (Wi-Fi Protected Setup) has known vulnerabilities that let attackers brute-force their way onto your network in hours, and most people never use the physical button anyway. UPnP automatically opens ports on your firewall at the request of devices on your network &mdash; convenient for a game console, dangerous for a business network where you don't want unattended software deciding what's exposed to the internet. Turn both off unless you have a specific reason not to.</p>
+
+      <h2>8. Lock Down Remote Management</h2>
+
+      <p>Never expose your router, switch, or firewall's admin interface directly to the internet. If you need remote access to manage equipment, use a VPN into the network first, or a cloud-managed platform (like UniFi's own cloud console) that doesn't require punching a hole in your firewall for the admin panel itself.</p>
+
+      <h2>9. Require MFA Everywhere You Can</h2>
+
+      <p>This goes beyond the network layer, but it's directly related: a compromised password is far less useful to an attacker if multi-factor authentication is required to actually log in &mdash; to your VPN, your cloud management consoles, your email, and any remote access tools. If you only do one thing from this list for your accounts (not just your network), make it this.</p>
+
+      <h2>10. Monitor What's Actually Connected</h2>
+
+      <p>You can't secure what you don't know about. Periodically review the client list on your controller and flag anything unrecognized &mdash; an unfamiliar device name, an unexpected vendor, a MAC address you don't recognize on a VLAN it shouldn't be on. Modern platforms like UniFi make this a five-minute check from the dashboard, not a manual audit.</p>
+
+      <h2>11. Back Up Your Network Configuration</h2>
+
+      <p>Ransomware and hardware failures don't just threaten your files &mdash; a wiped controller or a bricked gateway with no config backup can mean hours or days rebuilding VLANs, firewall rules, and Wi-Fi networks from memory. Automated, versioned config backups (most controllers support this natively) mean a bad day stays a bad day instead of becoming a bad week.</p>
+
+      <h2>12. Get a Second Set of Eyes</h2>
+
+      <p>It's easy to become blind to your own network's blind spots. An outside review &mdash; even an informal one &mdash; regularly turns up an old rule nobody remembers writing, a device that should've been decommissioned a year ago, or a VLAN that quietly stopped being isolated after a firmware reset. Compliance requirements (HIPAA, PCI, cyber insurance questionnaires) increasingly expect this kind of periodic review anyway.</p>
+
+      <h2>Where to Start</h2>
+
+      <p>If you only have time for three things this week: change any default credentials still in use, put your guest network on its own isolated VLAN, and check that firmware is current across your gateway, switches, and APs. Those three alone close off the majority of the easy, opportunistic attacks we see hit small business networks.</p>
+
+      <div class="post__cta">
+        <h3>Not sure where your network actually stands?</h3>
+        <p>We run network security audits for small businesses and homes &mdash; a straightforward look at what's exposed, what's misconfigured, and what to fix first.</p>
+        <a href="/getintouch.html" class="btn btn--primary">Book a free call</a>
+      </div>
+
+      <div class="post__related">
+        <h3>Related reading</h3>
+        <div class="post__related-grid">
+          <a href="/blog/unifi-zone-based-firewall.html" class="blog-card">
+            <span class="blog-card__tag">Guide</span>
+            <h2 class="blog-card__title">UniFi Zone-Based Firewall: A Practical Setup Guide</h2>
+            <p class="blog-card__excerpt">A practical walkthrough of the new zone-based firewall in UniFi Network 9.0+ — zones, policies, and migration from legacy rules.</p>
+            <div class="blog-card__meta">
+              <span class="blog-card__date">April 2026</span>
+              <span class="blog-card__read">Read &rarr;</span>
+            </div>
+          </a>
+          <a href="/blog/unifi-vlan-setup-guide.html" class="blog-card">
+            <span class="blog-card__tag">Guide</span>
+            <h2 class="blog-card__title">How to Set Up VLANs on a Unifi Dream Machine</h2>
+            <p class="blog-card__excerpt">A step-by-step walkthrough for segmenting your network with VLANs using Unifi — why it matters and how to do it right.</p>
+            <div class="blog-card__meta">
+              <span class="blog-card__date">April 2026</span>
+              <span class="blog-card__read">Read &rarr;</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__top">
+      <div class="footer__col">
+        <a href="/" class="footer__brand"><img src="/logo.jpg" alt="KJJ Tech" loading="lazy" width="120" height="40" /></a>
+        <p class="footer__tagline">Technology that works for you.</p>
+        <div class="footer__socials">
+          <a href="https://www.linkedin.com/company/kjjtech" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="mailto:support@kjjtech.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Navigate</p>
+        <ul class="footer__links">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#about">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/getintouch.html">Get in Touch</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Contact</p>
+        <ul class="footer__contact-list">
+          <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
+          <li><a href="tel:+19145279957">(914) 527-9957</a></li>
+          <li>Serving Orlando, FL &amp; nationwide</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p class="footer__copy">&copy; 2026 KJJ Tech. All rights reserved. <a href="/privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms.html" style="color:inherit;text-decoration:underline;">Terms of Service</a></p>
+      <div class="footer__bottom-contact">
+        <a href="mailto:support@kjjtech.com">support@kjjtech.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>
