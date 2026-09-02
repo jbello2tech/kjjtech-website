@@ -19,6 +19,8 @@
   <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
   <link rel="mask-icon" href="/kjjtech_mask_icon.svg" color="#0a0a0a" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0a0a0a" />
   <link rel="stylesheet" href="/fonts.css" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBC70RYJEC"></script>
   <script>
@@ -376,5 +378,25 @@
   </footer>
 
   <script src="/main.js"></script>
+  <script>
+    // Prefill the intake form when arriving from a pricing plan link,
+    // e.g. /getintouch.html?plan=managed selects "Managed / Ongoing Support".
+    (function () {
+      var plan = new URLSearchParams(window.location.search).get('plan');
+      if (!plan) return;
+      var map = {
+        managed: 'Managed Support',
+        network: 'Network Setup',
+        troubleshooting: 'Troubleshooting',
+        unifi: 'Unifi Support',
+        consulting: 'IT Consulting',
+        cloud: 'Cloud Infrastructure',
+        security: 'Cybersecurity'
+      };
+      var value = map[plan.toLowerCase()];
+      var select = document.getElementById('intake-service');
+      if (value && select) select.value = value;
+    })();
+  </script>
 </body>
 </html>

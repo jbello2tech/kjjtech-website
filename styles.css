@@ -1320,3 +1320,17 @@ input::placeholder, textarea::placeholder { color: var(--gray-300); }
   .footer__top         { grid-template-columns: 1fr; gap: 2rem; }
   .contact-bar         { display: none; }
 }
+
+/* Accessibility: honor users who prefer reduced motion.
+   Disables the floating hero devices, card fade-ins, and other
+   animations/transitions for people prone to motion sickness. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
