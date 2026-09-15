@@ -9,6 +9,15 @@
 const enc = new TextEncoder();
 const dec = new TextDecoder();
 
+// Thrown when GitHub rejects our token (expired / revoked / wrong scopes).
+// Surfaced as a friendly page so a lapsed PAT is obvious instead of raw JSON.
+class GitHubAuthError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'GitHubAuthError';
+  }
+}
+
 function escapeHtml(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -258,6 +267,7 @@ async function fetchIndexHtml(env) {
     `https://api.github.com/repos/${repo}/contents/index.html?ref=${branch}`,
     { headers }
   );
+  if (res.status === 401) throw new GitHubAuthError(`GitHub GET failed: ${res.status} ${await res.text()}`);
   if (!res.ok) throw new Error(`GitHub GET failed: ${res.status} ${await res.text()}`);
   const cur = await res.json();
   return { content: b64decodeUtf8(cur.content), sha: cur.sha };
@@ -280,6 +290,7 @@ async function putIndexHtml(env, newContent, sha, commitMessage) {
       }),
     }
   );
+  if (res.status === 401) throw new GitHubAuthError(`GitHub PUT failed: ${res.status} ${await res.text()}`);
   if (!res.ok) throw new Error(`GitHub PUT failed: ${res.status} ${await res.text()}`);
 }
 
@@ -519,7 +530,37 @@ export default {
       return new Response('not found', { status: 404 });
     } catch (err) {
       console.error(err);
-      return new Response(`error: ${err.message}`, { status: 500 });
+
+      // A rejected GitHub token is the most common failure here (fine-grained
+      // PATs expire), so give an actionable page instead of raw JSON.
+      if (err instanceof GitHubAuthError) {
+        return htmlPage(
+          'GitHub token expired',
+          `<p>The review couldn't be published because GitHub rejected the site's access token
+             (<code>401 Bad credentials</code>). This usually means the token has
+             <strong>expired or been revoked</strong> — your review is safe and still pending.</p>
+           <div class="card">
+             <strong>How to fix it:</strong>
+             <ol style="margin:0.5rem 0 0;padding-left:1.2rem;">
+               <li>Create a new fine-grained token at
+                 <a href="https://github.com/settings/personal-access-tokens/new">github.com/settings/personal-access-tokens/new</a>
+                 with <strong>Contents: Read &amp; write</strong> on <code>jbello2tech/kjjtech-website</code>.</li>
+               <li>Update the Worker secret:
+                 <code>npx wrangler secret put GITHUB_TOKEN</code>
+                 (or set <code>GITHUB_TOKEN</code> in the Cloudflare dashboard).</li>
+               <li>Come back and click the Approve link again.</li>
+             </ol>
+           </div>`,
+          { status: 502, error: true }
+        );
+      }
+
+      return htmlPage(
+        'Something went wrong',
+        `<p>The request couldn't be completed. Your review is safe and still pending.</p>
+         <div class="card"><strong>Details:</strong> ${escapeHtml(err.message)}</div>`,
+        { status: 500, error: true }
+      );
     }
   },
 };
