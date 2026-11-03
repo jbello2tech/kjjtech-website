@@ -64,7 +64,17 @@
     .a-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; flex-shrink: 0; animation: a-pulse 2s ease-in-out infinite; }
     @keyframes a-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,.4); } 50% { box-shadow: 0 0 0 5px rgba(34,197,94,0); } }
 
-    .a-hero h1 { color: var(--black); margin-bottom: 1.25rem; }
+    .a-hero h1 { color: var(--black); margin-bottom: 1.25rem; font-size: clamp(1.6rem, 2.6vw, 2.25rem); line-height: 1.25; letter-spacing: 0.05em; }
+    .a-offer-form select {
+      width: 100%; padding: 0.75rem 2.5rem 0.75rem 1rem;
+      border: 1.5px solid var(--gray-100); border-radius: 8px;
+      font-family: var(--font); font-size: 0.9rem; color: var(--black);
+      outline: none; transition: border-color 0.2s;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23767676' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 0.9rem center; background-size: 14px;
+    }
+    .a-offer-form select:focus { border-color: var(--black); }
     .a-hero__sub { font-size: 1.08rem; max-width: 480px; margin-bottom: 1.75rem; }
 
     .a-checklist { display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 2rem; }
