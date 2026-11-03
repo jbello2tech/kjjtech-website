@@ -104,3 +104,17 @@ document.querySelectorAll('.card, .stat, .about__text').forEach(el => {
   nav.hidden = false;
   render();
 })();
+
+// GA: track high-intent clicks (Stripe checkout, phone, email) site-wide
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[href]');
+  if (!a || typeof gtag !== 'function') return;
+  const href = a.getAttribute('href');
+  if (href.includes('buy.stripe.com')) {
+    gtag('event', 'begin_checkout', { link_url: href, page_path: location.pathname });
+  } else if (href.startsWith('tel:')) {
+    gtag('event', 'phone_click', { page_path: location.pathname });
+  } else if (href.startsWith('mailto:')) {
+    gtag('event', 'email_click', { page_path: location.pathname });
+  }
+});

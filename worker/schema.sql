@@ -14,3 +14,13 @@ CREATE TABLE IF NOT EXISTS reviews (
 
 CREATE INDEX IF NOT EXISTS idx_reviews_status ON reviews(status);
 CREATE INDEX IF NOT EXISTS idx_reviews_created ON reviews(created_at DESC);
+
+-- Email leads from gated downloads (created on first use by POST /checklist)
+CREATE TABLE IF NOT EXISTS leads (
+  id TEXT PRIMARY KEY,
+  email TEXT NOT NULL,
+  source TEXT,
+  resource TEXT,
+  status TEXT NOT NULL DEFAULT 'new',
+  created_at TEXT NOT NULL
+);

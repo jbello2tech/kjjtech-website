@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remote UniFi Help: Config Review &amp; Firewall Setup | KJJ Tech</title>
+  <meta name="description" content="Fixed-price remote UniFi services: a configuration review or zone-based firewall setup (up to 5 hours, $750 flat) by a UniFi partner, over screen-share, anywhere in the U.S." />
+  <link rel="canonical" href="https://kjjtech.com/remote-unifi-services.html" />
+  <meta property="og:site_name" content="KJJ Tech" />
+  <meta property="og:title" content="Remote UniFi Help: Config Review &amp; Firewall Setup | KJJ Tech" />
+  <meta property="og:description" content="Fixed-price remote UniFi config reviews and zone-based firewall setups, anywhere in the U.S." />
+  <meta property="og:image" content="https://kjjtech.com/og-image.png" />
+  <meta property="og:url" content="https://kjjtech.com/remote-unifi-services.html" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+  <link rel="mask-icon" href="/kjjtech_mask_icon.svg" color="#0a0a0a" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="stylesheet" href="/fonts.css" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBC70RYJEC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZBC70RYJEC');
+  </script>
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Remote UniFi Configuration Review and Firewall Setup",
+    "serviceType": "Remote UniFi Network Support",
+    "url": "https://kjjtech.com/remote-unifi-services.html",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "KJJ Tech",
+      "url": "https://kjjtech.com",
+      "telephone": "+1-914-527-9957",
+      "email": "support@kjjtech.com",
+      "address": { "@type": "PostalAddress", "addressLocality": "Orlando", "addressRegion": "FL", "addressCountry": "US" }
+    },
+    "areaServed": { "@type": "Country", "name": "United States" },
+    "offers": { "@type": "Offer", "price": "750", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kjjtech.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Remote UniFi Services", "item": "https://kjjtech.com/remote-unifi-services.html" }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo"><img src="/logo.jpg" alt="KJJ Tech" width="120" height="40" /></a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/getintouch.html">Get in Touch</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__content">
+      <p class="hero__eyebrow">Remote &middot; Anywhere in the U.S.</p>
+      <h1 class="hero__heading">UniFi help,<br/>fixed price.</h1>
+      <p class="hero__sub">Set up UniFi yourself but not sure it's right? An official UniFi partner reviews your setup or builds your zone-based firewall with you over screen-share. One flat price, no hourly meter running, and a written summary of everything we changed.</p>
+      <div class="hero__cta">
+        <a href="#offers" class="btn btn--primary">See the options</a>
+        <a href="/getintouch.html?plan=unifi" class="btn btn--ghost">Ask a question first</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="pricing" id="offers">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">Fixed-price remote services</p>
+        <h2>Pick what you need</h2>
+        <p class="section-sub">Every session is over secure screen-share at a flat price. If your network needs more time, we'll tell you before going over.</p>
+      </div>
+      <div class="pricing__grid">
+
+        <div class="pricing-card pricing-card--featured">
+          <div class="pricing-card__most-popular">Most Popular</div>
+          <div class="pricing-card__badge">For existing setups</div>
+          <p class="pricing-card__label">UniFi Config Review</p>
+          <div class="pricing-card__price">
+            <span class="pricing-card__amount">$750</span>
+            <span class="pricing-card__per">flat &middot; up to 5 hours</span>
+          </div>
+          <p class="pricing-card__desc">A second set of expert eyes on the network you built. We go through it together, fix the quick wins live, and leave you a prioritized list for the rest.</p>
+          <ul class="pricing-card__features">
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,8 6,12 14,4"/></svg>Firewall rules / zones and VLAN segmentation</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,8 6,12 14,4"/></svg>Wi-Fi settings: channels, transmit power, roaming</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,8 6,12 14,4"/></svg>Firmware, remote access and admin security</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,8 6,12 14,4"/></svg>Live fixes for quick wins</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,8 6,12 14,4"/></svg>Written fix list ranked by priority</li>
+          </ul>
+          <a href="https://buy.stripe.com/fZudR8cLMgXK51X6eegEg02" target="_blank" rel="noopener" class="btn btn--primary pricing-card__cta">Book &amp; pay — $750</a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card__badge">UniFi Network 9.0+</div>
+          <p class="pricing-card__label">Zone-Based Firewall Setup</p>
+          <div class="pricing-card__price">
+            <span class="pricing-card__amount">$750</span>
+            <span class="pricing-card__per">flat &middot; up to 5 hours</span>
+          </div>
+          <p class="pricing-card__desc">We design and build your zone-based firewall with you, or migrate your legacy rules, so IoT, guest and camera devices can't reach what they shouldn't.</p>
+          <ul class="pricing-card__features">
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,8 6,12 14,4"/></svg>Zone plan for trusted, IoT, guest and cameras</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,8 6,12 14,4"/></svg>Policies built and tested zone by zone</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,8 6,12 14,4"/></svg>Legacy rule migration if you're upgrading</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,8 6,12 14,4"/></svg>Nothing breaks: we test devices as we go</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,8 6,12 14,4"/></svg>Written summary of every policy</li>
+          </ul>
+          <a href="https://buy.stripe.com/fZudR8cLMgXK51X6eegEg02" target="_blank" rel="noopener" class="btn btn--ghost pricing-card__cta">Book &amp; pay — $750</a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card__badge">Not sure yet?</div>
+          <p class="pricing-card__label">Free 30-Minute Call</p>
+          <div class="pricing-card__price">
+            <span class="pricing-card__amount">$0</span>
+          </div>
+          <p class="pricing-card__desc">Tell us what's going on and we'll recommend the right option, or whether you even need one.</p>
+          <ul class="pricing-card__features">
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,8 6,12 14,4"/></svg>No obligation</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,8 6,12 14,4"/></svg>Bigger projects scoped and quoted</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,8 6,12 14,4"/></svg>Onsite available in the Orlando area</li>
+          </ul>
+          <a href="/getintouch.html?plan=unifi" class="btn btn--ghost pricing-card__cta">Book a free call</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="how">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">How it works</p>
+        <h2>Three steps, all remote</h2>
+      </div>
+      <div class="how__steps">
+        <div class="how__step">
+          <span class="how__num">01</span>
+          <h3>Book &amp; pay</h3>
+          <p>Check out securely through Stripe. We'll email you within one business day to schedule your session.</p>
+        </div>
+        <div class="how__connector" aria-hidden="true"></div>
+        <div class="how__step">
+          <span class="how__num">02</span>
+          <h3>Screen-share session</h3>
+          <p>We work through your UniFi console together. You stay in control, and nothing changes without your OK.</p>
+        </div>
+        <div class="how__connector" aria-hidden="true"></div>
+        <div class="how__step">
+          <span class="how__num">03</span>
+          <h3>Written summary</h3>
+          <p>You get a summary of everything we changed, plus any remaining recommendations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container faq__inner">
+      <div class="section-header">
+        <p class="section-tag">FAQ</p>
+        <h2>Before you book</h2>
+      </div>
+      <div class="faq__list">
+        <details class="faq__item">
+          <summary class="faq__question">What do I need for the session?</summary>
+          <p class="faq__answer">A computer with access to your UniFi console (local or via unifi.ui.com) and the ability to share your screen. We'll send a meeting link when we schedule.</p>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">What if my network needs more time?</summary>
+          <p class="faq__answer">Most home and small business networks fit comfortably. If yours is larger, we'll tell you before going over and quote any extra time at our standard rates. No surprises.</p>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">Do you work with non-UniFi equipment?</summary>
+          <p class="faq__answer">These fixed-price sessions are UniFi-specific. For other equipment, <a href="/getintouch.html" style="text-decoration:underline;">book a free call</a> and we'll scope it.</p>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">Is it safe to give you access?</summary>
+          <p class="faq__answer">You share your screen and stay in control the whole time. We never ask for your passwords, and nothing changes without your approval.</p>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">Want to learn it yourself first?</summary>
+          <p class="faq__answer">Read our free guides: <a href="/blog/unifi-zone-based-firewall.html" style="text-decoration:underline;">zone-based firewall setup</a>, <a href="/blog/unifi-vlan-setup-guide.html" style="text-decoration:underline;">VLAN setup</a> and <a href="/blog/unifi-ap-placement-guide.html" style="text-decoration:underline;">AP placement</a>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK A CALL BANNER -->
+  <section class="cta-banner">
+    <div class="container cta-banner__inner">
+      <div>
+        <h2>Get your UniFi network checked by a pro</h2>
+        <p>Flat $750 for up to 5 hours, fully remote, with a written summary of everything we did.</p>
+      </div>
+      <a href="#offers" class="btn btn--primary">Choose a session</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__top">
+      <div class="footer__col">
+        <a href="/" class="footer__brand"><img src="/logo.jpg" alt="KJJ Tech" loading="lazy" width="120" height="40" /></a>
+        <p class="footer__tagline">Technology that works for you.</p>
+        <div class="footer__socials">
+          <a href="https://www.linkedin.com/company/kjjtech" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="mailto:support@kjjtech.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Navigate</p>
+        <ul class="footer__links">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/getintouch.html">Get in Touch</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Contact</p>
+        <ul class="footer__contact-list">
+          <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
+          <li><a href="tel:+19145279957">(914) 527-9957</a></li>
+          <li><a href="/orlando-it-support.html">Serving Orlando, FL</a> &amp; nationwide</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p class="footer__copy">&copy; 2026 KJJ Tech. All rights reserved. <a href="/privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms.html" style="color:inherit;text-decoration:underline;">Terms of Service</a></p>
+      <div class="footer__bottom-contact">
+        <a href="mailto:support@kjjtech.com">support@kjjtech.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>

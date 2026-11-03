@@ -29,6 +29,7 @@
   </script>
   <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="blog.css" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -88,7 +89,7 @@
 
       <p>Good network security isn't about buying the most expensive firewall. It's about consistently doing the boring, unglamorous things that close off the easiest paths in. Here are the 12 that matter most, roughly in order of impact.</p>
 
-      <p class="post__callout"><strong>Rather have a pro handle it?</strong> KJJ Tech runs network security audits for small businesses — onsite in <a href="/orlando-it-support.html">Orlando</a> or remotely anywhere in the U.S. <a href="/getintouch.html?plan=security">Book a free 30-minute call &rarr;</a></p>
+      <p class="post__callout"><strong>Rather have a pro handle it?</strong> KJJ Tech runs network security audits for small businesses — onsite in <a href="/orlando-it-support.html">Orlando</a> or <a href="/remote-unifi-services.html">remotely at a flat price</a> anywhere in the U.S. <a href="/getintouch.html?plan=security">Book a free 30-minute call &rarr;</a></p>
 
       <h2>1. Change Every Default Credential</h2>
 
@@ -146,10 +147,24 @@
 
       <p>If you only have time for three things this week: change any default credentials still in use, put your guest network on its own isolated VLAN, and check that firmware is current across your gateway, switches, and APs. Those three alone close off the majority of the easy, opportunistic attacks we see hit small business networks.</p>
 
+      <div class="post__lead" hidden><!-- enable once worker /checklist is deployed -->
+        <h3>Free: UniFi Security Checklist</h3>
+        <p>26 settings to check on any UniFi network, from admin accounts to firewall zones, on one printable PDF.</p>
+        <form action="https://reviews.kjjtech.com/checklist" method="POST" class="post__lead-form">
+          <input type="hidden" name="source" value="network-security-tips" />
+          <input type="text" name="website" tabindex="-1" autocomplete="off" class="post__lead-hp" aria-hidden="true" />
+          <input type="email" name="email" placeholder="you@company.com" required aria-label="Email address" />
+          <button type="submit" class="btn btn--primary">Send me the checklist</button>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADlO6Hzgkc_iaMdj" data-size="flexible"></div>
+        </form>
+        <p class="post__lead-fine">No spam. Just the PDF, plus an occasional new guide.</p>
+      </div>
+
       <div class="post__cta">
         <h3>Not sure where your network actually stands?</h3>
         <p>We run network security audits for small businesses and homes &mdash; a straightforward look at what's exposed, what's misconfigured, and what to fix first.</p>
         <a href="/getintouch.html?plan=security" class="btn btn--primary">Book a free call</a>
+        <a href="/remote-unifi-services.html" class="btn btn--ghost">Remote review — $750 flat</a>
       </div>
 
       <div class="post__related">

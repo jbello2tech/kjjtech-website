@@ -64,6 +64,12 @@
     <a href="/" class="btn btn--ghost">Back to home now</a>
   </div>
   <script>
+    // Form redirects append ?lead=<form> so GA can count real leads
+    // (reviews also land here, without the param, and aren't counted).
+    (function(){
+      var lead = new URLSearchParams(location.search).get('lead');
+      if (lead && typeof gtag === 'function') gtag('event', 'generate_lead', { lead_source: lead });
+    })();
     (function(){
       var n = 10;
       var el = document.getElementById('countdown');

@@ -244,7 +244,7 @@
         <div class="onboard-form__body">
           <form action="https://formspree.io/f/xreydwyb" method="POST">
             <input type="hidden" name="_subject" value="New client intake from KJJ Tech website" />
-            <input type="hidden" name="_next" value="https://kjjtech.com/thanks.html" />
+            <input type="hidden" name="_next" value="https://kjjtech.com/thanks.html?lead=intake" />
             <input type="hidden" name="form_type" value="client_intake" />
 
             <div class="form-row">
@@ -327,6 +327,11 @@
               </select>
             </div>
 
+            <div class="form-group">
+              <label for="intake-referred-by">Referred by someone? <span style="color:var(--gray-500);font-weight:300;">(you both get 10% off)</span></label>
+              <input type="text" id="intake-referred-by" name="referred_by" placeholder="Their name" />
+            </div>
+
             <button type="submit" class="btn btn--primary" style="width:100%;text-align:center;">Submit Intake Form</button>
           </form>
         </div>
@@ -381,6 +386,12 @@
   <script>
     // Prefill the intake form when arriving from a pricing plan link,
     // e.g. /getintouch.html?plan=managed selects "Managed / Ongoing Support".
+    // /getintouch.html?ref=1 (from referral.html) preselects "Referral".
+    (function () {
+      if (!new URLSearchParams(window.location.search).get('ref')) return;
+      var src = document.getElementById('intake-referral');
+      if (src) src.value = 'Referral';
+    })();
     (function () {
       var plan = new URLSearchParams(window.location.search).get('plan');
       if (!plan) return;

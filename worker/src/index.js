@@ -5,6 +5,7 @@
 //   GET  /review/:id/deny?t=<hmac>       — deny (stays in DB, never published)
 //   GET  /review/:id/remove?t=<hmac>     — remove an already-published review from GitHub
 //   GET  /list?key=<ADMIN_KEY>           — list recent reviews (for debugging)
+//   POST /checklist                      — checklist PDF download form; stores lead + pings Discord
 
 const enc = new TextEncoder();
 const dec = new TextDecoder();
@@ -283,6 +284,20 @@ async function putIndexHtml(env, newContent, sha, commitMessage) {
   if (!res.ok) throw new Error(`GitHub PUT failed: ${res.status} ${await res.text()}`);
 }
 
+// Recompute the LocalBusiness aggregateRating JSON-LD from the testimonials
+// actually rendered on the page, so the structured data always matches what
+// visitors can see (Google penalizes ratings that don't match on-page reviews).
+function syncAggregateRating(content) {
+  const stars = [...content.matchAll(/class="testimonial__stars">(★+)</g)].map(m => m[1].length);
+  if (!stars.length) return content;
+  const avg = stars.reduce((a, b) => a + b, 0) / stars.length;
+  const ratingValue = String(Math.round(avg * 10) / 10);
+  return content.replace(
+    /("aggregateRating":\s*\{[^}]*?"ratingValue":\s*")[^"]*("[^}]*?"reviewCount":\s*")[^"]*(")/,
+    `$1${ratingValue}$2${stars.length}$3`
+  );
+}
+
 async function commitApprovalToGitHub(env, review) {
   const { content, sha } = await fetchIndexHtml(env);
   const marker = '<!-- REVIEWS:END -->';
@@ -290,7 +305,7 @@ async function commitApprovalToGitHub(env, review) {
     throw new Error('Insertion marker <!-- REVIEWS:END --> not found in index.html');
   }
   const block = buildTestimonialBlock(review);
-  const newContent = content.replace(marker, `${block}${marker}`);
+  const newContent = syncAggregateRating(content.replace(marker, `${block}${marker}`));
   const displayName = review.display_anonymously === 'Yes' ? 'Verified Client' : review.name;
   await putIndexHtml(env, newContent, sha, `Publish approved review from ${displayName}`);
 }
@@ -305,7 +320,7 @@ async function commitRemovalToGitHub(env, review) {
   if (!blockRe.test(content)) {
     throw new Error(`Could not find review block ${id} in index.html — it may have been edited or already removed.`);
   }
-  const newContent = content.replace(blockRe, '');
+  const newContent = syncAggregateRating(content.replace(blockRe, ''));
   const displayName = review.display_anonymously === 'Yes' ? 'Verified Client' : review.name;
   await putIndexHtml(env, newContent, sha, `Remove review from ${displayName}`);
 }
@@ -394,6 +409,68 @@ export default {
         return Response.redirect('https://kjjtech.com/thanks.html', 303);
       }
 
+      // Checklist download from blog posts — capture the lead, then hand over the PDF
+      if (pathname === '/checklist' && req.method === 'POST') {
+        const form = await req.formData();
+        const body = Object.fromEntries(form.entries());
+        const pdfUrl = 'https://kjjtech.com/downloads/unifi-security-checklist.pdf';
+
+        // Honeypot: real visitors never see or fill the "website" field.
+        if (body.website) return Response.redirect(pdfUrl, 303);
+
+        if (env.TURNSTILE_SECRET) {
+          const tsToken = body['cf-turnstile-response'] || '';
+          const ip = req.headers.get('CF-Connecting-IP') || '';
+          if (!(await verifyTurnstile(env, tsToken, ip))) {
+            return htmlPage(
+              'Verification failed',
+              `<p>We couldn't confirm you're human. Please go back, complete the verification box, and try again.</p>`,
+              { status: 403, error: true }
+            );
+          }
+        }
+
+        const email = String(body.email || '').trim().slice(0, 200);
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          return htmlPage('Invalid email', '<p>Please go back and enter a valid email address.</p>', { status: 400, error: true });
+        }
+        const source = String(body.source || '').slice(0, 200);
+        const dom = emailDomain(email);
+        const status = DISPOSABLE_EMAIL_DOMAINS.has(dom) ? 'spam' : 'new';
+
+        await env.DB.prepare(
+          `CREATE TABLE IF NOT EXISTS leads (
+             id TEXT PRIMARY KEY, email TEXT NOT NULL, source TEXT, resource TEXT,
+             status TEXT NOT NULL DEFAULT 'new', created_at TEXT NOT NULL)`
+        ).run();
+        await env.DB.prepare(
+          `INSERT INTO leads (id, email, source, resource, status, created_at)
+           VALUES (?, ?, ?, 'unifi-security-checklist', ?, datetime('now'))`
+        ).bind(crypto.randomUUID(), email, source, status).run();
+
+        if (status === 'new') {
+          try {
+            await fetch(env.LEADS_WEBHOOK_URL || env.DISCORD_WEBHOOK_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                embeds: [{
+                  title: 'New checklist download',
+                  color: 0x3b82f6,
+                  fields: [
+                    { name: 'Email', value: email, inline: true },
+                    { name: 'From page', value: source || '—', inline: true },
+                  ],
+                  timestamp: new Date().toISOString(),
+                }],
+              }),
+            });
+          } catch (e) { console.error('Lead Discord ping failed', e); }
+        }
+
+        return Response.redirect(pdfUrl, 303);
+      }
+
       // Approve / deny / remove
       const m = pathname.match(/^\/review\/([^/]+)\/(approve|deny|remove)$/);
       if (m && req.method === 'GET') {
@@ -469,6 +546,15 @@ export default {
         for (const row of weekStats.results || []) counts[row.status] = row.n;
         const pendingCount = (pending.results || []).length;
 
+        // leads table only exists after the first checklist download
+        let checklistLeads = 0;
+        try {
+          const row = await env.DB
+            .prepare("SELECT COUNT(*) AS n FROM leads WHERE status = 'new' AND created_at >= datetime('now', '-7 days')")
+            .first();
+          checklistLeads = row ? row.n : 0;
+        } catch (e) { /* no leads table yet */ }
+
         const lines = [];
         if (pendingCount === 0) {
           lines.push('No pending reviews this week.');
@@ -487,6 +573,7 @@ export default {
           description: lines.join('\n'),
           fields: [
             { name: 'Last 7 days', value: `Approved: **${counts.approved}** · Denied: **${counts.denied}** · Removed: **${counts.removed}** · Blocked spam: **${counts.spam}**` },
+            { name: 'Checklist downloads (7 days)', value: `**${checklistLeads}**` },
           ],
           timestamp: new Date().toISOString(),
         };

@@ -31,6 +31,7 @@
   </script>
   <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="blog.css" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -90,7 +91,7 @@
 
       <p>After hundreds of deployments across homes, offices, and commercial spaces, here's what actually works.</p>
 
-      <p class="post__callout"><strong>Rather have a pro handle it?</strong> KJJ Tech plans and installs UniFi Wi-Fi for homes and businesses — onsite in <a href="/unifi-installation-orlando.html">Orlando</a> or remotely anywhere in the U.S. <a href="/getintouch.html?plan=unifi">Book a free 30-minute call &rarr;</a></p>
+      <p class="post__callout"><strong>Rather have a pro handle it?</strong> KJJ Tech plans and installs UniFi Wi-Fi for homes and businesses — onsite in <a href="/unifi-installation-orlando.html">Orlando</a> or <a href="/remote-unifi-services.html">remotely at a flat price</a> anywhere in the U.S. <a href="/getintouch.html?plan=unifi">Book a free 30-minute call &rarr;</a></p>
 
       <h2>The Golden Rule: Fewer Walls, Better Signal</h2>
 
@@ -180,10 +181,24 @@
 
       <p>We've done this hundreds of times and can usually look at a floor plan and tell you exactly where your APs should go.</p>
 
+      <div class="post__lead" hidden><!-- enable once worker /checklist is deployed -->
+        <h3>Free: UniFi Security Checklist</h3>
+        <p>26 settings to check on any UniFi network, from admin accounts to firewall zones, on one printable PDF.</p>
+        <form action="https://reviews.kjjtech.com/checklist" method="POST" class="post__lead-form">
+          <input type="hidden" name="source" value="unifi-ap-placement-guide" />
+          <input type="text" name="website" tabindex="-1" autocomplete="off" class="post__lead-hp" aria-hidden="true" />
+          <input type="email" name="email" placeholder="you@company.com" required aria-label="Email address" />
+          <button type="submit" class="btn btn--primary">Send me the checklist</button>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADlO6Hzgkc_iaMdj" data-size="flexible"></div>
+        </form>
+        <p class="post__lead-fine">No spam. Just the PDF, plus an occasional new guide.</p>
+      </div>
+
       <div class="post__cta">
         <h3>Want a professional site survey?</h3>
         <p>We'll evaluate your space and recommend the perfect AP layout — so you get seamless coverage without guesswork. Onsite in the Orlando area, or remotely from your floor plan anywhere in the U.S.</p>
         <a href="/getintouch.html?plan=unifi" class="btn btn--primary">Book a free call</a>
+        <a href="/remote-unifi-services.html" class="btn btn--ghost">Remote review — $750 flat</a>
       </div>
 
       <div class="post__related">
