@@ -310,3 +310,9 @@
 @media (max-width: 600px) {
   .post__cta .btn { display: block; margin: 0.5rem 0 0 !important; }
 }
+
+/* Accent tags and card hover */
+.blog-card__tag, .post__tag { background: #eef3ff; color: var(--accent); font-weight: 500; }
+.blog-card:hover { border-color: var(--accent); }
+.blog-card__read { color: var(--accent); }
+.blog-card__title { font-family: var(--font-body); font-weight: 600; letter-spacing: 0; font-size: 1.05rem; line-height: 1.4; color: var(--black); }
