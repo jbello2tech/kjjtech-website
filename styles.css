@@ -1409,3 +1409,25 @@ h1 { font-family: var(--font); }
 .explore__chip:hover { border-color: var(--accent); color: var(--accent); }
 .explore__chip--accent { background: var(--accent); border-color: var(--accent); color: var(--white); }
 .explore__chip--accent:hover { background: var(--accent-dark); color: var(--white); }
+
+/* ─── About: founder card + quote ─── */
+.about__inner { align-items: center; }
+.about__quote { margin: 1.75rem 0 1.5rem; padding: 0.25rem 0 0.25rem 1.25rem; border-left: 3px solid var(--accent); }
+.about__quote p { font-style: italic; margin-bottom: 0.5rem; }
+.about__quote cite { font-style: normal; font-family: var(--font); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-500); }
+.about__visual { display: flex; justify-content: center; }
+.founder-card {
+  width: 100%; max-width: 340px; padding: 1.5rem; border-radius: 20px; text-align: center;
+  background-color: var(--gray-50);
+  background-image: radial-gradient(var(--gray-100) 1.2px, transparent 1.2px);
+  background-size: 18px 18px;
+  border: 1px solid var(--gray-100);
+}
+.founder-card__photo { width: 100%; max-width: 260px; margin: 0 auto; height: auto; aspect-ratio: 296 / 400; object-fit: cover; border-radius: 14px; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.founder-card__name { margin-top: 1.25rem; font-family: var(--font); font-size: 1.15rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--black); }
+.founder-card__role { margin-top: 0.25rem; font-size: 0.85rem; color: var(--gray-500); }
+.founder-card__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--gray-100); }
+.founder-card__stats .stat { display: flex; flex-direction: column; align-items: center; }
+.founder-card__stats .stat__num { font-size: 1.6rem; color: var(--accent); }
+.founder-card__stats .stat__label { font-size: 0.72rem; }
+@media (max-width: 900px) { .about__visual { display: flex !important; margin-top: 2.5rem; } }
