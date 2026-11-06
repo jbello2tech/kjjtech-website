@@ -39,3 +39,12 @@
   font-style: normal;
   font-display: swap;
 }
+
+/* Inter (variable, latin) — body text */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-var-latin.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}

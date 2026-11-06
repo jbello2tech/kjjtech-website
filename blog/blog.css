@@ -165,7 +165,7 @@
 }
 
 .post__body p {
-  font-size: 1.0625rem;
+  font-size: 1.0rem;
   line-height: 1.85;
   margin-bottom: 1.25rem;
 }
@@ -178,7 +178,7 @@
 .post__body ol { list-style: decimal; }
 
 .post__body li {
-  font-size: 1.0625rem;
+  font-size: 1.0rem;
   line-height: 1.85;
   color: var(--text);
   font-weight: 400;

@@ -13,6 +13,7 @@
   --accent:  #1d4ed8;
   --accent-dark: #1e40af;
   --font:    'Josefin Sans', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --radius:  12px;
   --max-w:   1120px;
   --nav-h:   64px;
@@ -1341,3 +1342,28 @@ input::placeholder, textarea::placeholder { color: var(--gray-300); }
 /* Accent: inline text links */
 a[style*="text-decoration:underline"] { color: var(--accent); }
 a[style*="text-decoration:underline"]:hover { color: var(--accent-dark); }
+
+/* Body font: Inter for reading text; Josefin Sans stays on headings, labels, nav and buttons */
+p, li, dd, blockquote, .faq__answer, .post__body,
+input, textarea, select { font-family: var(--font-body); letter-spacing: 0; }
+.nav__links, .nav__links li, .nav__links a { font-family: var(--font); }
+/* Keep uppercase labels in Josefin Sans */
+.blog-card__read,
+.blog-card__tag,
+.float-label,
+.footer__col-heading,
+.hero__eyebrow,
+.post__back,
+.post__related h3,
+.post__tag,
+.pricing-card__badge,
+.pricing-card__label,
+.pricing-card__most-popular,
+.pricing__divider,
+.section-header h1,
+.section-tag,
+.service-area__label,
+.testimonial__name,
+.trust__badge h3,
+.btn,
+h1 { font-family: var(--font); }
