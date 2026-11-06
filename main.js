@@ -118,3 +118,23 @@ document.addEventListener('click', (e) => {
     gtag('event', 'email_click', { page_path: location.pathname });
   }
 });
+
+
+// Testimonials: clamp long quotes with a "Read more" toggle
+(function () {
+  document.querySelectorAll('.testimonial__quote').forEach(function (q) {
+    if (q.textContent.trim().length < 380) return;
+    q.classList.add('is-clamped');
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'testimonial__more';
+    btn.textContent = 'Read more';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', function () {
+      var open = q.classList.toggle('is-clamped') === false;
+      btn.textContent = open ? 'Show less' : 'Read more';
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    q.insertAdjacentElement('afterend', btn);
+  });
+})();

@@ -1431,3 +1431,25 @@ h1 { font-family: var(--font); }
 .founder-card__stats .stat__num { font-size: 1.6rem; color: var(--accent); }
 .founder-card__stats .stat__label { font-size: 0.72rem; }
 @media (max-width: 900px) { .about__visual { display: flex !important; margin-top: 2.5rem; } }
+
+/* ─── Testimonials: readable quotes, balanced cards ─── */
+.testimonial { position: relative; }
+.testimonial__quote { font-style: normal; font-weight: 400; font-size: 0.95rem; line-height: 1.75; color: var(--text); font-family: var(--font-body); }
+.testimonial__quote.is-clamped { display: -webkit-box; -webkit-line-clamp: 9; -webkit-box-orient: vertical; overflow: hidden; flex: 0 0 auto; }
+.testimonial__more { align-self: flex-start; margin-top: -0.75rem; margin-bottom: auto; background: none; border: 0; padding: 0; cursor: pointer; font-family: var(--font-body); font-size: 0.85rem; font-weight: 500; color: var(--accent); }
+.testimonial__more:hover { color: var(--accent-dark); }
+
+/* ─── Trust badges: accent icons ─── */
+.trust__badge { background: var(--white); }
+.trust__badge:hover { border-color: var(--accent); }
+.trust__icon { width: 52px; height: 52px; border-radius: 12px; background: #eef3ff; }
+.trust__icon svg { width: 28px; height: 28px; color: var(--accent); }
+
+/* ─── FAQ: legible questions ─── */
+.faq__question { font-family: var(--font-body); font-size: 1rem; font-weight: 500; letter-spacing: 0; color: var(--black); }
+.faq__question::after { font-family: var(--font-body); font-size: 1.4rem; font-weight: 300; color: var(--accent); }
+.faq__question:hover { color: var(--accent); }
+
+/* ─── Final CTA: accent button ─── */
+.cta-banner .btn--primary { background: var(--accent); color: var(--white); border-color: var(--accent); }
+.cta-banner .btn--primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
