@@ -38,6 +38,7 @@ Weekly digest runs via a scheduled CCR routine that hits `/admin/digest?key=<ADM
 | `GET` | `/review/:id/remove?t=<hmac>` | Strip a previously-approved block from `index.html`. |
 | `GET` | `/admin/digest?key=<ADMIN_KEY>` | Post a weekly digest to Discord and return JSON. |
 | `GET` | `/list?key=<ADMIN_KEY>` | Debug listing of the 50 most recent rows. |
+| `POST` | `/lead` | Backup copy of every Formspree form submission (sent by `main.js` with `sendBeacon`). Stored in `leads` and posted to Discord. |
 | `POST` | `/rb2b?key=<RB2B_WEBHOOK_KEY>` | RB2B visitor-identification webhook. Reformats each identified visitor into a Discord embed. |
 | `GET` | `/health` | Returns `kjjtech-reviews: ok`. |
 

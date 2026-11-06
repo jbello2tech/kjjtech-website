@@ -151,3 +151,19 @@ document.addEventListener('click', (e) => {
   document.body.appendChild(bar);
   document.body.classList.add('has-mobile-bar');
 })();
+
+
+// Backup every Formspree form submission to the KJJ Tech worker (Discord + D1),
+// so a lead is never lost if the notification email gets filtered.
+(function () {
+  if (!navigator.sendBeacon) return;
+  document.querySelectorAll('form[action*="formspree.io"]').forEach(function (form) {
+    form.addEventListener('submit', function () {
+      try {
+        var fd = new FormData(form);
+        fd.append('page', location.pathname);
+        navigator.sendBeacon('https://reviews.kjjtech.com/lead', fd);
+      } catch (e) { /* never block the real submission */ }
+    });
+  });
+})();

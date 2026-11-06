@@ -7,6 +7,7 @@
 //   GET  /list?key=<ADMIN_KEY>           — list recent reviews (for debugging)
 //   POST /checklist                      — checklist PDF download form; stores lead + pings Discord
 //   POST /rb2b?key=<RB2B_WEBHOOK_KEY>    — RB2B visitor-identification webhook; reformats + pings Discord
+//   POST /lead                           — backup copy of website form submissions (Formspree forms); stores + pings Discord
 
 const enc = new TextEncoder();
 const dec = new TextDecoder();
@@ -300,6 +301,84 @@ async function sendRb2bDiscord(env, data) {
   if (!res.ok) throw new Error(`RB2B Discord webhook failed: ${res.status} ${await res.text()}`);
 }
 
+// ---- Website form backup (Formspree forms) -----------------------------
+// The browser sends a copy of each Formspree form submission here via
+// navigator.sendBeacon, so a lead still reaches Discord even if the
+// Formspree notification email is filtered or quarantined.
+
+const LEAD_TITLES = {
+  free_assessment: '🆕 Free assessment request',
+  client_intake: '🆕 New client intake',
+  quick_question: '💬 Quick question',
+};
+
+async function handleLeadBackup(req, env) {
+  const origin = req.headers.get('Origin') || '';
+  if (origin && !/^https:\/\/(www\.)?kjjtech\.com$/.test(origin)) {
+    return new Response('forbidden', { status: 403 });
+  }
+  let body = {};
+  const ct = req.headers.get('content-type') || '';
+  try {
+    if (ct.includes('application/json')) body = await req.json();
+    else body = Object.fromEntries((await req.formData()).entries());
+  } catch { return new Response('bad request', { status: 400 }); }
+
+  // Honeypots filled in by bots
+  if (body._gotcha || body.website) return new Response('ok');
+
+  const clip = (v, n) => String(v == null ? '' : v).trim().slice(0, n);
+  const type = clip(body.form_type, 40) || 'website_form';
+  const page = clip(body.page, 200);
+  const contact = clip(body.email || body.contact || body.phone, 200);
+  if (!contact) return new Response('ok');
+
+  const skip = new Set(['form_type', 'page', '_subject', '_next', '_gotcha', 'cf-turnstile-response']);
+  const fields = [];
+  for (const [k, v] of Object.entries(body)) {
+    if (skip.has(k) || k.startsWith('_')) continue;
+    const val = clip(v, 900);
+    if (!val) continue;
+    const label = k.replace(/[_-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase()).slice(0, 60);
+    const long = val.length > 60;
+    fields.push({ name: label, value: val, inline: !long });
+    if (fields.length >= 20) break;
+  }
+  if (page) fields.push({ name: 'Page', value: page, inline: true });
+
+  const dom = emailDomain(clip(body.email, 200));
+  const status = DISPOSABLE_EMAIL_DOMAINS.has(dom) ? 'spam' : 'new';
+
+  try {
+    await env.DB.prepare(
+      `CREATE TABLE IF NOT EXISTS leads (
+         id TEXT PRIMARY KEY, email TEXT NOT NULL, source TEXT, resource TEXT,
+         status TEXT NOT NULL DEFAULT 'new', created_at TEXT NOT NULL)`
+    ).run();
+    await env.DB.prepare(
+      `INSERT INTO leads (id, email, source, resource, status, created_at)
+       VALUES (?, ?, ?, ?, ?, datetime('now'))`
+    ).bind(crypto.randomUUID(), contact, page, type, status).run();
+  } catch (e) { console.error('Lead store failed', e); }
+
+  if (status === 'new') {
+    const hook = env.LEADS_WEBHOOK_URL || env.DISCORD_WEBHOOK_URL;
+    const res = await fetch(hook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ embeds: [{
+        title: LEAD_TITLES[type] || '🆕 Website form submission',
+        color: 0x1d4ed8,
+        fields,
+        footer: { text: 'Backup copy · the Formspree email should also arrive' },
+        timestamp: new Date().toISOString(),
+      }] }),
+    });
+    if (!res.ok) console.error('Lead Discord ping failed', res.status, await res.text());
+  }
+  return new Response('ok', { status: 200, headers: { 'Access-Control-Allow-Origin': 'https://kjjtech.com' } });
+}
+
 async function ghHeaders(env) {
   return {
     'Authorization': `Bearer ${env.GITHUB_TOKEN}`,
@@ -528,6 +607,9 @@ export default {
 
         return Response.redirect(pdfUrl, 303);
       }
+
+      // Backup copy of website form submissions → Discord
+      if (pathname === '/lead' && req.method === 'POST') return await handleLeadBackup(req, env);
 
       // RB2B identified-visitor webhook → Discord
       if (pathname === '/rb2b' && req.method === 'POST') {
