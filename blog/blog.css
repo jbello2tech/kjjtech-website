@@ -249,7 +249,9 @@
   line-height: 1.6;
 }
 .post__callout strong { font-weight: 600; }
-.post__callout a { color: var(--black); text-decoration: underline; }
+.post__callout a { color: var(--accent); text-decoration: underline; }
+.post__body a:not(.btn):not(.blog-card) { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.post__body a:not(.btn):not(.blog-card):hover { color: var(--accent-dark); }
 
 .post__related {
   margin-top: 3rem;
