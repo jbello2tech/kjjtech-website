@@ -543,7 +543,7 @@ export default {
           await sendSubmissionDiscord(env, { ...body, id, rating }, links);
         }
 
-        return Response.redirect('https://kjjtech.com/thanks.html', 303);
+        return Response.redirect('https://kjjtech.com/thanks.html?review=1', 303);
       }
 
       // Checklist download from blog posts — capture the lead, then hand over the PDF

@@ -1,6 +1,7 @@
 name = "kjjtech-reviews"
 main = "src/index.js"
 compatibility_date = "2026-04-01"
+account_id = "01d3e66e6823e2669272faa7917f9fab"
 
 [vars]
 GITHUB_REPO = "jbello2tech/kjjtech-website"
