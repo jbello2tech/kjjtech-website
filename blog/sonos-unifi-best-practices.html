@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sonos on UniFi: Best Practices & Setup Guide (2026)</title>
+  <meta name="description" content="How to set up Sonos on a UniFi network: Wi-Fi settings, 2.4 GHz and WPA3, STP for wired speakers, IGMP snooping, and making Sonos work across VLANs." />
+  <meta property="og:title" content="Sonos on UniFi: Best Practices & Setup Guide" />
+  <meta property="og:description" content="How to set up Sonos on a UniFi network: Wi-Fi settings, 2.4 GHz and WPA3, STP for wired speakers, IGMP snooping, and making Sonos work across VLANs." />
+  <meta property="og:image" content="https://kjjtech.com/og-image.png" />
+  <meta property="og:url" content="https://kjjtech.com/blog/sonos-unifi-best-practices.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="KJJ Tech" />
+  <link rel="canonical" href="https://kjjtech.com/blog/sonos-unifi-best-practices.html" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+  <link rel="mask-icon" href="/kjjtech_mask_icon.svg" color="#0a0a0a" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="stylesheet" href="/fonts.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBC70RYJEC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZBC70RYJEC');
+  </script>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="blog.css" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Sonos on UniFi: Best Practices & Setup Guide",
+    "description": "How to set up Sonos on a UniFi network: Wi-Fi settings, 2.4 GHz and WPA3, STP for wired speakers, IGMP snooping, and making Sonos work across VLANs.",
+    "image": "https://kjjtech.com/og-image.png",
+    "author": { "@type": "Person", "name": "Jorge Bello", "url": "https://kjjtech.com/#about", "jobTitle": "Founder, KJJ Tech" },
+    "publisher": { "@type": "Organization", "name": "KJJ Tech", "logo": { "@type": "ImageObject", "url": "https://kjjtech.com/logo.jpg" } },
+    "datePublished": "2026-11-05",
+    "dateModified": "2026-11-05",
+    "mainEntityOfPage": "https://kjjtech.com/blog/sonos-unifi-best-practices.html"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kjjtech.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://kjjtech.com/blog/" },
+      { "@type": "ListItem", "position": 3, "name": "Sonos on UniFi: Best Practices & Setup Guide", "item": "https://kjjtech.com/blog/sonos-unifi-best-practices.html" }
+    ]
+  }
+  </script>
+  <!-- RB2B visitor identification -->
+  <script>!function(key) {if (window.reb2b) return;window.reb2b = {loaded: true};var s = document.createElement("script");s.async = true;s.src = "https://ddwl4m2hdecbv.cloudfront.net/b/" + key + "/" + key + ".js.gz";document.getElementsByTagName("script")[0].parentNode.insertBefore(s, document.getElementsByTagName("script")[0]);}("R6G5YH5RE365");</script>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo"><img src="/logo.jpg" alt="KJJ Tech" /></a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/getintouch.html">Get in Touch</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <article class="post">
+    <a href="/blog/" class="post__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15,18 9,12 15,6"/></svg>
+      Back to Blog
+    </a>
+
+    <span class="post__tag">Guide</span>
+    <h1 class="post__title">Sonos on UniFi: Best Practices & Setup Guide</h1>
+    <p class="post__meta">November 2026 &middot; 10 min read</p>
+
+    <div class="post__body">
+      <p>Sonos and UniFi are one of the most common pairings we see in homes and small businesses, and one of the most common sources of "my speakers keep disappearing" calls. The good news: almost every Sonos problem on a UniFi network comes down to a handful of settings. Get those right and Sonos is rock solid.</p>
+
+      <p>This guide covers the Wi-Fi, switch, multicast and VLAN settings that matter, using the menu names from <strong>UniFi Network 11</strong> (most also apply to Network 9 and 10).</p>
+
+      <p class="post__callout"><strong>Rather have it done for you?</strong> KJJ Tech sets up and troubleshoots Sonos on UniFi, onsite in <a href="/unifi-installation-orlando.html">Orlando</a> or <a href="/remote-unifi-services.html">remotely at a flat price</a> anywhere in the U.S. <a href="/getintouch.html?plan=unifi">Book a free 30-minute call &rarr;</a></p>
+
+      <h2>The Quick Checklist</h2>
+
+      <p>If you only read one section, make it this one:</p>
+
+      <ol>
+        <li>Put Sonos on the <strong>same network as the phones that control it</strong>, unless you're ready to handle cross-VLAN discovery (covered below).</li>
+        <li>Keep <strong>2.4 GHz enabled</strong> on the SSID Sonos uses. Several popular models only connect over 2.4 GHz.</li>
+        <li>Use <strong>WPA2</strong> (not WPA3-only) unless every Sonos product you own supports WPA3.</li>
+        <li>Leave <strong>Client Device Isolation</strong> and the <strong>Multicast and Broadcast Blocker</strong> off on that SSID.</li>
+        <li>If any Sonos product is wired, set a <strong>low STP priority on your main UniFi switch</strong> so a speaker never becomes the root bridge.</li>
+        <li>Give each Sonos product a <strong>fixed IP</strong>.</li>
+      </ol>
+
+      <h2>How Sonos Uses Your Network</h2>
+
+      <p>Understanding two things about Sonos explains almost every problem:</p>
+
+      <ul>
+        <li><strong>Discovery is multicast.</strong> The Sonos app finds speakers using multicast discovery (SSDP on UDP 1900, plus mDNS for features like AirPlay and Spotify Connect). Multicast doesn't cross VLANs on its own, and some Wi-Fi "optimization" features filter it out.</li>
+        <li><strong>Sonos can build its own network.</strong> Depending on the products, wiring one Sonos to your switch can make the others form <em>SonosNet</em>, a private wireless mesh between speakers that uses Spanning Tree Protocol (STP). That's where switch settings come in.</li>
+      </ul>
+
+      <h2>Wi-Fi Settings for the Sonos SSID</h2>
+
+      <p>Open <strong>Settings &rarr; WiFi</strong> and edit the network your Sonos products join.</p>
+
+      <h3>Keep 2.4 GHz on</h3>
+      <p>According to <a href="https://support.sonos.com/en-us/article/supported-wifi-modes-and-security-standards-for-sonos-products" target="_blank" rel="noopener">Sonos's own compatibility list</a>, the <strong>Arc, Arc SL, Beam (Gen 1 and 2), Ray and Amp connect over 2.4 GHz only</strong>, and anything set up with the older S1 app is limited to 2.4 GHz too. A 5 GHz-only SSID is the most common reason a soundbar "can't find" the network. Newer speakers like the Era 100 and Era 300 can use 5 GHz, but they'll work fine on a dual-band SSID.</p>
+
+      <h3>Use WPA2 unless everything supports WPA3</h3>
+      <p>Every Sonos product supports WPA2 Personal. WPA3 works only on newer models running the current Sonos app, and <strong>not on older products like the Play:1, Play:3, Play:5 (Gen 2) or One (Gen 1)</strong>. In UniFi, WPA3 also forces PMF to <em>Required</em>, which UniFi itself warns can break legacy and IoT clients. If you have any older Sonos gear, set the Security Protocol to WPA2.</p>
+
+      <h3>Don't block the traffic Sonos depends on</h3>
+      <ul>
+        <li><strong>Client Device Isolation: off.</strong> Your phone has to talk directly to the speakers, and speakers talk to each other to stay in sync.</li>
+        <li><strong>Multicast and Broadcast Blocker: off.</strong> It blocks exactly the discovery traffic Sonos needs.</li>
+        <li><strong>Multicast Filtering: Off</strong>, or make sure it isn't filtering discovery traffic if you use Auto or Custom.</li>
+        <li><strong>Multicast to Unicast</strong> and <strong>Proxy ARP:</strong> both fine to leave off. If speakers drop out of groups or vanish from the app intermittently, these are among the first settings to test toggling.</li>
+      </ul>
+
+      <h3>Keep the channel stable</h3>
+      <p>Sonos is sensitive to anything that briefly disconnects it. On the APs near your speakers, avoid DFS channels on 5 GHz (a radar event forces the AP to switch channels and every client drops), and use 20 MHz width on 2.4 GHz. If you're chasing dropouts, temporarily disabling <strong>band steering</strong> and <strong>fast roaming</strong> on the Sonos SSID is a good test, since speakers don't move and gain nothing from either.</p>
+
+      <h2>Wired Sonos, SonosNet and STP</h2>
+
+      <p>Wiring a soundbar or a Sonos Port is great for reliability, but it's the source of the strangest Sonos problems on UniFi: network-wide slowdowns, switches flapping, or speakers dropping when you plug in a second one.</p>
+
+      <p>The cause is <strong>Spanning Tree</strong>. When SonosNet is active, Sonos speakers participate in STP, and with default priorities a speaker can end up as the <em>root bridge</em> of your network. The fix is simple:</p>
+
+      <ol>
+        <li>Open your main (core) UniFi switch from <strong>UniFi Devices</strong>.</li>
+        <li>In its settings, make sure STP is set to <strong>RSTP</strong> (the UniFi default).</li>
+        <li>Set its <strong>STP priority to 4096</strong> (or the lowest value in the list), and give downstream switches a higher value such as 8192 or 16384.</li>
+      </ol>
+
+      <p>Your core switch is then always the root, and Sonos simply attaches to your network instead of trying to run it. Also avoid wiring more than one Sonos product unless you need to; each extra wired speaker creates another path that STP has to block.</p>
+
+      <h2>IGMP Snooping</h2>
+
+      <p>IGMP snooping (in <strong>Settings &rarr; Networks</strong>) keeps multicast traffic from flooding every port. It's good practice, and it works with Sonos as long as there's a <strong>querier</strong>. Leave <strong>Querier Selection</strong> on <em>Primary / Failover</em> with one of your UniFi switches selected. Snooping without a querier is a classic cause of speakers that work for a while and then disappear.</p>
+
+      <h2>Sonos on an IoT VLAN</h2>
+
+      <p>Putting smart speakers on an <a href="/blog/unifi-vlan-setup-guide.html">IoT VLAN</a> is good security practice, but Sonos is one of the hardest devices to split from the phones that control it. You have three options, from easiest to most involved:</p>
+
+      <ol>
+        <li><strong>Same network as your phones.</strong> The simplest and most reliable. Sonos isn't a high-risk device, and many homes are better off leaving it on the main network.</li>
+        <li><strong>A dedicated "Media" network that phones also join.</strong> Speakers, TVs and the phones that control them share one segment, separate from computers and other IoT devices.</li>
+        <li><strong>True cross-VLAN</strong> (Sonos on IoT, phones on Trusted). Doable, but it needs all three of the steps below.</li>
+      </ol>
+
+      <h3>Making cross-VLAN Sonos work</h3>
+      <ol>
+        <li><strong>Discovery:</strong> set <strong>Gateway mDNS Proxy</strong> (on the <strong>Settings &rarr; Networks</strong> page) to <em>Custom</em>, and add both your Trusted and IoT networks to the <strong>VLAN Scope</strong>. Results depend on your Sonos app version and how much it relies on SSDP, which the mDNS proxy doesn't forward, so test with your actual phones.</li>
+        <li><strong>Trusted &rarr; IoT:</strong> in <strong>Policy Engine &rarr; Policy Table</strong>, allow your Trusted zone to reach your Sonos products. Use fixed IPs and group them as an <strong>Object</strong> so the policy stays tidy.</li>
+        <li><strong>IoT &rarr; Trusted (the step everyone misses):</strong> Sonos speakers push status updates back to the app as new connections. Allow your Sonos products to reach your Trusted network on the Sonos control ports, <strong>TCP 3400, 3401 and 3500</strong>. If you can play music but the app never updates what's playing, this is the missing piece.</li>
+      </ol>
+
+      <p>Sonos publishes the full list of ports it uses (control, music library, AirPlay and Spotify Connect) in its <a href="https://support.sonos.com/en-us/article/configure-your-firewall-to-work-with-sonos" target="_blank" rel="noopener">firewall configuration article</a>. Keep your policies limited to your Sonos objects rather than opening the whole IoT zone.</p>
+
+      <h2>Give Every Sonos a Fixed IP</h2>
+
+      <p>Sonos doesn't strictly require fixed addresses, but they make everything easier: firewall objects stay accurate, troubleshooting is faster, and music services that point at a speaker's address don't break after a DHCP change. In UniFi, open each Sonos client, go to its settings and enable <strong>Fixed IP Address</strong>.</p>
+
+      <h2>Troubleshooting Common Sonos Problems on UniFi</h2>
+
+      <ul>
+        <li><strong>Soundbar or Amp can't find the Wi-Fi:</strong> the SSID is probably 5 GHz-only or WPA3-only. Enable 2.4 GHz and use WPA2.</li>
+        <li><strong>App says "No Sonos products found":</strong> your phone is on a different network than the speakers, or Client Device Isolation or the Multicast and Broadcast Blocker is on.</li>
+        <li><strong>Speakers disappear after a few hours:</strong> check IGMP snooping has a querier, and that the speakers have fixed IPs.</li>
+        <li><strong>Network slows down or drops when a Sonos is wired:</strong> STP. Set your core switch priority to 4096.</li>
+        <li><strong>Music plays but the app doesn't update:</strong> cross-VLAN setup missing the IoT &rarr; Trusted policy for TCP 3400, 3401 and 3500.</li>
+        <li><strong>Grouped rooms drift out of sync or drop:</strong> weak signal at one speaker, or a DFS channel change. Check the client's signal and experience in UniFi.</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>Should Sonos be on a separate VLAN?</h3>
+      <p>It can be, but it's not required. If you separate it, expect to configure mDNS and firewall policies in both directions. For most homes, the same network as your phones, or a shared Media network, is the better trade-off.</p>
+
+      <h3>Does Sonos work on 5 GHz?</h3>
+      <p>Some models do. Newer speakers like the Era 100, Era 300 and Five support 5 GHz on the current Sonos app, but the Arc, Beam, Ray and Amp connect over 2.4 GHz only. Use a dual-band SSID so every product can connect.</p>
+
+      <h3>Should I wire my Sonos speakers?</h3>
+      <p>Wiring one product, like a soundbar or Sonos Port near your switch, can improve reliability. Set your core switch's STP priority first, and avoid wiring several products unless you have a specific reason.</p>
+
+      <h3>Will Sonos work with WPA3?</h3>
+      <p>Only newer Sonos products set up with the current app support WPA3. If you have any older products, or anything set up with the S1 app, use WPA2 on the SSID Sonos joins.</p>
+
+      <h2>Need Help?</h2>
+
+      <p>Sonos on UniFi is very reliable once it's set up correctly, but chasing intermittent dropouts can eat entire weekends. We set up and troubleshoot Sonos and UniFi together, from a single soundbar to whole-home audio and multi-room systems in restaurants and venues.</p>
+
+      <div class="post__lead">
+        <h3>Free: UniFi Security Checklist</h3>
+        <p>26 settings to check on any UniFi network, from admin accounts to firewall zones, on one printable PDF.</p>
+        <form action="https://reviews.kjjtech.com/checklist" method="POST" class="post__lead-form">
+          <input type="hidden" name="source" value="sonos-unifi-best-practices" />
+          <input type="text" name="website" tabindex="-1" autocomplete="off" class="post__lead-hp" aria-hidden="true" />
+          <input type="email" name="email" placeholder="you@company.com" required aria-label="Email address" />
+          <button type="submit" class="btn btn--primary">Send me the checklist</button>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADlO6Hzgkc_iaMdj" data-size="flexible"></div>
+        </form>
+        <p class="post__lead-fine">No spam. Just the PDF, plus an occasional new guide.</p>
+      </div>
+
+      <div class="post__cta">
+        <h3>Sonos still acting up?</h3>
+        <p>We'll find the setting that's causing it. Onsite in Orlando or remote anywhere in the U.S.</p>
+        <a href="/getintouch.html?plan=unifi" class="btn btn--primary">Book a free call</a>
+        <a href="/remote-unifi-services.html" class="btn btn--ghost">Remote review — $340 flat</a>
+      </div>
+
+      <div class="post__related">
+        <h3>Related reading</h3>
+        <div class="post__related-grid">
+          <a href="/blog/unifi-vlan-setup-guide.html" class="blog-card">
+            <span class="blog-card__tag">Guide</span>
+            <h2 class="blog-card__title">How to Set Up VLANs in UniFi (2026 Guide)</h2>
+            <p class="blog-card__excerpt">Create networks, map WiFi and switch ports, and lock down traffic with the zone-based firewall. Updated for UniFi Network 11.</p>
+            <div class="blog-card__meta">
+              <span class="blog-card__date">November 2026</span>
+              <span class="blog-card__read">Read &rarr;</span>
+            </div>
+          </a>
+          <a href="/blog/unifi-zone-based-firewall.html" class="blog-card">
+            <span class="blog-card__tag">Guide</span>
+            <h2 class="blog-card__title">UniFi Zone-Based Firewall: Setup Guide & Best Practices</h2>
+            <p class="blog-card__excerpt">A practical walkthrough of the new zone-based firewall in UniFi Network 9.0+ — zones, policies between them, and migration from legacy rules.</p>
+            <div class="blog-card__meta">
+              <span class="blog-card__date">April 2026</span>
+              <span class="blog-card__read">Read &rarr;</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__top">
+      <div class="footer__col">
+        <a href="/" class="footer__brand"><img src="/logo.jpg" alt="KJJ Tech" /></a>
+        <p class="footer__tagline">Technology that works for you.</p>
+        <div class="footer__socials">
+          <a href="https://www.linkedin.com/company/kjjtech" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="mailto:support@kjjtech.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Navigate</p>
+        <ul class="footer__links">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#about">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/getintouch.html">Get in Touch</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Contact</p>
+        <ul class="footer__contact-list">
+          <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
+          <li><a href="tel:+19145279957">(914) 527-9957</a></li>
+          <li><a href="/orlando-it-support.html">Serving Orlando, FL</a> &amp; nationwide</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p class="footer__copy">&copy; 2026 KJJ Tech. All rights reserved. <a href="/privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms.html" style="color:inherit;text-decoration:underline;">Terms of Service</a></p>
+      <div class="footer__bottom-contact">
+        <a href="mailto:support@kjjtech.com">support@kjjtech.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>
