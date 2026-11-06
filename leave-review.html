@@ -107,7 +107,7 @@
     .google-review__qr { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; flex-shrink: 0; padding-left: 1rem; border-left: 1px solid var(--gray-100); }
     .google-review__qr img { width: 88px; height: 88px; image-rendering: pixelated; }
     .google-review__qr span { font-size: 0.7rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.08em; }
-    @media (max-width: 760px), (hover: none) { .google-review__qr { display: none; } }
+    @media (hover: none) and (pointer: coarse) { .google-review__qr { display: none; } }
 
     .review-divider {
       display: flex;
