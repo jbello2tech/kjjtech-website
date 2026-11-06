@@ -104,6 +104,10 @@
     .google-review__text strong { display: block; font-size: 1rem; }
     .google-review__text span { font-size: 0.85rem; color: var(--gray-500); }
     .google-review__arrow { font-size: 1.25rem; color: var(--gray-500); }
+    .google-review__qr { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; flex-shrink: 0; padding-left: 1rem; border-left: 1px solid var(--gray-100); }
+    .google-review__qr img { width: 88px; height: 88px; image-rendering: pixelated; }
+    .google-review__qr span { font-size: 0.7rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.08em; }
+    @media (max-width: 760px), (hover: none) { .google-review__qr { display: none; } }
 
     .review-divider {
       display: flex;
@@ -163,6 +167,10 @@
         <span>Takes 30 seconds and helps other businesses find us.</span>
       </div>
       <span class="google-review__arrow" aria-hidden="true">&rarr;</span>
+      <div class="google-review__qr">
+        <img src="/google-review-qr.png" alt="QR code to leave a Google review" width="88" height="88" />
+        <span>Scan with phone</span>
+      </div>
     </a>
 
     <div class="review-divider">or leave one here</div>
