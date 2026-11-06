@@ -1566,3 +1566,6 @@ h1 { font-family: var(--font); }
   .pricing-card--managed > .pricing-card__cta { width: 100%; text-align: center; margin-top: 1.25rem; }
 }
 .quick-q { padding: 0; }
+
+/* Visible keyboard focus */
+a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

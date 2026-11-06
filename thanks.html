@@ -50,20 +50,32 @@
     .thanks__logo { height: 32px; width: auto; margin-bottom: 1rem; }
     .thanks h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
     .thanks p  { max-width: 420px; }
+    .thanks__icon { color: var(--accent); border-color: #c7d6fb; background: #eef3ff; }
+    .thanks__sooner { font-size: 0.95rem; }
+    .thanks__sooner a { color: var(--accent); text-decoration: underline; }
+    .thanks__next { display: flex; flex-direction: column; gap: 0.5rem; align-items: center; margin: 0.5rem 0 1.75rem; padding: 1.25rem 1.5rem; border: 1px solid var(--gray-100); border-radius: 12px; background: var(--gray-50); }
+    .thanks__next-title { font-family: var(--font); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-500); margin: 0 0 0.25rem; }
+    .thanks__next a { color: var(--accent); font-size: 0.95rem; }
   </style>
   <!-- RB2B visitor identification -->
   <script>!function(key) {if (window.reb2b) return;window.reb2b = {loaded: true};var s = document.createElement("script");s.async = true;s.src = "https://ddwl4m2hdecbv.cloudfront.net/b/" + key + "/" + key + ".js.gz";document.getElementsByTagName("script")[0].parentNode.insertBefore(s, document.getElementsByTagName("script")[0]);}("R6G5YH5RE365");</script>
 </head>
 <body>
   <div class="thanks">
-    <a href="/"><img src="logo.jpg" alt="KJJ Tech" class="thanks__logo" /></a>
+    <a href="/"><img src="logo.jpg" alt="KJJ Tech" class="thanks__logo" width="234" height="58" /></a>
     <div class="thanks__icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20,6 9,17 4,12"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20,6 9,17 4,12"/></svg>
     </div>
-    <h1>Message received.</h1>
-    <p>Thanks for reaching out. We typically respond within 2 hours during business hours. We'll be in touch shortly.</p>
-    <p style="font-size:0.85rem;color:var(--gray-500);">Returning to home in <span id="countdown">10</span> seconds…</p>
-    <a href="/" class="btn btn--ghost">Back to home now</a>
+    <h1 id="thanks-title">Message received.</h1>
+    <p id="thanks-msg">Thanks for reaching out. We typically respond within 2 hours during business hours. We'll be in touch shortly.</p>
+    <p class="thanks__sooner">Need us sooner? <a href="tel:+19145279957">Call</a> or <a href="sms:+19145279957">text</a> (914) 527-9957.</p>
+    <div class="thanks__next">
+      <p class="thanks__next-title">While you wait</p>
+      <a href="/blog/unifi-installation-cost.html">What UniFi installation costs &rarr;</a>
+      <a href="/blog/network-security-tips.html">12 network security tips &rarr;</a>
+      <a href="/blog/network-upgrade-signs.html">7 signs your network needs an upgrade &rarr;</a>
+    </div>
+    <a href="/" class="btn btn--ghost">Back to home</a>
   </div>
   <script>
     // Form redirects append ?lead=<form> so GA can count real leads
@@ -71,15 +83,16 @@
     (function(){
       var lead = new URLSearchParams(location.search).get('lead');
       if (lead && typeof gtag === 'function') gtag('event', 'generate_lead', { lead_source: lead });
-    })();
-    (function(){
-      var n = 10;
-      var el = document.getElementById('countdown');
-      var t = setInterval(function(){
-        n--;
-        if (el) el.textContent = n;
-        if (n <= 0) { clearInterval(t); window.location.href = '/'; }
-      }, 1000);
+      var copy = {
+        assessment: ['Assessment request received.', "Thanks! We'll call or email within one business day to schedule your free network and security assessment."],
+        intake: ['Thanks, we got your details.', "We'll review what you sent and confirm your discovery call within one business day. If you already booked a time, you're all set."],
+        quick: ['Question received.', 'We typically reply within 2 hours during business hours.']
+      }[lead];
+      if (copy) {
+        document.getElementById('thanks-title').textContent = copy[0];
+        document.getElementById('thanks-msg').textContent = copy[1];
+        document.title = copy[0] + ' | KJJ Tech';
+      }
     })();
   </script>
 </body>
