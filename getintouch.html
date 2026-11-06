@@ -199,6 +199,7 @@
         <li><a href="/blog/">Blog</a></li>
         <li><a href="/pricing.html">Pricing</a></li>
         <li><a href="/getintouch.html">Get in Touch</a></li>
+        <li><a href="/assessment.html" class="nav__cta">Free assessment</a></li>
       </ul>
       <button class="nav__toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -214,7 +215,25 @@
   </section>
 
   <!-- TWO-COLUMN: CALENDLY + INTAKE FORM -->
-  <section class="onboard-sections">
+    <section class="quick-q">
+    <div class="container">
+      <details class="quick-q__box">
+        <summary class="quick-q__summary"><span>Just have a quick question?</span><span class="quick-q__hint">Skip the full form. Send a message and we'll reply within one business day.</span></summary>
+        <form action="https://formspree.io/f/xreydwyb" method="POST" class="quick-q__form">
+          <input type="hidden" name="_subject" value="Quick question from KJJ Tech website" />
+          <input type="hidden" name="_next" value="https://kjjtech.com/thanks.html?lead=quick" />
+          <input type="hidden" name="form_type" value="quick_question" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+          <label>Name<input type="text" name="name" required autocomplete="name" /></label>
+          <label>Email or phone<input type="text" name="contact" required autocomplete="email" /></label>
+          <label class="quick-q__msg">Your question<textarea name="message" rows="3" required></textarea></label>
+          <button type="submit" class="btn btn--primary">Send question</button>
+        </form>
+      </details>
+    </div>
+  </section>
+
+<section class="onboard-sections">
     <div class="onboard-grid">
 
       <!-- LEFT: Calendly -->

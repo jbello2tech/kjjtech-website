@@ -136,6 +136,8 @@
       .a-top__call span.label { display: none; }
       .a-footer__inner { flex-direction: column; text-align: center; }
     }
+    .a-jump { display: none; }
+    @media (max-width: 900px) { .a-jump { display: block; text-align: center; margin: 0 0 1.5rem; } }
   </style>
   <script type="application/ld+json">
   {
@@ -179,6 +181,7 @@
         <p class="a-eyebrow"><span class="dot"></span>Free 30-Minute Network &amp; Security Assessment</p>
         <h1>Find out what's actually wrong with your network before it costs you a client, a workday, or a breach.</h1>
         <p class="a-hero__sub">A KJJ Tech engineer reviews your hardware, Wi-Fi coverage, and security exposure, then hands you a plain-English report ranking what to fix first. No pitch. No pressure. Yours either way.</p>
+        <a href="#assessmentForm" class="btn btn--primary a-jump">Claim my free assessment &darr;</a>
 
         <ul class="a-checklist">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Full walkthrough of your current hardware and configuration</li>

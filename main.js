@@ -138,3 +138,15 @@ document.addEventListener('click', (e) => {
     q.insertAdjacentElement('afterend', btn);
   });
 })();
+
+
+// Mobile contact bar (call + free assessment), hidden on the assessment landing page
+(function () {
+  if (/\/assessment(\.html)?$/.test(location.pathname)) return;
+  var bar = document.createElement('div');
+  bar.className = 'mobile-bar';
+  bar.innerHTML = '<a class="mobile-bar__call" href="tel:+19145279957">Call us</a>' +
+                  '<a class="mobile-bar__book" href="/assessment.html">Free assessment</a>';
+  document.body.appendChild(bar);
+  document.body.classList.add('has-mobile-bar');
+})();

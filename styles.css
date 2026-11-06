@@ -1502,3 +1502,67 @@ h1 { font-family: var(--font); }
 #projects .card .section-tag { color: var(--gray-500); }
 #projects .card h3 a { color: var(--black); text-decoration: none; }
 #projects .card h3 a:hover { color: var(--accent); }
+
+/* ─── Nav CTA ─── */
+.nav__links a.nav__cta { color: var(--white); background: var(--accent); padding: 0.5rem 1rem; border-radius: 2px; }
+.nav__links a.nav__cta:hover { color: var(--white); background: var(--accent-dark); }
+@media (max-width: 900px) { .nav__links a.nav__cta { display: inline-block; margin-top: 0.5rem; } }
+
+/* ─── Mobile contact bar ─── */
+.mobile-bar { display: none; }
+@media (max-width: 900px) {
+  .mobile-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom)); background: rgba(255,255,255,0.97); border-top: 1px solid var(--gray-100); box-shadow: 0 -4px 16px rgba(0,0,0,0.06); }
+  .mobile-bar a { display: flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.75rem; border-radius: 6px; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; }
+  .mobile-bar__call { border: 1px solid var(--gray-300); color: var(--black); }
+  .mobile-bar__book { background: var(--accent); color: var(--white); }
+  body.has-mobile-bar { padding-bottom: 76px; }
+  body.has-mobile-bar .back-to-top { bottom: 90px; }
+}
+
+/* ─── Pricing: typical jobs ─── */
+.typical-jobs { max-width: 820px; margin: 4rem auto 0; }
+.typical-jobs__title { text-align: center; font-size: clamp(1.4rem, 2.5vw, 1.9rem); margin-bottom: 0.5rem; }
+.typical-jobs__sub { text-align: center; max-width: 620px; margin: 0 auto 1.75rem; }
+.typical-jobs__table { border: 1px solid var(--gray-100); border-radius: var(--radius); overflow: hidden; background: var(--white); }
+.tj-row { display: grid; grid-template-columns: 2.2fr 1fr 1fr; gap: 1rem; padding: 0.95rem 1.25rem; border-top: 1px solid var(--gray-100); font-family: var(--font-body); font-size: 0.95rem; color: var(--text); }
+.tj-row span:last-child { font-weight: 600; color: var(--black); }
+.tj-row--head { border-top: 0; background: var(--gray-50); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-500); }
+.tj-row--head span:last-child { color: var(--gray-500); font-weight: 400; }
+.typical-jobs__more { text-align: center; margin-top: 1.25rem; font-size: 0.9rem; }
+@media (max-width: 600px) {
+  .tj-row { grid-template-columns: 1fr auto; row-gap: 0.2rem; }
+  .tj-row span:first-child { grid-column: 1 / -1; font-weight: 500; color: var(--black); }
+  .tj-row--head { display: none; }
+}
+
+/* ─── Get Started: quick question ─── */
+.quick-q { padding: 0 1.5rem; }
+.quick-q__box { max-width: var(--max-w); margin: 0 auto 2rem; border: 1px solid var(--gray-100); border-radius: var(--radius); background: var(--gray-50); }
+.quick-q__summary { list-style: none; cursor: pointer; padding: 1.1rem 1.5rem; display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; align-items: baseline; font-family: var(--font-body); }
+.quick-q__summary::-webkit-details-marker { display: none; }
+.quick-q__summary span:first-child { font-weight: 600; color: var(--accent); }
+.quick-q__summary span:first-child::after { content: " +"; }
+.quick-q__box[open] .quick-q__summary span:first-child::after { content: " \2212"; }
+.quick-q__hint { font-size: 0.9rem; color: var(--gray-500); }
+.quick-q__form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: 0 1.5rem 1.5rem; }
+.quick-q__form label { display: flex; flex-direction: column; gap: 0.35rem; font-family: var(--font-body); font-size: 0.85rem; font-weight: 500; color: var(--black); }
+.quick-q__msg { grid-column: 1 / -1; }
+.quick-q__form .btn { justify-self: start; }
+@media (max-width: 600px) { .quick-q__form { grid-template-columns: 1fr; } }
+
+/* ─── Mobile pass ─── */
+@media (max-width: 600px) {
+  .hero__cta { flex-direction: column; }
+  .hero__cta .btn { width: 100%; text-align: center; }
+  .services, .how, .about, .trust, .faq, .testimonials, #projects { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+  .explore__row { justify-content: flex-start; }
+  .explore__label { flex-basis: 100%; margin: 0.5rem 0 0; }
+  .hero-card { padding: 1.25rem; }
+  .hero-card__list li { font-size: 0.9rem; }
+}
+@media (max-width: 900px) {
+  .pricing-card--managed { align-items: stretch; text-align: left; }
+  .pricing-card--managed > .pricing-card__features { align-self: stretch; }
+  .pricing-card--managed > .pricing-card__cta { width: 100%; text-align: center; margin-top: 1.25rem; }
+}
+.quick-q { padding: 0; }
