@@ -1392,3 +1392,20 @@ h1 { font-family: var(--font); }
 .hero__trust li { position: relative; padding-left: 1.1rem; font-size: 0.85rem; color: var(--text); }
 .hero__trust li::before { content: ""; position: absolute; left: 0; top: 0.35em; width: 0.45rem; height: 0.7rem; border: solid var(--accent); border-width: 0 2px 2px 0; transform: rotate(45deg); }
 @media (prefers-reduced-motion: reduce) { .topo-packet { display: none; } }
+
+/* ─── Services: accent icons, clickable cards, explore strip ─── */
+.how--white { background: var(--white); border-bottom: 1px solid var(--gray-100); }
+.services .card { position: relative; display: flex; flex-direction: column; }
+.services .card__icon { width: 52px; height: 52px; padding: 11px; border-radius: 12px; background: #eef3ff; color: var(--accent); }
+.services .card h3 { font-weight: 400; }
+.card__link { margin-top: auto; padding-top: 1.25rem; font-size: 0.85rem; font-weight: 500; color: var(--accent); font-family: var(--font-body); }
+.card__link::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius); }
+.services .card:hover { border-color: var(--accent); }
+.services .card:hover .card__link { color: var(--accent-dark); }
+.explore { margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; align-items: center; }
+.explore__row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; justify-content: center; }
+.explore__label { font-family: var(--font); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-500); margin-right: 0.4rem; }
+.explore__chip { font-family: var(--font-body); font-size: 0.85rem; padding: 0.45rem 0.9rem; border-radius: 999px; background: var(--white); border: 1px solid var(--gray-100); color: var(--text); transition: border-color 0.2s, color 0.2s; }
+.explore__chip:hover { border-color: var(--accent); color: var(--accent); }
+.explore__chip--accent { background: var(--accent); border-color: var(--accent); color: var(--white); }
+.explore__chip--accent:hover { background: var(--accent-dark); color: var(--white); }
