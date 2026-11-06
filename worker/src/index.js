@@ -6,6 +6,7 @@
 //   GET  /review/:id/remove?t=<hmac>     — remove an already-published review from GitHub
 //   GET  /list?key=<ADMIN_KEY>           — list recent reviews (for debugging)
 //   POST /checklist                      — checklist PDF download form; stores lead + pings Discord
+//   POST /rb2b?key=<RB2B_WEBHOOK_KEY>    — RB2B visitor-identification webhook; reformats + pings Discord
 
 const enc = new TextEncoder();
 const dec = new TextDecoder();
@@ -242,6 +243,63 @@ async function sendApprovedDiscord(env, review, removeUrl) {
   });
 }
 
+// ---- RB2B visitor alerts -----------------------------------------------
+// RB2B posts one JSON object per identified visitor. Field names have
+// varied ("First Name" vs "first_name"), so match keys loosely.
+
+function rb2bField(data, ...names) {
+  const norm = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
+  const wanted = names.map(norm);
+  for (const [k, v] of Object.entries(data || {})) {
+    if (wanted.includes(norm(k)) && v != null && String(v).trim() !== '') {
+      return Array.isArray(v) ? v.join(', ') : String(v).trim();
+    }
+  }
+  return '';
+}
+
+async function sendRb2bDiscord(env, data) {
+  const f = (...n) => rb2bField(data, ...n);
+  const name = [f('First Name', 'firstname'), f('Last Name', 'lastname')].filter(Boolean).join(' ');
+  const company = f('Company Name', 'company');
+  const linkedin = f('LinkedIn URL', 'linkedin');
+  const page = f('Captured URL', 'page', 'url');
+  const location = [f('City'), f('State'), f('Zipcode', 'zip')].filter(Boolean).join(', ');
+  const clip = (s, n = 1000) => (s ? String(s).slice(0, n) : '—');
+
+  const fields = [
+    { name: 'Title', value: clip(f('Title', 'job title'), 200), inline: true },
+    { name: 'Company', value: clip(company, 200), inline: true },
+    { name: 'Business Email', value: clip(f('Business Email', 'email'), 200), inline: true },
+    { name: 'Industry', value: clip(f('Industry'), 200), inline: true },
+    { name: 'Employees', value: clip(f('Employee Count', 'employees'), 100), inline: true },
+    { name: 'Revenue', value: clip(f('Estimate Revenue', 'Estimated Revenue', 'revenue'), 100), inline: true },
+    { name: 'Location', value: clip(location, 200), inline: true },
+    { name: 'Website', value: clip(f('Website', 'company website'), 200), inline: true },
+    { name: 'Page Viewed', value: clip(page, 500), inline: false },
+    { name: 'Referrer', value: clip(f('Referrer'), 500), inline: false },
+  ];
+  const tags = f('Tags');
+  if (tags) fields.push({ name: 'Tags', value: clip(tags, 500), inline: false });
+
+  const embed = {
+    title: name ? `👀 ${name}${company ? ` — ${company}` : ''}` : `🏢 Company visit: ${company || 'Unknown'}`,
+    color: 0x8b5cf6,
+    fields,
+    footer: { text: 'RB2B visitor identification' },
+    timestamp: new Date().toISOString(),
+  };
+  if (/^https?:\/\//i.test(linkedin)) embed.url = linkedin;
+
+  const hook = env.RB2B_DISCORD_WEBHOOK_URL || env.LEADS_WEBHOOK_URL || env.DISCORD_WEBHOOK_URL;
+  const res = await fetch(hook, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ embeds: [embed] }),
+  });
+  if (!res.ok) throw new Error(`RB2B Discord webhook failed: ${res.status} ${await res.text()}`);
+}
+
 async function ghHeaders(env) {
   return {
     'Authorization': `Bearer ${env.GITHUB_TOKEN}`,
@@ -471,8 +529,21 @@ export default {
         return Response.redirect(pdfUrl, 303);
       }
 
+      // RB2B identified-visitor webhook → Discord
+      if (pathname === '/rb2b' && req.method === 'POST') {
+        const key = url.searchParams.get('key') || '';
+        if (!env.RB2B_WEBHOOK_KEY || !(await timingSafeEqual(key, env.RB2B_WEBHOOK_KEY))) {
+          return new Response('forbidden', { status: 403 });
+        }
+        let data;
+        try { data = await req.json(); } catch { return new Response('bad json', { status: 400 }); }
+        const items = Array.isArray(data) ? data : [data];
+        for (const item of items.slice(0, 10)) await sendRb2bDiscord(env, item);
+        return new Response('ok', { status: 200 });
+      }
+
       // Approve / deny / remove
-      const m = pathname.match(/^\/review\/([^/]+)\/(approve|deny|remove)$/);
+      const m =pathname.match(/^\/review\/([^/]+)\/(approve|deny|remove)$/);
       if (m && req.method === 'GET') {
         const [, id, action] = m;
         const token = url.searchParams.get('t') || '';

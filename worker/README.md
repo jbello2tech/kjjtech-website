@@ -38,6 +38,7 @@ Weekly digest runs via a scheduled CCR routine that hits `/admin/digest?key=<ADM
 | `GET` | `/review/:id/remove?t=<hmac>` | Strip a previously-approved block from `index.html`. |
 | `GET` | `/admin/digest?key=<ADMIN_KEY>` | Post a weekly digest to Discord and return JSON. |
 | `GET` | `/list?key=<ADMIN_KEY>` | Debug listing of the 50 most recent rows. |
+| `POST` | `/rb2b?key=<RB2B_WEBHOOK_KEY>` | RB2B visitor-identification webhook. Reformats each identified visitor into a Discord embed. |
 | `GET` | `/health` | Returns `kjjtech-reviews: ok`. |
 
 ## One-time deploy (first-time setup)
@@ -109,6 +110,8 @@ Submit a review on `https://kjjtech.com/leave-review.html`. You should get a Dis
 | `GITHUB_TOKEN` | Fine-grained PAT, Contents R/W on `jbello2tech/kjjtech-website`. |
 | `HMAC_SECRET` | Signs approve/deny/remove URLs so only Discord clicks work. |
 | `ADMIN_KEY` | Guards `/admin/digest` and `/list`. |
+| `RB2B_WEBHOOK_KEY` | Shared secret in the RB2B webhook URL (`/rb2b?key=…`). RB2B doesn't sign webhooks, so this is the only gate. |
+| `RB2B_DISCORD_WEBHOOK_URL` | Optional. Discord channel for RB2B visitor alerts; falls back to `LEADS_WEBHOOK_URL`, then `DISCORD_WEBHOOK_URL`. |
 
 Rotate with `npx wrangler secret put <NAME>`.
 
