@@ -6,7 +6,7 @@
   <title>UniFi Zone-Based Firewall: Setup Guide & Best Practices</title>
   <meta name="description" content="Step-by-step UniFi zone-based firewall setup: IoT, guest and DMZ zones, policy best practices, and migrating from legacy firewall rules safely." />
   <meta property="og:title" content="UniFi Zone-Based Firewall: Setup Guide & Best Practices" />
-  <meta property="og:description" content="How to set up the new zone-based firewall in UniFi Network 9.0+ — zones, policies, and migration tips." />
+  <meta property="og:description" content="How to set up the new zone-based firewall in UniFi Network 9.0+: zones, policies, and migration tips." />
   <meta property="og:image" content="https://kjjtech.com/og-image.png" />
   <meta property="og:url" content="https://kjjtech.com/blog/unifi-zone-based-firewall.html" />
   <meta property="og:type" content="article" />
@@ -37,7 +37,7 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "UniFi Zone-Based Firewall: Setup Guide & Best Practices",
-    "description": "How to set up the new zone-based firewall in UniFi Network 9.0+ — zones, policies, and migration tips from legacy firewall rules.",
+    "description": "How to set up the new zone-based firewall in UniFi Network 9.0+: zones, policies, and migration tips from legacy firewall rules.",
     "image": "https://kjjtech.com/og-image.png",
     "author": { "@type": "Person", "name": "Jorge Bello", "url": "https://kjjtech.com/#about", "jobTitle": "Founder, KJJ Tech" },
     "publisher": { "@type": "Organization", "name": "KJJ Tech", "logo": { "@type": "ImageObject", "url": "https://kjjtech.com/logo.jpg" } },
@@ -93,9 +93,9 @@
 
       <p>If you've ever hand-crafted dozens of LAN In rules to isolate an IoT VLAN from your trusted network, you already know why this matters. Zones scale better, are easier to audit, and dramatically reduce the chance of a misconfigured rule.</p>
 
-      <p>This guide walks you through setting up a clean zone-based firewall from scratch — including how to migrate if you're coming from the legacy rules system.</p>
+      <p>This guide walks you through setting up a clean zone-based firewall from scratch, including how to migrate if you're coming from the legacy rules system.</p>
 
-      <p class="post__callout"><strong>Rather have a pro handle it?</strong> KJJ Tech sets up and audits UniFi zone-based firewalls every week — onsite in <a href="/unifi-installation-orlando.html">Orlando</a> or <a href="/remote-unifi-services.html">remotely at a flat price</a> anywhere in the U.S. <a href="/getintouch.html?plan=security">Book a free 30-minute call &rarr;</a></p>
+      <p class="post__callout"><strong>Rather have a pro handle it?</strong> KJJ Tech sets up and audits UniFi zone-based firewalls every week, onsite in <a href="/unifi-installation-orlando.html">Orlando</a> or <a href="/remote-unifi-services.html">remotely at a flat price</a> anywhere in the U.S. <a href="/getintouch.html?plan=security">Book a free 30-minute call &rarr;</a></p>
 
       <h2>What Is a Zone?</h2>
 
@@ -104,15 +104,15 @@
       <p>UniFi ships with these default zones:</p>
 
       <ul>
-        <li><strong>Internal</strong> — your main trusted networks</li>
-        <li><strong>Gateway</strong> — the UniFi gateway itself</li>
-        <li><strong>External</strong> — WAN / internet</li>
-        <li><strong>DMZ</strong> — for externally-reachable servers</li>
-        <li><strong>VPN</strong> — VPN client networks</li>
-        <li><strong>Hotspot</strong> — guest captive portal networks</li>
+        <li><strong>Internal</strong>: your main trusted networks</li>
+        <li><strong>Gateway</strong>: the UniFi gateway itself</li>
+        <li><strong>External</strong>: WAN / internet</li>
+        <li><strong>DMZ</strong>: for externally-reachable servers</li>
+        <li><strong>VPN</strong>: VPN client networks</li>
+        <li><strong>Hotspot</strong>: guest captive portal networks</li>
       </ul>
 
-      <p>You can also create custom zones — and this is where the real power lives.</p>
+      <p>You can also create custom zones, and this is where the real power lives.</p>
 
       <h2>Prerequisites</h2>
 
@@ -135,10 +135,10 @@
       <p>Before you click anything, sketch out what zones you actually need. For a typical small business or home network, something like this works well:</p>
 
       <ul>
-        <li><strong>Trusted</strong> — your main LAN, work devices, servers</li>
-        <li><strong>IoT</strong> — smart home gear, cameras, smart TVs</li>
-        <li><strong>Guest</strong> — the network your guests' phones land on</li>
-        <li><strong>Management</strong> — your UniFi controller, switches, APs (optional but recommended)</li>
+        <li><strong>Trusted</strong>: your main LAN, work devices, servers</li>
+        <li><strong>IoT</strong>: smart home gear, cameras, smart TVs</li>
+        <li><strong>Guest</strong>: the network your guests' phones land on</li>
+        <li><strong>Management</strong>: your UniFi controller, switches, APs (optional but recommended)</li>
       </ul>
 
       <p>The golden rule: <em>group networks by how much you trust them, not by what they do.</em> Two networks that should have identical firewall treatment belong in the same zone.</p>
@@ -153,7 +153,7 @@
         <li>Save</li>
       </ol>
 
-      <p>Each network can only belong to <strong>one zone</strong> at a time. UniFi enforces this — you can't accidentally double-assign.</p>
+      <p>Each network can only belong to <strong>one zone</strong> at a time. UniFi enforces this: you can't accidentally double-assign.</p>
 
       <h2>Step 4: Define Policies Between Zones</h2>
 
@@ -180,7 +180,7 @@
 
       <p>Trusted can reach IoT (so you can control your smart lights), but IoT can't reach Trusted (so a compromised smart plug can't pivot to your laptop). Guest can reach the internet and other Guests, and nothing else.</p>
 
-      <p>Click any cell to edit that policy. You can add exceptions within a block — for example, <strong>Block IoT &rarr; Trusted, except allow IoT to reach 192.168.1.50 on port 80</strong> (for a shared printer).</p>
+      <p>Click any cell to edit that policy. You can add exceptions within a block, for example, <strong>Block IoT &rarr; Trusted, except allow IoT to reach 192.168.1.50 on port 80</strong> (for a shared printer).</p>
 
       <h2>Step 5: Test Each Zone</h2>
 
@@ -203,22 +203,22 @@
         <li><strong>Screenshot everything.</strong> Every legacy rule, every group. You'll thank yourself later.</li>
         <li><strong>Enable zones in a maintenance window.</strong> Don't do this on a Friday afternoon when the office is trying to leave.</li>
         <li><strong>Let UniFi auto-convert</strong> your rules into zone policies. Then open each policy and verify it matches your intent.</li>
-        <li><strong>Consolidate redundant rules.</strong> A lot of legacy rules become unnecessary under zones — you were often writing the same rule 3 times for 3 different VLANs that could've been in one zone.</li>
+        <li><strong>Consolidate redundant rules.</strong> A lot of legacy rules become unnecessary under zones. You were often writing the same rule 3 times for 3 different VLANs that could've been in one zone.</li>
         <li><strong>Keep the exception rules.</strong> Anywhere you had a specific "allow X device to reach Y" rule, that needs to live on as a specific allow inside the zone policy.</li>
       </ol>
 
       <h2>Common Mistakes to Avoid</h2>
 
       <ul>
-        <li><strong>Too many zones.</strong> If you have 12 zones for 14 VLANs, you're back to per-rule territory. Aim for 3–5 zones max in most environments.</li>
-        <li><strong>Forgetting the Gateway zone.</strong> DNS and DHCP run on the gateway — if you block everything to the Gateway zone, devices can't resolve names. Always allow traffic to Gateway for services like DNS, DHCP, and NTP.</li>
+        <li><strong>Too many zones.</strong> If you have 12 zones for 14 VLANs, you're back to per-rule territory. Aim for 3-5 zones max in most environments.</li>
+        <li><strong>Forgetting the Gateway zone.</strong> DNS and DHCP run on the gateway. If you block everything to the Gateway zone, devices can't resolve names. Always allow traffic to Gateway for services like DNS, DHCP, and NTP.</li>
         <li><strong>Blocking mDNS and then being confused why AirPlay doesn't work.</strong> If you want cross-VLAN AirPlay or Chromecast, enable <strong>Multicast DNS</strong> between the relevant zones.</li>
         <li><strong>Not locking down Management.</strong> If you put your controller and switches in a Management zone, only allow Trusted &rarr; Management. Don't leave it reachable from IoT.</li>
       </ul>
 
       <h2>When to Call a Professional</h2>
 
-      <p>Zone-based firewalls are a huge improvement, but they're still a firewall — and a misconfiguration can leave you exposed or locked out. If you're running a business network, dealing with compliance requirements (HIPAA, PCI), or trying to migrate a complex legacy ruleset without downtime, it's worth having a second set of eyes.</p>
+      <p>Zone-based firewalls are a huge improvement, but they're still a firewall, and a misconfiguration can leave you exposed or locked out. If you're running a business network, dealing with compliance requirements (HIPAA, PCI), or trying to migrate a complex legacy ruleset without downtime, it's worth having a second set of eyes.</p>
 
       <div class="post__lead">
         <h3>Free: UniFi Security Checklist</h3>
@@ -237,7 +237,7 @@
         <h3>Need help with your UniFi firewall?</h3>
         <p>We set up and audit zone-based firewalls for homes and businesses every week. Let's get yours dialed in properly.</p>
         <a href="/getintouch.html?plan=security" class="btn btn--primary">Book a free call</a>
-        <a href="/remote-unifi-services.html" class="btn btn--ghost">Remote firewall setup — $750 flat</a>
+        <a href="/remote-unifi-services.html" class="btn btn--ghost">Remote firewall setup: $750 flat</a>
       </div>
 
       <div class="post__related">
@@ -255,7 +255,7 @@
           <a href="/blog/network-security-tips.html" class="blog-card">
             <span class="blog-card__tag">Security</span>
             <h2 class="blog-card__title">12 Network Security Tips Every Small Business Should Follow</h2>
-            <p class="blog-card__excerpt">From default credentials to VLAN segmentation — practical, no-nonsense network security tips that actually move the needle.</p>
+            <p class="blog-card__excerpt">From default credentials to VLAN segmentation: practical, no-nonsense network security tips that actually move the needle.</p>
             <div class="blog-card__meta">
               <span class="blog-card__date">September 2026</span>
               <span class="blog-card__read">Read &rarr;</span>
@@ -295,7 +295,7 @@
         <ul class="footer__contact-list">
           <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
           <li><a href="tel:+19145279957">(914) 527-9957</a></li>
-          <li><a href="/orlando-it-support.html">Serving Orlando, FL</a> &amp; nationwide</li>
+          <li><a href="/orlando-it-support.html">Serving Orlando, FL &amp; nationwide</a></li>
         </ul>
       </div>
     </div>

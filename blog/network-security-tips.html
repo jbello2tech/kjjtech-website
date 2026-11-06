@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>12 Network Security Tips Every Small Business Should Follow</title>
-  <meta name="description" content="Practical, no-nonsense network security tips for small businesses and home networks — router hardening, Wi-Fi, VLANs, firmware, and more." />
+  <meta name="description" content="Practical, no-nonsense network security tips for small businesses and home networks: router hardening, Wi-Fi, VLANs, firmware, and more." />
   <meta property="og:title" content="12 Network Security Tips Every Small Business Should Follow" />
-  <meta property="og:description" content="From router hardening to VLAN segmentation — practical network security tips that actually move the needle." />
+  <meta property="og:description" content="From router hardening to VLAN segmentation: practical network security tips that actually move the needle." />
   <meta property="og:image" content="https://kjjtech.com/og-image.png" />
   <meta property="og:url" content="https://kjjtech.com/blog/network-security-tips.html" />
   <meta property="og:type" content="article" />
@@ -35,7 +35,7 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "12 Network Security Tips Every Small Business Should Follow",
-    "description": "Practical, no-nonsense network security tips for small businesses and home networks — router hardening, Wi-Fi, VLANs, firmware, and more.",
+    "description": "Practical, no-nonsense network security tips for small businesses and home networks: router hardening, Wi-Fi, VLANs, firmware, and more.",
     "image": "https://kjjtech.com/og-image.png",
     "author": { "@type": "Person", "name": "Jorge Bello", "url": "https://kjjtech.com/#about", "jobTitle": "Founder, KJJ Tech" },
     "publisher": { "@type": "Organization", "name": "KJJ Tech", "logo": { "@type": "ImageObject", "url": "https://kjjtech.com/logo.jpg" } },
@@ -91,15 +91,15 @@
 
       <p>Good network security isn't about buying the most expensive firewall. It's about consistently doing the boring, unglamorous things that close off the easiest paths in. Here are the 12 that matter most, roughly in order of impact.</p>
 
-      <p class="post__callout"><strong>Rather have a pro handle it?</strong> KJJ Tech runs network security audits for small businesses — onsite in <a href="/orlando-it-support.html">Orlando</a> or <a href="/remote-unifi-services.html">remotely at a flat price</a> anywhere in the U.S. <a href="/getintouch.html?plan=security">Book a free 30-minute call &rarr;</a></p>
+      <p class="post__callout"><strong>Rather have a pro handle it?</strong> KJJ Tech runs network security audits for small businesses, onsite in <a href="/orlando-it-support.html">Orlando</a> or <a href="/remote-unifi-services.html">remotely at a flat price</a> anywhere in the U.S. <a href="/getintouch.html?plan=security">Book a free 30-minute call &rarr;</a></p>
 
       <h2>1. Change Every Default Credential</h2>
 
-      <p>Routers, switches, access points, cameras, NVRs &mdash; anything with a web login ships with a well-known default username and password. Attackers and botnets scan the internet constantly for devices still using them. The very first thing to do with any new piece of network gear is set a unique, strong password before it ever touches production traffic.</p>
+      <p>Routers, switches, access points, cameras, NVRs: anything with a web login ships with a well-known default username and password. Attackers and botnets scan the internet constantly for devices still using them. The very first thing to do with any new piece of network gear is set a unique, strong password before it ever touches production traffic.</p>
 
       <h2>2. Keep Firmware Up to Date</h2>
 
-      <p>Firmware updates aren't just new features &mdash; they're patches for vulnerabilities that are often already being exploited in the wild by the time the update ships. Set a recurring reminder (or better, use a platform like UniFi that can notify you) to check for and apply firmware updates on your gateway, switches, and APs at least monthly.</p>
+      <p>Firmware updates aren't just new features. They're patches for vulnerabilities that are often already being exploited in the wild by the time the update ships. Set a recurring reminder (or better, use a platform like UniFi that can notify you) to check for and apply firmware updates on your gateway, switches, and APs at least monthly.</p>
 
       <blockquote class="post__callout">
         <strong>Tip:</strong> Read the release notes before updating production equipment during business hours. Schedule major firmware jumps for a maintenance window in case a rollback is needed.
@@ -107,23 +107,23 @@
 
       <h2>3. Segment Your Network with VLANs</h2>
 
-      <p>A flat network means that if one device gets compromised &mdash; a smart thermostat, an employee's phone, a guest's laptop &mdash; it can potentially reach everything else on the network. Segmenting devices into VLANs by trust level (trusted staff devices, IoT, guest, cameras, servers) limits how far an attacker can move if they get a foothold. See our <a href="/blog/unifi-vlan-setup-guide.html">VLAN setup guide</a> if you haven't done this yet &mdash; it's one of the highest-impact changes you can make.</p>
+      <p>A flat network means that if one device gets compromised (a smart thermostat, an employee's phone, a guest's laptop), it can potentially reach everything else on the network. Segmenting devices into VLANs by trust level (trusted staff devices, IoT, guest, cameras, servers) limits how far an attacker can move if they get a foothold. See our <a href="/blog/unifi-vlan-setup-guide.html">VLAN setup guide</a> if you haven't done this yet. It's one of the highest-impact changes you can make.</p>
 
       <h2>4. Use a Real Firewall Policy, Not "Allow All"</h2>
 
-      <p>Plenty of small business networks are running with the equivalent of no firewall at all &mdash; every VLAN can talk to every other VLAN, unrestricted. If you're on UniFi Network 9.0 or newer, the <a href="/blog/unifi-zone-based-firewall.html">zone-based firewall</a> makes it straightforward to define exactly which zones can reach which, and block everything else by default.</p>
+      <p>Plenty of small business networks are running with the equivalent of no firewall at all: every VLAN can talk to every other VLAN, unrestricted. If you're on UniFi Network 9.0 or newer, the <a href="/blog/unifi-zone-based-firewall.html">zone-based firewall</a> makes it straightforward to define exactly which zones can reach which, and block everything else by default.</p>
 
       <h2>5. Separate Your Guest Wi-Fi Completely</h2>
 
-      <p>Guest Wi-Fi should be on its own VLAN with no route to your internal network, printers, or file shares &mdash; not just a different SSID on the same broadcast domain. This is a five-minute fix on most modern equipment and closes off one of the most common ways outsiders end up with a foothold on internal resources.</p>
+      <p>Guest Wi-Fi should be on its own VLAN with no route to your internal network, printers, or file shares, not just a different SSID on the same broadcast domain. This is a five-minute fix on most modern equipment and closes off one of the most common ways outsiders end up with a foothold on internal resources.</p>
 
-      <h2>6. Use WPA3 (or WPA2-Enterprise) &mdash; Never Open or WEP</h2>
+      <h2>6. Use WPA3 (or WPA2-Enterprise), Never Open or WEP</h2>
 
-      <p>WPA3 is standard on any access point sold in the last few years and offers meaningfully better protection against offline password-cracking attempts than WPA2. For business networks with more than a handful of staff, WPA2/WPA3-Enterprise with per-user 802.1X credentials is even better &mdash; it means you can revoke a single employee's Wi-Fi access without changing the password for everyone else.</p>
+      <p>WPA3 is standard on any access point sold in the last few years and offers meaningfully better protection against offline password-cracking attempts than WPA2. For business networks with more than a handful of staff, WPA2/WPA3-Enterprise with per-user 802.1X credentials is even better. It means you can revoke a single employee's Wi-Fi access without changing the password for everyone else.</p>
 
       <h2>7. Disable WPS and UPnP</h2>
 
-      <p>WPS (Wi-Fi Protected Setup) has known vulnerabilities that let attackers brute-force their way onto your network in hours, and most people never use the physical button anyway. UPnP automatically opens ports on your firewall at the request of devices on your network &mdash; convenient for a game console, dangerous for a business network where you don't want unattended software deciding what's exposed to the internet. Turn both off unless you have a specific reason not to.</p>
+      <p>WPS (Wi-Fi Protected Setup) has known vulnerabilities that let attackers brute-force their way onto your network in hours, and most people never use the physical button anyway. UPnP automatically opens ports on your firewall at the request of devices on your network. Convenient for a game console, dangerous for a business network where you don't want unattended software deciding what's exposed to the internet. Turn both off unless you have a specific reason not to.</p>
 
       <h2>8. Lock Down Remote Management</h2>
 
@@ -131,19 +131,19 @@
 
       <h2>9. Require MFA Everywhere You Can</h2>
 
-      <p>This goes beyond the network layer, but it's directly related: a compromised password is far less useful to an attacker if multi-factor authentication is required to actually log in &mdash; to your VPN, your cloud management consoles, your email, and any remote access tools. If you only do one thing from this list for your accounts (not just your network), make it this.</p>
+      <p>This goes beyond the network layer, but it's directly related: a compromised password is far less useful to an attacker if multi-factor authentication is required to actually log in to your VPN, your cloud management consoles, your email, and any remote access tools. If you only do one thing from this list for your accounts (not just your network), make it this.</p>
 
       <h2>10. Monitor What's Actually Connected</h2>
 
-      <p>You can't secure what you don't know about. Periodically review the client list on your controller and flag anything unrecognized &mdash; an unfamiliar device name, an unexpected vendor, a MAC address you don't recognize on a VLAN it shouldn't be on. Modern platforms like UniFi make this a five-minute check from the dashboard, not a manual audit.</p>
+      <p>You can't secure what you don't know about. Periodically review the client list on your controller and flag anything unrecognized: an unfamiliar device name, an unexpected vendor, a MAC address you don't recognize on a VLAN it shouldn't be on. Modern platforms like UniFi make this a five-minute check from the dashboard, not a manual audit.</p>
 
       <h2>11. Back Up Your Network Configuration</h2>
 
-      <p>Ransomware and hardware failures don't just threaten your files &mdash; a wiped controller or a bricked gateway with no config backup can mean hours or days rebuilding VLANs, firewall rules, and Wi-Fi networks from memory. Automated, versioned config backups (most controllers support this natively) mean a bad day stays a bad day instead of becoming a bad week.</p>
+      <p>Ransomware and hardware failures don't just threaten your files. A wiped controller or a bricked gateway with no config backup can mean hours or days rebuilding VLANs, firewall rules, and Wi-Fi networks from memory. Automated, versioned config backups (most controllers support this natively) mean a bad day stays a bad day instead of becoming a bad week.</p>
 
       <h2>12. Get a Second Set of Eyes</h2>
 
-      <p>It's easy to become blind to your own network's blind spots. An outside review &mdash; even an informal one &mdash; regularly turns up an old rule nobody remembers writing, a device that should've been decommissioned a year ago, or a VLAN that quietly stopped being isolated after a firmware reset. Compliance requirements (HIPAA, PCI, cyber insurance questionnaires) increasingly expect this kind of periodic review anyway.</p>
+      <p>It's easy to become blind to your own network's blind spots. An outside review, even an informal one, regularly turns up an old rule nobody remembers writing, a device that should've been decommissioned a year ago, or a VLAN that quietly stopped being isolated after a firmware reset. Compliance requirements (HIPAA, PCI, cyber insurance questionnaires) increasingly expect this kind of periodic review anyway.</p>
 
       <h2>Where to Start</h2>
 
@@ -164,9 +164,9 @@
 
       <div class="post__cta">
         <h3>Not sure where your network actually stands?</h3>
-        <p>We run network security audits for small businesses and homes &mdash; a straightforward look at what's exposed, what's misconfigured, and what to fix first.</p>
+        <p>We run network security audits for small businesses and homes: a straightforward look at what's exposed, what's misconfigured, and what to fix first.</p>
         <a href="/getintouch.html?plan=security" class="btn btn--primary">Book a free call</a>
-        <a href="/remote-unifi-services.html" class="btn btn--ghost">Remote review — $340 flat</a>
+        <a href="/remote-unifi-services.html" class="btn btn--ghost">Remote review: $340 flat</a>
       </div>
 
       <div class="post__related">
@@ -175,7 +175,7 @@
           <a href="/blog/unifi-zone-based-firewall.html" class="blog-card">
             <span class="blog-card__tag">Guide</span>
             <h2 class="blog-card__title">UniFi Zone-Based Firewall: Setup Guide & Best Practices</h2>
-            <p class="blog-card__excerpt">A practical walkthrough of the new zone-based firewall in UniFi Network 9.0+ — zones, policies, and migration from legacy rules.</p>
+            <p class="blog-card__excerpt">A practical walkthrough of the new zone-based firewall in UniFi Network 9.0+: zones, policies, and migration from legacy rules.</p>
             <div class="blog-card__meta">
               <span class="blog-card__date">April 2026</span>
               <span class="blog-card__read">Read &rarr;</span>
@@ -224,7 +224,7 @@
         <ul class="footer__contact-list">
           <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
           <li><a href="tel:+19145279957">(914) 527-9957</a></li>
-          <li><a href="/orlando-it-support.html">Serving Orlando, FL</a> &amp; nationwide</li>
+          <li><a href="/orlando-it-support.html">Serving Orlando, FL &amp; nationwide</a></li>
         </ul>
       </div>
     </div>
