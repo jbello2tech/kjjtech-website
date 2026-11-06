@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How to Set Up VLANs on a UniFi Dream Machine | KJJ Tech</title>
-  <meta name="description" content="Step-by-step guide to setting up VLANs on a UniFi Dream Machine. Learn how to segment your network for better security, performance, and device management." />
-  <meta property="og:title" content="How to Set Up VLANs on a UniFi Dream Machine" />
-  <meta property="og:description" content="Step-by-step guide to setting up VLANs on UniFi for better security and network performance." />
+  <title>UniFi VLAN Setup Guide (2026): Networks, WiFi & Firewall</title>
+  <meta name="description" content="How to set up VLANs on any UniFi gateway: create networks, map WiFi and switch ports, and isolate traffic with the zone-based firewall in Network 9-11." />
+  <meta property="og:title" content="How to Set Up VLANs in UniFi (2026 Guide)" />
+  <meta property="og:description" content="How to set up VLANs on any UniFi gateway: create networks, map WiFi and switch ports, and isolate traffic with the zone-based firewall in Network 9-11." />
   <meta property="og:image" content="https://kjjtech.com/og-image.png" />
   <meta property="og:url" content="https://kjjtech.com/blog/unifi-vlan-setup-guide.html" />
   <meta property="og:type" content="article" />
@@ -36,13 +36,13 @@
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "How to Set Up VLANs on a UniFi Dream Machine",
-    "description": "Step-by-step guide to setting up VLANs on UniFi for better security and network performance.",
+    "headline": "How to Set Up VLANs in UniFi (2026 Guide)",
+    "description": "How to set up VLANs on any UniFi gateway: create networks, map WiFi and switch ports, and isolate traffic with the zone-based firewall in Network 9-11.",
     "image": "https://kjjtech.com/og-image.png",
     "author": { "@type": "Person", "name": "Jorge Bello", "url": "https://kjjtech.com/#about", "jobTitle": "Founder, KJJ Tech" },
     "publisher": { "@type": "Organization", "name": "KJJ Tech", "logo": { "@type": "ImageObject", "url": "https://kjjtech.com/logo.jpg" } },
     "datePublished": "2026-04-06",
-    "dateModified": "2026-04-13",
+    "dateModified": "2026-11-05",
     "mainEntityOfPage": "https://kjjtech.com/blog/unifi-vlan-setup-guide.html"
   }
   </script>
@@ -53,7 +53,7 @@
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kjjtech.com/" },
       { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://kjjtech.com/blog/" },
-      { "@type": "ListItem", "position": 3, "name": "How to Set Up VLANs on a UniFi Dream Machine", "item": "https://kjjtech.com/blog/unifi-vlan-setup-guide.html" }
+      { "@type": "ListItem", "position": 3, "name": "How to Set Up VLANs in UniFi (2026 Guide)", "item": "https://kjjtech.com/blog/unifi-vlan-setup-guide.html" }
     ]
   }
   </script>
@@ -85,119 +85,150 @@
     </a>
 
     <span class="post__tag">Guide</span>
-    <h1 class="post__title">How to Set Up VLANs on a UniFi Dream Machine</h1>
-    <p class="post__meta">April 2026 &middot; 8 min read</p>
+    <h1 class="post__title">How to Set Up VLANs in UniFi (2026 Guide)</h1>
+    <p class="post__meta">Updated November 2026 &middot; 10 min read</p>
 
     <div class="post__body">
-      <p>If every device on your network shares the same broadcast domain, you're leaving performance and security on the table. VLANs (Virtual Local Area Networks) let you split one physical network into multiple isolated segments — and the UniFi Dream Machine makes it straightforward to set up.</p>
+      <p>If every device on your network shares one flat network, a single compromised smart plug or guest laptop can see everything else: your file server, your cameras, your work machines. VLANs (Virtual LANs) fix that by splitting one physical network into separate, isolated segments.</p>
 
-      <p>Whether you're separating IoT devices from your main network, isolating guest Wi-Fi, or building out a home lab, this guide walks you through the entire process.</p>
+      <p>This guide walks through setting up VLANs on any UniFi gateway: Cloud Gateway Ultra, Max or Fiber, Dream Machine Pro, SE or Pro Max, Dream Router, or UniFi Express. It's written for <strong>UniFi Network 9 and newer</strong>, including Network 11, which retired the old firewall rules in favor of the zone-based firewall.</p>
 
-      <p class="post__callout"><strong>Rather have a pro handle it?</strong> KJJ Tech configures UniFi VLANs and firewalls every day — onsite in <a href="/unifi-installation-orlando.html">Orlando</a> or <a href="/remote-unifi-services.html">remotely at a flat price</a> anywhere in the U.S. <a href="/getintouch.html?plan=network">Book a free 30-minute call &rarr;</a></p>
+      <p class="post__callout"><strong>Rather have a pro handle it?</strong> KJJ Tech configures UniFi VLANs and firewalls every day, onsite in <a href="/unifi-installation-orlando.html">Orlando</a> or <a href="/remote-unifi-services.html">remotely at a flat price</a> anywhere in the U.S. <a href="/getintouch.html?plan=network">Book a free 30-minute call &rarr;</a></p>
 
       <h2>What Is a VLAN and Why Does It Matter?</h2>
 
-      <p>A VLAN is a way to logically divide a single physical network into separate, isolated networks. Devices on one VLAN can't communicate with devices on another VLAN unless you explicitly allow it through firewall rules.</p>
-
-      <p>This matters for three reasons:</p>
+      <p>A VLAN logically divides one physical network into separate networks, each with its own subnet. Traffic between them has to pass through your gateway, which means your firewall decides what's allowed to cross.</p>
 
       <ul>
-        <li><strong>Security</strong> — Your smart thermostat doesn't need access to your file server. VLANs keep things contained.</li>
-        <li><strong>Performance</strong> — Fewer devices per broadcast domain means less noise and faster communication.</li>
-        <li><strong>Organization</strong> — Grouping devices logically makes troubleshooting and monitoring much easier.</li>
+        <li><strong>Security:</strong> your smart TV has no business talking to your NAS. If an IoT device gets compromised, a VLAN keeps the damage contained.</li>
+        <li><strong>Control:</strong> you can give guests internet-only access, keep cameras off the internet, and apply different rules to each group of devices.</li>
+        <li><strong>Troubleshooting:</strong> when every device type lives in its own subnet, it's obvious at a glance what a misbehaving IP address is.</li>
       </ul>
 
-      <h2>Common VLAN Setups</h2>
+      <h2>Plan Your VLANs First</h2>
 
-      <p>Here are the most common segments we set up for clients:</p>
+      <p>Decide on your segments before you touch any settings. Here's the layout we use for most homes and small offices:</p>
 
       <ul>
-        <li><strong>Default / Management (VLAN 1)</strong> — Your UniFi gear, switches, and APs.</li>
-        <li><strong>Trusted (VLAN 10)</strong> — Personal or work devices: laptops, desktops, phones.</li>
-        <li><strong>IoT (VLAN 20)</strong> — Smart home devices, cameras, voice assistants.</li>
-        <li><strong>Guest (VLAN 30)</strong> — Visitor access with internet only, no local network access.</li>
-        <li><strong>Servers / Lab (VLAN 40)</strong> — Home lab, NAS, or self-hosted services.</li>
+        <li><strong>Default / Management (untagged, VLAN 1):</strong> your UniFi gateway, switches and access points. Leave this one alone.</li>
+        <li><strong>Trusted (VLAN 10, 192.168.10.0/24):</strong> laptops, desktops and phones you own.</li>
+        <li><strong>IoT (VLAN 20, 192.168.20.0/24):</strong> smart TVs, speakers, thermostats, plugs and other smart-home gear.</li>
+        <li><strong>Guest (VLAN 30, 192.168.30.0/24):</strong> visitors. Internet only, nothing local.</li>
+        <li><strong>Cameras (VLAN 40, 192.168.40.0/24):</strong> security cameras and NVRs, ideally with no internet access unless the vendor needs it.</li>
       </ul>
 
-      <h2>Step 1: Create a New Network</h2>
+      <p>Matching the third octet of the subnet to the VLAN ID (VLAN 20 &rarr; 192.168.20.x) makes everything easier to read later. Three to five VLANs covers almost every home and small business; you can always add more.</p>
 
-      <p>Open your UniFi Network application and navigate to <strong>Settings &rarr; Networks</strong>. Click <strong>Create New Network</strong>.</p>
+      <h2>Step 1: Create the Networks</h2>
+
+      <p>In the UniFi Network application, go to <strong>Settings &rarr; Networks</strong> and click <strong>Create New</strong> below the list of networks.</p>
 
       <ul>
-        <li>Give it a descriptive name (e.g., "IoT")</li>
-        <li>Set the <strong>Router</strong> to your UDM/UDM Pro</li>
-        <li>Under <strong>Advanced</strong>, set the <strong>VLAN ID</strong> (e.g., 20)</li>
-        <li>Set the <strong>Gateway IP / Subnet</strong> — for example, <code>192.168.20.1/24</code></li>
-        <li>Enable the <strong>DHCP Server</strong> so devices on this VLAN get IPs automatically</li>
+        <li><strong>Name:</strong> something clear, like "IoT".</li>
+        <li><strong>Zone:</strong> new networks default to <em>Internal</em>. If you've created zones such as IoT or Cameras (see Step 4), you can put the network straight into one here.</li>
+        <li><strong>Auto-Scale Network:</strong> uncheck this to choose the subnet yourself (recommended, so it matches your plan), then set the <strong>IPv4 address</strong> and <strong>netmask</strong>, for example <code>192.168.20.1</code> / <code>24</code>.</li>
+        <li><strong>VLAN ID:</strong> switch from <em>Auto</em> to <em>Manual</em> and enter your ID, for example <code>20</code>.</li>
+        <li><strong>Isolate Network:</strong> check this for Guest (and optionally Cameras) to block that network from your other networks without writing any firewall policies.</li>
+        <li><strong>Allow Internet Access:</strong> leave it checked, except for cameras you want kept offline.</li>
+        <li><strong>DHCP Mode:</strong> leave it on <em>DHCP Server</em> so devices get addresses automatically.</li>
       </ul>
 
-      <p>Repeat for each VLAN you want to create.</p>
+      <p>Save, then repeat for each VLAN in your plan.</p>
 
-      <h2>Step 2: Create Wi-Fi Networks Per VLAN</h2>
+      <h2>Step 2: Put a Wi-Fi Network on Each VLAN</h2>
 
-      <p>Go to <strong>Settings &rarr; WiFi</strong> and create a new wireless network for each VLAN that needs Wi-Fi access.</p>
+      <p>Go to <strong>Settings &rarr; WiFi</strong> and click <strong>Create New</strong> for each VLAN that needs wireless access.</p>
 
       <ul>
-        <li>Name it clearly (e.g., "Home-IoT" or "Guest")</li>
-        <li>Under <strong>Network</strong>, select the VLAN you just created</li>
-        <li>Set a strong password (or use an open network with a captive portal for guests)</li>
+        <li>Give it a clear name (for example "Home", "Home-IoT" and "Guest").</li>
+        <li>Under <strong>Network</strong>, select the VLAN you just created. That's what ties the SSID to the VLAN.</li>
+        <li>For the IoT SSID, keep <strong>2.4 GHz enabled</strong> and use <strong>WPA2</strong>. WPA3 requires PMF, which many smart devices can't handle; UniFi itself warns about this and recommends a separate WPA2 network for legacy and IoT clients. The <strong>IoT Optimization</strong> options on the SSID can also help stubborn devices connect.</li>
+        <li>For Guest, also check <strong>Client Device Isolation</strong> (under the SSID's Security settings) so guests can't see each other.</li>
       </ul>
 
-      <p>Each SSID maps to a specific VLAN — so when a device connects to "Home-IoT", it lands on VLAN 20 automatically.</p>
+      <p>Keep the number of SSIDs to four or fewer. Every extra SSID adds airtime overhead on every access point.</p>
 
-      <h2>Step 3: Assign Switch Ports</h2>
+      <h2>Step 3: Set Up Switch Ports</h2>
 
-      <p>For wired devices, you need to assign switch ports to VLANs. Go to <strong>Devices</strong>, select your switch, and click on a port.</p>
+      <p>Wired devices get their VLAN from the switch port they plug into. Open your switch from <strong>UniFi Devices</strong> and select a port (or several at once). Two settings under <strong>Core Settings</strong> control VLANs:</p>
 
       <ul>
-        <li>Under <strong>Port Profile</strong>, select the VLAN network you want that port to use</li>
-        <li>For ports connecting to other switches or APs, use a <strong>Trunk / All</strong> profile so all VLANs pass through</li>
+        <li><strong>Native VLAN / Network:</strong> the untagged network for whatever plugs into that port. Set a camera port to Cameras, a desk port to Trusted, and so on.</li>
+        <li><strong>Tagged VLAN Management:</strong> which additional VLANs are carried tagged on the port. Use <strong>Allow All</strong> on uplinks to other switches and on ports feeding access points, <strong>Block All</strong> on ports for end devices like PCs and cameras, and <strong>Custom</strong> when you want to pass only specific VLANs.</li>
       </ul>
 
-      <h2>Step 4: Set Up Firewall Rules</h2>
+      <p>Access points need every SSID's VLAN tagged on their port. If an SSID connects but never gets an IP address, this is almost always why.</p>
 
-      <blockquote class="post__callout">
-        <strong>Note:</strong> The steps below use the <em>legacy</em> Firewall Rules interface. If you're on UniFi Network 9.0 or newer, UI recommends using the new <a href="/blog/unifi-zone-based-firewall.html">zone-based firewall</a> instead — it's simpler and more powerful. Both approaches still work, but new setups should start with zones.
-      </blockquote>
+      <h2>Step 4: Control Traffic With the Zone-Based Firewall</h2>
 
-      <p>By default, VLANs on UniFi can still talk to each other. You'll want to create firewall rules to block inter-VLAN traffic and then allow specific exceptions.</p>
+      <p>Here's the part most people miss: <strong>new VLANs can talk to each other by default.</strong> UniFi places new networks in the <em>Internal</em> zone, and traffic within the Internal zone is allowed. A VLAN on its own doesn't isolate anything; firewall policies do.</p>
 
-      <p>Navigate to <strong>Settings &rarr; Firewall &amp; Security &rarr; Firewall Rules</strong> and create a new rule:</p>
-
-      <ul>
-        <li><strong>Type:</strong> LAN In</li>
-        <li><strong>Action:</strong> Drop</li>
-        <li><strong>Source:</strong> Your IoT network</li>
-        <li><strong>Destination:</strong> Your Trusted network</li>
-      </ul>
-
-      <p>This blocks IoT devices from reaching your trusted devices while still allowing them to access the internet. Repeat for each VLAN pair you want to isolate.</p>
-
-      <h2>Step 5: Test and Verify</h2>
-
-      <p>Connect a device to each VLAN and verify:</p>
+      <p>Three settings control this:</p>
 
       <ol>
-        <li>It gets an IP in the correct subnet (e.g., 192.168.20.x for IoT)</li>
-        <li>It can reach the internet</li>
-        <li>It <strong>cannot</strong> ping or access devices on other VLANs</li>
-        <li>Any intentional exceptions (like a printer shared across VLANs) work correctly</li>
+        <li><strong>Isolate Network</strong> (the checkbox from Step 1). The quickest option: that network can't reach your other networks, with no policies to write. It's ideal for Guest, but it's all-or-nothing: an isolated IoT network can't be reached from your phone either.</li>
+        <li><strong>Default Security Posture</strong> (on the <strong>Settings &rarr; Networks</strong> page, below the network list). <em>Allow All</em> is the default and lets your internal networks reach each other. <em>Block All</em> flips that, so nothing crosses between networks until you allow it. It's the strictest option, but expect to add allow policies for things like casting and printing.</li>
+        <li><strong>Zones and policies</strong> (under <strong>Settings &rarr; Policy Engine</strong>). In <strong>Zones</strong>, create zones such as <em>IoT</em>, <em>Cameras</em> and <em>Guest</em> and move those networks into them. Traffic between the Internal zone and your new zones is then blocked, and in the <strong>Policy Table</strong> you add specific allow policies for what should cross, like <em>Trusted &rarr; IoT</em> so your phone can control the TV, with return traffic allowed automatically.</li>
       </ol>
+
+      <p>For most homes and small offices, we recommend keeping the posture on Allow All, isolating Guest, and putting IoT and Cameras in their own zones. Trusted devices can still manage everything, while untrusted devices stay contained.</p>
+
+      <p>Upgrading from older firmware? Network 11 automatically migrated sites from the legacy LAN In / LAN Out firewall rules to zones. It's worth opening the zone matrix after an upgrade to confirm your inter-VLAN blocks still behave as intended. Our <a href="/blog/unifi-zone-based-firewall.html">UniFi zone-based firewall guide</a> covers zones, policy order and migration in detail.</p>
+
+      <h2>Step 5: Make Casting and Printing Work Across VLANs</h2>
+
+      <p>AirPlay, Chromecast, Sonos and network printers find each other using mDNS, which doesn't cross VLANs on its own. Once your phone is on Trusted and your TV is on IoT, casting stops working until you:</p>
+
+      <ol>
+        <li>Set <strong>Gateway mDNS Proxy</strong> (on the <strong>Settings &rarr; Networks</strong> page) to <em>Auto</em>, or to <em>Custom</em> and add your Trusted and IoT networks to the <strong>VLAN Scope</strong>.</li>
+        <li>Allow <em>Trusted &rarr; IoT</em> in the firewall. Discovery alone isn't enough; the actual stream has to be permitted too.</li>
+      </ol>
+
+      <p>Smart-home gear using <strong>Matter over Thread</strong> also needs <strong>IPv6</strong> enabled on the VLAN where the Thread border router (an Apple TV, HomePod or Nest hub) lives. Many people leave IPv6 off on IoT networks, and it's a common reason Matter devices fail to pair. Network 11 also adds a dedicated <strong>Matter</strong> page in Settings.</p>
+
+      <h2>Step 6: Test and Verify</h2>
+
+      <p>Connect a device to each VLAN and confirm:</p>
+
+      <ol>
+        <li>It gets an IP address in the right subnet (for example 192.168.20.x on IoT).</li>
+        <li>It can reach the internet (unless it's a camera you've kept offline).</li>
+        <li>It <strong>cannot</strong> reach devices on networks it shouldn't. Try pinging or browsing to a device on Trusted from the IoT network.</li>
+        <li>Your intentional exceptions work: casting, printing, the phone app for your thermostat.</li>
+      </ol>
+
+      <p>UniFi's traffic logs show which policy allowed or blocked a connection, which makes it much faster to track down a rule that isn't doing what you expected.</p>
 
       <h2>Common Mistakes to Avoid</h2>
 
       <ul>
-        <li><strong>Forgetting trunk ports</strong> — If your AP is on a non-trunk port, it won't be able to serve multiple SSIDs across VLANs.</li>
-        <li><strong>Not setting firewall rules</strong> — VLANs without firewall rules still allow cross-VLAN traffic by default on UniFi.</li>
-        <li><strong>Too many VLANs</strong> — Start simple. Three to four VLANs covers most use cases. You can always add more later.</li>
-        <li><strong>Locking yourself out</strong> — Always keep a device on the management VLAN so you can still access the UniFi controller.</li>
+        <li><strong>Assuming VLANs isolate by themselves.</strong> Without isolation or firewall policies, your VLANs still talk freely.</li>
+        <li><strong>AP ports set to Block All.</strong> SSIDs on other VLANs connect but never get an address.</li>
+        <li><strong>Blocking a network you need to reach.</strong> If your phone can't control your smart TV after locking things down, IoT is either isolated (use a zone instead) or missing a <em>Trusted &rarr; IoT</em> allow policy.</li>
+        <li><strong>IoT on 5 GHz or WPA3 only.</strong> Older smart devices simply won't see the network.</li>
+        <li><strong>Moving the management network.</strong> Changing the VLAN your UniFi devices live on is the fastest way to lose contact with them. Leave it untagged unless you know exactly what you're doing.</li>
+        <li><strong>Too many VLANs.</strong> Every segment is something to maintain. Start with three or four.</li>
       </ul>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>Do UniFi VLANs block each other by default?</h3>
+      <p>No. New networks are placed in the Internal zone, and the Default Security Posture is Allow All, so they can reach each other. Check <strong>Isolate Network</strong>, move networks into their own zones, or set the posture to Block All to separate them.</p>
+
+      <h3>Do I need a UniFi switch to use VLANs?</h3>
+      <p>You need a managed switch that supports 802.1Q VLAN tagging. A UniFi switch is easiest because you configure ports from the same application, but most managed switches work if you match the VLAN IDs and tagging.</p>
+
+      <h3>How many VLANs should a small business have?</h3>
+      <p>Most need three to five: Trusted (staff), Guest, IoT and Cameras, plus a separate VLAN for card-payment terminals or servers if you have them.</p>
+
+      <h3>Does this work on the UniFi Express or Dream Router?</h3>
+      <p>Yes. Every current UniFi gateway supports VLANs and the zone-based firewall. Smaller gateways have lower limits on throughput with security features enabled, but VLAN setup is the same.</p>
 
       <h2>When to Call a Professional</h2>
 
-      <p>VLANs are powerful, but they can get complex — especially when you're dealing with inter-VLAN routing exceptions, mDNS across VLANs (for AirPlay, Chromecast, etc.), or larger environments with multiple switches and APs.</p>
+      <p>VLANs get complicated quickly once you add exceptions between networks, mDNS, Matter devices, multiple switches or more than one site. A mistake can silently leave everything exposed, or knock your cameras and printers offline.</p>
 
-      <p>If you're not sure about your setup or want it done right the first time, that's exactly what we do.</p>
+      <p>If you'd rather have it done right the first time, that's exactly what we do: <a href="/unifi-installation-orlando.html">onsite in Orlando</a>, or a <a href="/remote-unifi-services.html">fixed-price remote configuration review</a> anywhere in the U.S.</p>
 
       <div class="post__lead">
         <h3>Free: UniFi Security Checklist</h3>
