@@ -1511,7 +1511,7 @@ h1 { font-family: var(--font); }
 /* ─── Mobile contact bar ─── */
 .mobile-bar { display: none; }
 @media (max-width: 900px) {
-  .mobile-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom)); background: rgba(255,255,255,0.97); border-top: 1px solid var(--gray-100); box-shadow: 0 -4px 16px rgba(0,0,0,0.06); }
+  .mobile-bar { display: grid; grid-template-columns: 1fr 1fr 1.6fr; gap: 0.5rem; position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom)); background: rgba(255,255,255,0.97); border-top: 1px solid var(--gray-100); box-shadow: 0 -4px 16px rgba(0,0,0,0.06); }
   .mobile-bar a { display: flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.75rem; border-radius: 6px; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; }
   .mobile-bar__call { border: 1px solid var(--gray-300); color: var(--black); }
   .mobile-bar__book { background: var(--accent); color: var(--white); }

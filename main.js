@@ -145,7 +145,8 @@ document.addEventListener('click', (e) => {
   if (/\/assessment(\.html)?$/.test(location.pathname)) return;
   var bar = document.createElement('div');
   bar.className = 'mobile-bar';
-  bar.innerHTML = '<a class="mobile-bar__call" href="tel:+19145279957">Call us</a>' +
+  bar.innerHTML = '<a class="mobile-bar__call" href="tel:+19145279957">Call</a>' +
+                  '<a class="mobile-bar__call" href="sms:+19145279957">Text</a>' +
                   '<a class="mobile-bar__book" href="/assessment.html">Free assessment</a>';
   document.body.appendChild(bar);
   document.body.classList.add('has-mobile-bar');
