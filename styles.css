@@ -9,6 +9,7 @@
   --gray-300:#c4c4c4;
   --gray-500:#767676;
   --gray-800:#222222;
+  --text:    #3f3f3f;
   --accent:  #0a0a0a;
   --font:    'Josefin Sans', system-ui, -apple-system, sans-serif;
   --radius:  12px;
@@ -32,17 +33,17 @@ ul { list-style: none; }
 img { display: block; max-width: 100%; }
 
 /* ─── Typography ─── */
-h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 200; line-height: 1.1; letter-spacing: 0.08em; text-transform: uppercase; }
-h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 200; letter-spacing: 0.06em; line-height: 1.15; text-transform: uppercase; }
+h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; line-height: 1.1; letter-spacing: 0.08em; text-transform: uppercase; }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 300; letter-spacing: 0.06em; line-height: 1.15; text-transform: uppercase; }
 h3 { font-size: 1rem; font-weight: 300; letter-spacing: 0.1em; margin-bottom: 0.5rem; text-transform: uppercase; }
-p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 0.02em; }
+p  { color: var(--text); font-size: 1rem; font-weight: 400; letter-spacing: 0.02em; }
 
 /* ─── Helpers ─── */
 .container { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem; }
 
 .section-tag {
   font-size: 0.72rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--gray-500);
@@ -51,7 +52,7 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
 
 .section-header { text-align: center; margin-bottom: 3.5rem; }
 .section-header h2 { color: var(--black); margin-bottom: 0.75rem; }
-.section-header h1 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 200; letter-spacing: 0.06em; line-height: 1.15; text-transform: uppercase; color: var(--black); margin-bottom: 0.75rem; }
+.section-header h1 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 300; letter-spacing: 0.06em; line-height: 1.15; text-transform: uppercase; color: var(--black); margin-bottom: 0.75rem; }
 .section-sub { max-width: 500px; margin: 0.5rem auto 0; }
 
 /* ─── Buttons ─── */
@@ -210,7 +211,7 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
 
 .hero__eyebrow {
   font-size: 0.72rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--gray-500);
@@ -236,7 +237,7 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
   gap: 0.5rem;
   margin-top: 1.5rem;
   font-size: 0.8rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--gray-500);
 }
@@ -289,7 +290,7 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
   font-weight: 300;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #c4c4c4;
+  color: var(--gray-500);
 }
 
 .device-udm { top: 50%; left: 50%; transform: translate(-50%, -50%); animation: float-center 8s ease-in-out infinite; }
@@ -498,7 +499,7 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
 
 .pricing-card__label {
   font-size: 0.72rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gray-500);
@@ -522,7 +523,7 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
 
 .pricing-card__per {
   font-size: 0.8rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.05em;
   color: var(--gray-500);
 }
@@ -531,7 +532,7 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
   font-size: 0.78rem;
   font-weight: 300;
   letter-spacing: 0.04em;
-  color: var(--gray-300);
+  color: var(--gray-500);
   margin-bottom: 1.25rem;
 }
 
@@ -573,9 +574,9 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
 
 .pricing-card__features li {
   font-size: 0.8rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.04em;
-  color: var(--gray-500);
+  color: var(--text);
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -911,7 +912,7 @@ input::placeholder, textarea::placeholder { color: var(--gray-300); }
 
 .form__optional {
   font-weight: 300;
-  color: var(--gray-300);
+  color: var(--gray-500);
   letter-spacing: 0.02em;
 }
 
@@ -920,7 +921,7 @@ input::placeholder, textarea::placeholder { color: var(--gray-300); }
   align-items: center;
   gap: 0.5rem;
   font-size: 0.78rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--gray-500);
   margin-top: 0.25rem;
@@ -1023,7 +1024,7 @@ input::placeholder, textarea::placeholder { color: var(--gray-300); }
   font-size: 0.875rem;
   line-height: 1.75;
   padding-bottom: 1.25rem;
-  color: var(--gray-500);
+  color: var(--text);
 }
 
 /* ─── Testimonials ─── */
@@ -1075,7 +1076,7 @@ input::placeholder, textarea::placeholder { color: var(--gray-300); }
 
 .testimonial__role {
   font-size: 0.75rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--gray-500);
 }
@@ -1177,7 +1178,7 @@ input::placeholder, textarea::placeholder { color: var(--gray-300); }
   font-size: 0.78rem;
   font-weight: 300;
   letter-spacing: 0.06em;
-  color: var(--gray-300);
+  color: var(--gray-500);
   margin-bottom: 1.25rem;
 }
 
@@ -1206,7 +1207,7 @@ input::placeholder, textarea::placeholder { color: var(--gray-300); }
 }
 .footer__links a {
   font-size: 0.8rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--gray-500);
   transition: color 0.15s;
@@ -1221,7 +1222,7 @@ input::placeholder, textarea::placeholder { color: var(--gray-300); }
 }
 .footer__contact-list a {
   font-size: 0.8rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--gray-500);
   transition: color 0.15s;
@@ -1243,7 +1244,7 @@ input::placeholder, textarea::placeholder { color: var(--gray-300); }
   font-size: 0.75rem;
   font-weight: 300;
   letter-spacing: 0.06em;
-  color: var(--gray-300);
+  color: var(--gray-500);
 }
 
 .footer__bottom-contact {
@@ -1255,11 +1256,11 @@ input::placeholder, textarea::placeholder { color: var(--gray-300); }
   font-size: 0.75rem;
   font-weight: 300;
   letter-spacing: 0.06em;
-  color: var(--gray-300);
+  color: var(--gray-500);
   transition: color 0.15s;
 }
 .footer__bottom-contact a:hover { color: var(--black); }
-.footer__bottom-contact span { color: var(--gray-300); font-size: 0.75rem; }
+.footer__bottom-contact span { color: var(--gray-500); font-size: 0.75rem; }
 
 /* ─── Back to Top ─── */
 .back-to-top {
