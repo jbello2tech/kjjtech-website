@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How to Set Up VLANs on a Unifi Dream Machine | KJJ Tech</title>
-  <meta name="description" content="Step-by-step guide to setting up VLANs on a Unifi Dream Machine. Learn how to segment your network for better security, performance, and device management." />
-  <meta property="og:title" content="How to Set Up VLANs on a Unifi Dream Machine" />
-  <meta property="og:description" content="Step-by-step guide to setting up VLANs on Unifi for better security and network performance." />
+  <title>How to Set Up VLANs on a UniFi Dream Machine | KJJ Tech</title>
+  <meta name="description" content="Step-by-step guide to setting up VLANs on a UniFi Dream Machine. Learn how to segment your network for better security, performance, and device management." />
+  <meta property="og:title" content="How to Set Up VLANs on a UniFi Dream Machine" />
+  <meta property="og:description" content="Step-by-step guide to setting up VLANs on UniFi for better security and network performance." />
   <meta property="og:image" content="https://kjjtech.com/og-image.png" />
   <meta property="og:url" content="https://kjjtech.com/blog/unifi-vlan-setup-guide.html" />
   <meta property="og:type" content="article" />
@@ -36,8 +36,8 @@
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "How to Set Up VLANs on a Unifi Dream Machine",
-    "description": "Step-by-step guide to setting up VLANs on Unifi for better security and network performance.",
+    "headline": "How to Set Up VLANs on a UniFi Dream Machine",
+    "description": "Step-by-step guide to setting up VLANs on UniFi for better security and network performance.",
     "image": "https://kjjtech.com/og-image.png",
     "author": { "@type": "Person", "name": "Jorge Bello", "url": "https://kjjtech.com/#about", "jobTitle": "Founder, KJJ Tech" },
     "publisher": { "@type": "Organization", "name": "KJJ Tech", "logo": { "@type": "ImageObject", "url": "https://kjjtech.com/logo.jpg" } },
@@ -53,7 +53,7 @@
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kjjtech.com/" },
       { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://kjjtech.com/blog/" },
-      { "@type": "ListItem", "position": 3, "name": "How to Set Up VLANs on a Unifi Dream Machine", "item": "https://kjjtech.com/blog/unifi-vlan-setup-guide.html" }
+      { "@type": "ListItem", "position": 3, "name": "How to Set Up VLANs on a UniFi Dream Machine", "item": "https://kjjtech.com/blog/unifi-vlan-setup-guide.html" }
     ]
   }
   </script>
@@ -85,11 +85,11 @@
     </a>
 
     <span class="post__tag">Guide</span>
-    <h1 class="post__title">How to Set Up VLANs on a Unifi Dream Machine</h1>
+    <h1 class="post__title">How to Set Up VLANs on a UniFi Dream Machine</h1>
     <p class="post__meta">April 2026 &middot; 8 min read</p>
 
     <div class="post__body">
-      <p>If every device on your network shares the same broadcast domain, you're leaving performance and security on the table. VLANs (Virtual Local Area Networks) let you split one physical network into multiple isolated segments — and the Unifi Dream Machine makes it straightforward to set up.</p>
+      <p>If every device on your network shares the same broadcast domain, you're leaving performance and security on the table. VLANs (Virtual Local Area Networks) let you split one physical network into multiple isolated segments — and the UniFi Dream Machine makes it straightforward to set up.</p>
 
       <p>Whether you're separating IoT devices from your main network, isolating guest Wi-Fi, or building out a home lab, this guide walks you through the entire process.</p>
 
@@ -112,7 +112,7 @@
       <p>Here are the most common segments we set up for clients:</p>
 
       <ul>
-        <li><strong>Default / Management (VLAN 1)</strong> — Your Unifi gear, switches, and APs.</li>
+        <li><strong>Default / Management (VLAN 1)</strong> — Your UniFi gear, switches, and APs.</li>
         <li><strong>Trusted (VLAN 10)</strong> — Personal or work devices: laptops, desktops, phones.</li>
         <li><strong>IoT (VLAN 20)</strong> — Smart home devices, cameras, voice assistants.</li>
         <li><strong>Guest (VLAN 30)</strong> — Visitor access with internet only, no local network access.</li>
@@ -121,7 +121,7 @@
 
       <h2>Step 1: Create a New Network</h2>
 
-      <p>Open your Unifi Network application and navigate to <strong>Settings &rarr; Networks</strong>. Click <strong>Create New Network</strong>.</p>
+      <p>Open your UniFi Network application and navigate to <strong>Settings &rarr; Networks</strong>. Click <strong>Create New Network</strong>.</p>
 
       <ul>
         <li>Give it a descriptive name (e.g., "IoT")</li>
@@ -160,7 +160,7 @@
         <strong>Note:</strong> The steps below use the <em>legacy</em> Firewall Rules interface. If you're on UniFi Network 9.0 or newer, UI recommends using the new <a href="/blog/unifi-zone-based-firewall.html">zone-based firewall</a> instead — it's simpler and more powerful. Both approaches still work, but new setups should start with zones.
       </blockquote>
 
-      <p>By default, VLANs on Unifi can still talk to each other. You'll want to create firewall rules to block inter-VLAN traffic and then allow specific exceptions.</p>
+      <p>By default, VLANs on UniFi can still talk to each other. You'll want to create firewall rules to block inter-VLAN traffic and then allow specific exceptions.</p>
 
       <p>Navigate to <strong>Settings &rarr; Firewall &amp; Security &rarr; Firewall Rules</strong> and create a new rule:</p>
 
@@ -188,9 +188,9 @@
 
       <ul>
         <li><strong>Forgetting trunk ports</strong> — If your AP is on a non-trunk port, it won't be able to serve multiple SSIDs across VLANs.</li>
-        <li><strong>Not setting firewall rules</strong> — VLANs without firewall rules still allow cross-VLAN traffic by default on Unifi.</li>
+        <li><strong>Not setting firewall rules</strong> — VLANs without firewall rules still allow cross-VLAN traffic by default on UniFi.</li>
         <li><strong>Too many VLANs</strong> — Start simple. Three to four VLANs covers most use cases. You can always add more later.</li>
-        <li><strong>Locking yourself out</strong> — Always keep a device on the management VLAN so you can still access the Unifi controller.</li>
+        <li><strong>Locking yourself out</strong> — Always keep a device on the management VLAN so you can still access the UniFi controller.</li>
       </ul>
 
       <h2>When to Call a Professional</h2>
@@ -214,7 +214,7 @@
 
       <div class="post__cta">
         <h3>Need help setting up VLANs?</h3>
-        <p>We configure Unifi networks every day. Let us handle the setup so you can focus on everything else.</p>
+        <p>We configure UniFi networks every day. Let us handle the setup so you can focus on everything else.</p>
         <a href="/getintouch.html?plan=network" class="btn btn--primary">Book a free call</a>
         <a href="/remote-unifi-services.html" class="btn btn--ghost">Remote review — $340 flat</a>
       </div>
@@ -231,12 +231,12 @@
               <span class="blog-card__read">Read &rarr;</span>
             </div>
           </a>
-          <a href="/blog/unifi-vs-meraki.html" class="blog-card">
-            <span class="blog-card__tag">Comparison</span>
-            <h2 class="blog-card__title">UniFi vs Meraki (2026): Cost, Features & Which to Choose</h2>
-            <p class="blog-card__excerpt">Two of the most popular options for business networking — compared on cost, management, features, and who each is really built for.</p>
+          <a href="/blog/network-security-tips.html" class="blog-card">
+            <span class="blog-card__tag">Security</span>
+            <h2 class="blog-card__title">12 Network Security Tips Every Small Business Should Follow</h2>
+            <p class="blog-card__excerpt">From default credentials to VLAN segmentation — practical, no-nonsense network security tips that actually move the needle.</p>
             <div class="blog-card__meta">
-              <span class="blog-card__date">April 2026</span>
+              <span class="blog-card__date">September 2026</span>
               <span class="blog-card__read">Read &rarr;</span>
             </div>
           </a>

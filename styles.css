@@ -51,6 +51,7 @@ p  { color: var(--gray-500); font-size: 1rem; font-weight: 300; letter-spacing: 
 
 .section-header { text-align: center; margin-bottom: 3.5rem; }
 .section-header h2 { color: var(--black); margin-bottom: 0.75rem; }
+.section-header h1 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 200; letter-spacing: 0.06em; line-height: 1.15; text-transform: uppercase; color: var(--black); margin-bottom: 0.75rem; }
 .section-sub { max-width: 500px; margin: 0.5rem auto 0; }
 
 /* ─── Buttons ─── */
