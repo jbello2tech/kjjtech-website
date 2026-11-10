@@ -1574,3 +1574,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .post__figure { margin: 2.25rem 0; width: min(1000px, calc(100vw - 32px)); margin-left: calc(50% - min(500px, 50vw - 16px)); }
 .post__figure img { display: block; width: 100%; height: auto; border: 1px solid var(--gray-100); border-radius: var(--radius); background: var(--white); }
 .post__figure figcaption { margin-top: 0.65rem; font-size: 0.85rem; line-height: 1.5; color: var(--gray-500); text-align: center; }
+
+/* Pricing card fine print */
+.pricing-card__note { margin: 0.25rem 0 1rem; font-size: 0.85rem; line-height: 1.45; color: var(--gray-500); }
