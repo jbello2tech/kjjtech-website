@@ -7,7 +7,11 @@
   <meta name="description" content="Dropped Wi-Fi, slowdowns at busy times, an old ISP router: 7 signs your small business has outgrown its network, and what to do about it." />
   <meta property="og:title" content="7 Signs Your Small Business Network Needs an Upgrade" />
   <meta property="og:description" content="Seven signs your small business has outgrown its network, and what a modern setup looks like." />
-  <meta property="og:image" content="https://kjjtech.com/og-image.png" />
+  <meta property="og:image" content="https://kjjtech.com/blog/img/og/network-upgrade-signs.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://kjjtech.com/blog/img/og/network-upgrade-signs.png" />
   <meta property="og:url" content="https://kjjtech.com/blog/network-upgrade-signs.html" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="KJJ Tech" />
@@ -35,11 +39,11 @@
     "@type": "BlogPosting",
     "headline": "7 Signs Your Small Business Network Needs an Upgrade",
     "description": "Dropped Wi-Fi, slowdowns at busy times, an old ISP router: 7 signs your small business has outgrown its network, and what to do about it.",
-    "image": "https://kjjtech.com/og-image.png",
+    "image": "https://kjjtech.com/blog/img/og/network-upgrade-signs.png",
     "author": { "@type": "Person", "name": "Jorge Bello", "url": "https://kjjtech.com/#about", "jobTitle": "Founder, KJJ Tech" },
     "publisher": { "@type": "Organization", "name": "KJJ Tech", "logo": { "@type": "ImageObject", "url": "https://kjjtech.com/logo.jpg" } },
     "datePublished": "2026-11-02",
-    "dateModified": "2026-11-02",
+    "dateModified": "2026-11-09",
     "mainEntityOfPage": "https://kjjtech.com/blog/network-upgrade-signs.html"
   }
   </script>
@@ -84,7 +88,7 @@
 
     <span class="post__tag">Business</span>
     <h1 class="post__title">7 Signs Your Small Business Network Needs an Upgrade</h1>
-    <p class="post__meta">By <a href="/#about" rel="author">Jorge Bello</a>, founder &middot; <time datetime="2026-11-02">Nov 2, 2026</time> &middot; 6 min read</p>
+    <p class="post__meta">By <a href="/#about" rel="author">Jorge Bello</a>, founder &middot; Updated <time datetime="2026-11-09">Nov 9, 2026</time> &middot; 8 min read</p>
 
     <div class="post__body">
       <p>Most small business networks aren't designed. They accumulate: an ISP router here, a cheap switch there, a range extender for the back office. It works, until it doesn't. These are the signs we see most often in businesses that have outgrown their network, and what to do about each.</p>
@@ -95,29 +99,57 @@
 
       <p>Calls dropping in the back office, a card terminal that times out at the register, a conference room nobody can work in. Dead zones usually mean too few access points, or APs in the wrong places, not a slow internet plan. Our <a href="/blog/unifi-ap-placement-guide.html">AP placement guide</a> explains why.</p>
 
+      <p><strong>What to do:</strong> Note where the dead zones are, then add or move ceiling-mounted access points instead of adding range extenders, which usually trade speed for reach.</p>
+
       <h2>2. Everything Slows Down at Busy Times</h2>
 
       <p>If the network is fine at 8 AM and crawls at 11, you've likely hit the limit of your router or access points, not your internet speed. Consumer gear is built for a handful of devices. A business with 20 staff, phones, printers and guests can easily have 75+ connected devices.</p>
+
+      <p><strong>What to do:</strong> Check how many devices are connected at your busiest time. If it's more than your router was built for, a business-grade gateway and more access points spread the load.</p>
 
       <h2>3. You're Still Using the ISP's Router</h2>
 
       <p>The box your internet provider installed is designed to be cheap and easy, not secure or manageable. It typically can't segment networks properly, has limited firewall controls, and gets firmware updates on the ISP's schedule, if at all.</p>
 
+      <p><strong>What to do:</strong> Put the ISP box in bridge (passthrough) mode and let a business gateway handle routing, the firewall and Wi-Fi. You keep the same internet service and the same provider.</p>
+
       <h2>4. Guests, Cameras and Staff Share One Network</h2>
 
       <p>If the guest Wi-Fi, security cameras, POS system and office computers are all on the same network, one compromised device can reach everything. Separating them with VLANs and a proper firewall is one of the highest-impact security improvements a small business can make. See our <a href="/blog/network-security-tips.html">12 network security tips</a>.</p>
+
+      <p><strong>What to do:</strong> Create separate networks for staff, guests, cameras and payment systems, then block traffic between them with firewall rules. Our <a href="/blog/unifi-vlan-setup-guide.html">UniFi VLAN setup guide</a> walks through it step by step.</p>
 
       <h2>5. Nobody Knows the Admin Password</h2>
 
       <p>"The guy who set it up" left years ago, and nobody can log in to the router or the switch. That means nobody is applying security updates, and when something breaks, it can't be fixed quickly. If you can't manage your own network, you don't really control it.</p>
 
+      <p><strong>What to do:</strong> Collect every admin login in a password manager, give each person who manages the network their own named account, and turn on two-factor authentication wherever the equipment supports it.</p>
+
       <h2>6. The Equipment Is 5+ Years Old</h2>
 
       <p>Older hardware often stops getting security patches, and older Wi-Fi standards (Wi-Fi 5 and earlier) struggle with today's device counts. If your access points predate Wi-Fi 6, an upgrade usually brings a noticeable speed and reliability jump.</p>
 
+      <p><strong>What to do:</strong> Check whether each device still gets firmware updates. Anything the manufacturer has stopped patching should be first on the replacement list.</p>
+
       <h2>7. You're Growing</h2>
 
       <p>New hires, a second location, an expanded space, cameras or door access on the roadmap. Growth is the best time to fix the foundation, because adding to a shaky network multiplies the problems.</p>
+
+      <p><strong>What to do:</strong> Plan for the size you expect to be in two years: spare switch ports, enough PoE power for cameras and access points, and cabling to the spaces you'll grow into.</p>
+
+      <h2>A 5-Minute Self-Check</h2>
+
+      <p>Answer these five questions about your network today:</p>
+
+      <ul>
+        <li>Can you log in to your router and switches right now?</li>
+        <li>Do guests use a separate Wi-Fi network that can't reach your computers?</li>
+        <li>Has the firmware on your router and access points been updated in the last six months?</li>
+        <li>Is there a spot in your building where the Wi-Fi regularly drops?</li>
+        <li>Is any of your network equipment more than five years old?</li>
+      </ul>
+
+      <p>If you answered "no" to any of the first three, or "yes" to either of the last two, your network is worth a closer look.</p>
 
       <h2>What an Upgrade Actually Looks Like</h2>
 
@@ -129,6 +161,29 @@
       </figure>
 
       <p>You don't have to replace everything at once. A good assessment tells you what to fix first, and what can wait.</p>
+
+      <h2>What to Fix First</h2>
+
+      <p>If budget means doing this in stages, this order gets the most improvement for the least money:</p>
+
+      <ol>
+        <li><strong>Get admin access and update firmware.</strong> It costs nothing and closes the easiest security gaps.</li>
+        <li><strong>Separate guest and device traffic.</strong> Keep visitors, cameras and smart devices off the network your computers and payment systems use.</li>
+        <li><strong>Replace the ISP router with a business gateway.</strong> This gives you a real firewall, proper network separation and updates you control.</li>
+        <li><strong>Fix coverage with properly placed access points.</strong> Ceiling-mounted APs in the right spots solve most dead zones and slowdowns.</li>
+        <li><strong>Plan for growth.</strong> Switch capacity, cabling and power for the cameras and devices you'll add next.</li>
+      </ol>
+
+      <h2>Common Questions</h2>
+
+      <h3>How much does a small business network upgrade cost?</h3>
+      <p>For a small office of 10 to 25 people with 3 to 5 access points, expect roughly $1,500 to $3,600 for hardware and professional setup, plus cabling if new runs are needed. Our <a href="/blog/unifi-installation-cost.html">UniFi installation cost guide</a> has the full breakdown.</p>
+
+      <h3>How long does an upgrade take?</h3>
+      <p>Labor for a typical small office runs about 4 to 8 hours. The switch-over itself is usually short, and it can be scheduled around your busiest hours.</p>
+
+      <h3>Do we need to change internet providers?</h3>
+      <p>No. A new gateway works with your existing internet service. The provider's box can usually stay in place in bridge mode.</p>
 
       <div class="post__cta">
         <h3>Recognize a few of these?</h3>
@@ -171,6 +226,9 @@
         <div class="footer__socials">
           <a href="https://www.linkedin.com/company/kjjtech" target="_blank" rel="noopener" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://maps.google.com/?cid=1704275016395459676" target="_blank" rel="noopener" aria-label="KJJ Tech on Google">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
           </a>
           <a href="mailto:support@kjjtech.com" aria-label="Email">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
