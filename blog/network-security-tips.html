@@ -110,6 +110,11 @@
 
       <p>A flat network means that if one device gets compromised (a smart thermostat, an employee's phone, a guest's laptop), it can potentially reach everything else on the network. Segmenting devices into VLANs by trust level (trusted staff devices, IoT, guest, cameras, servers) limits how far an attacker can move if they get a foothold. See our <a href="/blog/unifi-vlan-setup-guide.html">VLAN setup guide</a> if you haven't done this yet. It's one of the highest-impact changes you can make.</p>
 
+      <figure class="post__figure">
+        <a href="/blog/img/network-segmentation-flat-vs-vlan.svg" target="_blank" rel="noopener"><img src="/blog/img/network-segmentation-flat-vs-vlan.svg" alt="Flat network versus segmented network: a hacked smart plug reaches every device on a flat network but is blocked by VLANs and firewall zones" width="1200" height="500" loading="lazy" decoding="async" /></a>
+        <figcaption>On a flat network, one hacked device can reach everything. With VLANs and firewall zones, it’s contained.</figcaption>
+      </figure>
+
       <h2>4. Use a Real Firewall Policy, Not "Allow All"</h2>
 
       <p>Plenty of small business networks are running with the equivalent of no firewall at all: every VLAN can talk to every other VLAN, unrestricted. If you're on UniFi Network 9.0 or newer, the <a href="/blog/unifi-zone-based-firewall.html">zone-based firewall</a> makes it straightforward to define exactly which zones can reach which, and block everything else by default.</p>

@@ -183,6 +183,11 @@
 
       <p>Click any cell to edit that policy. You can add exceptions within a block, for example, <strong>Block IoT &rarr; Trusted, except allow IoT to reach 192.168.1.50 on port 80</strong> (for a shared printer).</p>
 
+      <figure class="post__figure">
+        <a href="/blog/img/unifi-zone-policy-matrix.svg" target="_blank" rel="noopener"><img src="/blog/img/unifi-zone-policy-matrix.svg" alt="UniFi zone-based firewall policy matrix: Trusted, IoT, Guest and External zones with allow and block rules" width="1200" height="520" loading="lazy" decoding="async" /></a>
+        <figcaption>A starting policy matrix for a home or small office. Trusted can reach IoT, but IoT can’t reach Trusted.</figcaption>
+      </figure>
+
       <h2>Step 5: Test Each Zone</h2>
 
       <p>Connect a device to each VLAN and verify:</p>

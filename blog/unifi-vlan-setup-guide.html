@@ -120,6 +120,11 @@
 
       <p>Matching the third octet of the subnet to the VLAN ID (VLAN 20 &rarr; 192.168.20.x) makes everything easier to read later. Three to five VLANs covers almost every home and small business; you can always add more.</p>
 
+      <figure class="post__figure">
+        <a href="/blog/img/unifi-vlan-layout.svg" target="_blank" rel="noopener"><img src="/blog/img/unifi-vlan-layout.svg" alt="UniFi VLAN layout: Management VLAN 1, Trusted VLAN 10, IoT VLAN 20, Guest VLAN 30, Cameras VLAN 40" width="1200" height="560" loading="lazy" decoding="async" /></a>
+        <figcaption>A typical UniFi VLAN plan: Management, Trusted, IoT, Guest and Cameras, each on its own subnet.</figcaption>
+      </figure>
+
       <h2>Step 1: Create the Networks</h2>
 
       <p>In the UniFi Network application, go to <strong>Settings &rarr; Networks</strong> and click <strong>Create New</strong> below the list of networks.</p>
