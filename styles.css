@@ -1577,3 +1577,5 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 
 /* Pricing card fine print */
 .pricing-card__note { margin: 0.25rem 0 1rem; font-size: 0.85rem; line-height: 1.45; color: var(--gray-500); }
+
+.testimonials__nav[hidden] { display: none; }
