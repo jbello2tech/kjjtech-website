@@ -113,6 +113,7 @@ Submit a review on `https://kjjtech.com/leave-review.html`. You should get a Dis
 | `ADMIN_KEY` | Guards `/admin/digest` and `/list`. |
 | `RB2B_WEBHOOK_KEY` | Shared secret in the RB2B webhook URL (`/rb2b?key=…`). RB2B doesn't sign webhooks, so this is the only gate. |
 | `RB2B_DISCORD_WEBHOOK_URL` | Optional. Discord channel for RB2B visitor alerts; falls back to `LEADS_WEBHOOK_URL`, then `DISCORD_WEBHOOK_URL`. |
+| `DISCORD_MENTION_USER_ID` | Optional. Your Discord user ID; client intake and free assessment leads @mention it so Discord pushes a notification. |
 
 Rotate with `npx wrangler secret put <NAME>`.
 

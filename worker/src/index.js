@@ -312,6 +312,15 @@ const LEAD_TITLES = {
   quick_question: '💬 Quick question',
 };
 
+// Lead types that @mention DISCORD_MENTION_USER_ID so Discord sends a push.
+const MENTION_LEAD_TYPES = new Set(['client_intake', 'free_assessment']);
+
+function leadMention(env, type) {
+  const id = String(env.DISCORD_MENTION_USER_ID || '').trim();
+  if (!/^\d{15,25}$/.test(id) || !MENTION_LEAD_TYPES.has(type)) return {};
+  return { content: `<@${id}> ${LEAD_TITLES[type]}`, allowed_mentions: { users: [id] } };
+}
+
 async function handleLeadBackup(req, env) {
   const origin = req.headers.get('Origin') || '';
   if (origin && !/^https:\/\/(www\.)?kjjtech\.com$/.test(origin)) {
@@ -366,7 +375,9 @@ async function handleLeadBackup(req, env) {
     const res = await fetch(hook, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ embeds: [{
+      body: JSON.stringify({
+        ...leadMention(env, type),
+        embeds: [{
         title: LEAD_TITLES[type] || '🆕 Website form submission',
         color: 0x1d4ed8,
         fields,
