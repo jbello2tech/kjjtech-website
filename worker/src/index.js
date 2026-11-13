@@ -11,8 +11,10 @@
 //   GET|POST /unsubscribe?id=&t=<hmac>   — opt a checklist lead out of follow-up emails
 //   GET  /admin/lead-emails?key=<ADMIN_KEY>  — dry run: who would be emailed right now
 //   POST /admin/lead-emails?key=<ADMIN_KEY>  — send due lead emails now (normally the 8 AM ET cron)
+//   GET  /google-reviews                 — live Google rating + reviews for the homepage (daily-capped)
 //   cron 12:00 + 13:00 UTC               — lead welcome/follow-up emails at 8 AM America/New_York
 
+import { handleGoogleReviews } from './google-reviews.js';
 import { runLeadEmails, postRunSummary, scheduledLeadEmails, unsubscribeToken, welcomeEmail, followupEmail } from './lead-emails.js';
 
 const enc = new TextEncoder();
@@ -624,6 +626,9 @@ export default {
 
         return Response.redirect(pdfUrl, 303);
       }
+
+      // Live Google reviews for the homepage (no caching per Places API terms)
+      if (pathname === '/google-reviews' && req.method === 'GET') return await handleGoogleReviews(req, env);
 
       // Unsubscribe from checklist follow-up emails. GET shows a confirm button
       // (so link scanners that prefetch URLs don't unsubscribe people); POST applies it.

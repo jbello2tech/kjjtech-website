@@ -1587,3 +1587,22 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .remote-join__title { font-weight: 600; color: var(--accent); }
 .remote-join__hint { font-size: 0.9rem; color: var(--gray-500); }
 @media (max-width: 600px) { .remote-join__btn { width: 100%; text-align: center; } }
+
+/* Live Google reviews (homepage) */
+.g-reviews { margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid var(--gray-100); }
+.g-reviews__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.5rem 0.9rem; margin-bottom: 1.75rem; font-family: var(--font-body); }
+.g-reviews__logo { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 500; color: var(--gray-800); }
+.g-reviews__score { font-size: 1.4rem; font-weight: 600; color: var(--black); }
+.g-reviews__stars { color: #fbbc04; letter-spacing: 0.1em; }
+.g-reviews__count { color: var(--gray-500); font-size: 0.9rem; }
+.g-reviews__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
+.g-reviews__grid:has(> :only-child) { max-width: 560px; }
+.g-review { border: 1px solid var(--gray-100); border-radius: 12px; padding: 1.5rem; background: var(--white); text-align: left; }
+.g-review__who { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+.g-review__photo { width: 36px; height: 36px; border-radius: 50%; }
+.g-review__name { font-family: var(--font-body); font-weight: 600; color: var(--black); }
+a.g-review__name:hover { text-decoration: underline; }
+.g-review__when { font-size: 0.8rem; color: var(--gray-500); }
+.g-review__text { font-family: var(--font-body); font-size: 0.95rem; line-height: 1.6; color: var(--gray-800); white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 8; -webkit-box-orient: vertical; overflow: hidden; margin: 0.5rem 0 0.75rem; }
+.g-review__more, .g-reviews__all { font-size: 0.85rem; text-decoration: underline; color: var(--gray-800); }
+.g-reviews__foot { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.25rem; margin-top: 1.25rem; font-size: 0.8rem; color: var(--gray-500); font-family: var(--font-body); }

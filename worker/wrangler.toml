@@ -8,6 +8,8 @@ GITHUB_REPO = "jbello2tech/kjjtech-website"
 GITHUB_BRANCH = "main"
 WORKER_ORIGIN = "https://reviews.kjjtech.com"
 MAIL_FROM = "jbello@kjjtech.com"
+GOOGLE_PLACE_ID = "ChIJG2QO3ZafXaURXAzTBxnNphc"   # KJJ Tech (service-area business)
+GOOGLE_DAILY_CAP = "30"                           # max live Places calls/day (~900/mo, under free tier)
 # MAIL_POSTAL_ADDRESS = "KJJ Tech, PO Box ..., Orlando, FL 328xx"  # shown in email footer
 
 # Lead emails: fires 12:00 and 13:00 UTC; code only sends when it is 8 AM in New York (handles DST)
