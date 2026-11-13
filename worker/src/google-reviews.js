@@ -20,14 +20,13 @@ function cors(req) {
     : {};
 }
 
-async function takeQuota(env) {
-  const cap = Number(env.GOOGLE_DAILY_CAP || 30);
+async function takeQuota(env, api = 'places', cap = Number(env.GOOGLE_DAILY_CAP || 30)) {
   await env.DB.prepare('CREATE TABLE IF NOT EXISTS api_usage (day TEXT NOT NULL, api TEXT NOT NULL, n INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (day, api))').run();
   const row = await env.DB.prepare(
-    `INSERT INTO api_usage (day, api, n) VALUES (date('now'), 'places', 1)
+    `INSERT INTO api_usage (day, api, n) VALUES (date('now'), ?, 1)
      ON CONFLICT(day, api) DO UPDATE SET n = n + 1
      RETURNING n`
-  ).first();
+  ).bind(api).first();
   return row.n <= cap;
 }
 
@@ -68,20 +67,25 @@ export async function handleGoogleReviews(req, env) {
 }
 
 // ---- New-review alerts to Discord ---------------------------------------
-// Runs on the Worker's cron (4x/day). Stores only the review COUNT (a number,
-// no review content) to detect increases, then posts to the reviews channel
-// with a link to read/reply on Google. Uses the same daily cap as the page.
+// Runs hourly on the Worker's cron. The hourly poll asks Google for the review
+// COUNT only (cheaper SKU, own daily counter 'places_count', cap 26), stores
+// just that number, and only when it goes up fetches the full details (shared
+// 'places' cap) to include the newest review in the Discord post.
+
+async function placeDetails(env, fields) {
+  const res = await fetch(`https://places.googleapis.com/v1/places/${encodeURIComponent(env.GOOGLE_PLACE_ID)}`, {
+    headers: { 'X-Goog-Api-Key': env.GOOGLE_PLACES_KEY, 'X-Goog-FieldMask': fields },
+  });
+  if (!res.ok) { console.error('Places check failed', res.status); return null; }
+  return res.json();
+}
 
 export async function checkNewGoogleReviews(env) {
   if (!env.GOOGLE_PLACES_KEY || !env.GOOGLE_PLACE_ID) return;
-  if (!(await takeQuota(env))) return;
-
-  const res = await fetch(`https://places.googleapis.com/v1/places/${encodeURIComponent(env.GOOGLE_PLACE_ID)}`, {
-    headers: { 'X-Goog-Api-Key': env.GOOGLE_PLACES_KEY, 'X-Goog-FieldMask': FIELDS },
-  });
-  if (!res.ok) { console.error('Places check failed', res.status); return; }
-  const p = await res.json();
-  const count = p.userRatingCount ?? 0;
+  if (!(await takeQuota(env, 'places_count', 26))) return;
+  const c = await placeDetails(env, 'rating,userRatingCount');
+  if (!c) return;
+  const count = c.userRatingCount ?? 0;
 
   await env.DB.prepare('CREATE TABLE IF NOT EXISTS kv (key TEXT PRIMARY KEY, value TEXT)').run();
   const prev = await env.DB.prepare("SELECT value FROM kv WHERE key = 'google_review_count'").first();
@@ -90,6 +94,8 @@ export async function checkNewGoogleReviews(env) {
   if (!prev) return;                     // first run: just record the baseline
   const added = count - Number(prev.value);
   if (added <= 0) return;                // no change, or Google removed one
+
+  const p = ((await takeQuota(env)) && (await placeDetails(env, FIELDS))) || c;
 
   // Newest review among the (up to 5) Google returns, if it's recent.
   const newest = (p.reviews || []).slice().sort((a, b) => (b.publishTime || '').localeCompare(a.publishTime || ''))[0];

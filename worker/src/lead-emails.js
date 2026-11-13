@@ -280,7 +280,7 @@ export async function postRunSummary(env, report) {
 }
 
 export async function scheduledLeadEmails(env) {
-  if (nyHour() !== SEND_HOUR_NY) return; // cron fires at 12:00 and 13:00 UTC; only one is 8 AM Eastern
+  if (nyHour() !== SEND_HOUR_NY) return; // cron fires hourly; only send at 8 AM Eastern
   let report;
   try {
     report = await runLeadEmails(env);

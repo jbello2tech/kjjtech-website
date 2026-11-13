@@ -15,7 +15,7 @@ GOOGLE_DAILY_CAP = "30"                           # max live Places calls/day (~
 # 12 + 13 UTC: lead emails (code only sends when it is 8 AM in New York, handles DST)
 # Every run (12,13,17,22 UTC ~ 4x/day): check Google for new reviews -> Discord
 [triggers]
-crons = ["0 12,13,17,22 * * *"]
+crons = ["0 * * * *"]
 
 [[routes]]
 pattern = "reviews.kjjtech.com"
