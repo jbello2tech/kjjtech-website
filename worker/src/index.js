@@ -8,6 +8,12 @@
 //   POST /checklist                      — checklist PDF download form; stores lead + pings Discord
 //   POST /rb2b?key=<RB2B_WEBHOOK_KEY>    — RB2B visitor-identification webhook; reformats + pings Discord
 //   POST /lead                           — backup copy of website form submissions (Formspree forms); stores + pings Discord
+//   GET|POST /unsubscribe?id=&t=<hmac>   — opt a checklist lead out of follow-up emails
+//   GET  /admin/lead-emails?key=<ADMIN_KEY>  — dry run: who would be emailed right now
+//   POST /admin/lead-emails?key=<ADMIN_KEY>  — send due lead emails now (normally the 8 AM ET cron)
+//   cron 12:00 + 13:00 UTC               — lead welcome/follow-up emails at 8 AM America/New_York
+
+import { runLeadEmails, postRunSummary, scheduledLeadEmails, unsubscribeToken, welcomeEmail, followupEmail } from './lead-emails.js';
 
 const enc = new TextEncoder();
 const dec = new TextDecoder();
@@ -619,6 +625,47 @@ export default {
         return Response.redirect(pdfUrl, 303);
       }
 
+      // Unsubscribe from checklist follow-up emails. GET shows a confirm button
+      // (so link scanners that prefetch URLs don't unsubscribe people); POST applies it.
+      if (pathname === '/unsubscribe' && (req.method === 'GET' || req.method === 'POST')) {
+        const id = url.searchParams.get('id') || '';
+        const t = url.searchParams.get('t') || '';
+        if (!id || !(await timingSafeEqual(t, await unsubscribeToken(env, id)))) {
+          return htmlPage('Link not valid', '<p>This unsubscribe link is invalid or incomplete. Reply to any of our emails and we\'ll remove you by hand.</p>', { status: 400, error: true });
+        }
+        if (req.method === 'GET') {
+          return htmlPage('Unsubscribe', `<p>Stop receiving follow-up emails from KJJ Tech about the UniFi checklist?</p>
+            <form method="POST" action="/unsubscribe?id=${encodeURIComponent(id)}&t=${encodeURIComponent(t)}">
+            <button type="submit" style="font-size:1rem;padding:.6rem 1.4rem;border-radius:6px;border:1px solid #0a0a0a;background:#0a0a0a;color:#fff;cursor:pointer">Unsubscribe</button></form>`);
+        }
+        const row = await env.DB.prepare('SELECT email FROM leads WHERE id = ?').bind(id).first();
+        if (row) {
+          await env.DB.prepare(`UPDATE leads SET unsubscribed_at = datetime('now') WHERE lower(email) = lower(?) AND unsubscribed_at IS NULL`).bind(row.email).run();
+        }
+        return htmlPage('You\'re unsubscribed', '<p>You won\'t get any more follow-up emails from us. Thanks for reading!</p>');
+      }
+
+      // Lead email admin: GET = dry run, POST = send now. ?preview=welcome|followup renders the email.
+      if (pathname === '/admin/lead-emails') {
+        const key = url.searchParams.get('key') || '';
+        if (!env.ADMIN_KEY || !(await timingSafeEqual(key, env.ADMIN_KEY))) {
+          return new Response('forbidden', { status: 403 });
+        }
+        const preview = url.searchParams.get('preview');
+        if (preview === 'welcome' || preview === 'followup') {
+          const lead = { id: 'preview', source: url.searchParams.get('source') || 'unifi-vlan-setup-guide' };
+          const mail = (preview === 'welcome' ? welcomeEmail : followupEmail)(env, lead, '#unsubscribe');
+          return new Response(`<p style="font:13px sans-serif;color:#666">Subject: <b>${escapeHtml(mail.subject)}</b></p><hr>${mail.html}`,
+            { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+        }
+        if (req.method === 'POST') {
+          const report = await runLeadEmails(env);
+          await postRunSummary(env, report);
+          return Response.json(report);
+        }
+        return Response.json(await runLeadEmails(env, { dryRun: true }));
+      }
+
       // Backup copy of website form submissions → Discord
       if (pathname === '/lead' && req.method === 'POST') return await handleLeadBackup(req, env);
 
@@ -772,5 +819,9 @@ export default {
       console.error(err);
       return new Response(`error: ${err.message}`, { status: 500 });
     }
+  },
+
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(scheduledLeadEmails(env));
   },
 };

@@ -22,5 +22,9 @@ CREATE TABLE IF NOT EXISTS leads (
   source TEXT,
   resource TEXT,
   status TEXT NOT NULL DEFAULT 'new',
-  created_at TEXT NOT NULL
+  created_at TEXT NOT NULL,
+  emailed_at TEXT,        -- welcome email sent (columns added automatically by lead-emails.js)
+  followup_at TEXT,       -- 5-day follow-up sent or skipped
+  unsubscribed_at TEXT,
+  email_note TEXT
 );
