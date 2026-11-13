@@ -12,9 +12,10 @@ GOOGLE_PLACE_ID = "ChIJG2QO3ZafXaURXAzTBxnNphc"   # KJJ Tech (service-area busin
 GOOGLE_DAILY_CAP = "30"                           # max live Places calls/day (~900/mo, under free tier)
 # MAIL_POSTAL_ADDRESS = "KJJ Tech, PO Box ..., Orlando, FL 328xx"  # shown in email footer
 
-# Lead emails: fires 12:00 and 13:00 UTC; code only sends when it is 8 AM in New York (handles DST)
+# 12 + 13 UTC: lead emails (code only sends when it is 8 AM in New York, handles DST)
+# Every run (12,13,17,22 UTC ~ 4x/day): check Google for new reviews -> Discord
 [triggers]
-crons = ["0 12 * * *", "0 13 * * *"]
+crons = ["0 12,13,17,22 * * *"]
 
 [[routes]]
 pattern = "reviews.kjjtech.com"

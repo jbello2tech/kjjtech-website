@@ -12,9 +12,9 @@
 //   GET  /admin/lead-emails?key=<ADMIN_KEY>  — dry run: who would be emailed right now
 //   POST /admin/lead-emails?key=<ADMIN_KEY>  — send due lead emails now (normally the 8 AM ET cron)
 //   GET  /google-reviews                 — live Google rating + reviews for the homepage (daily-capped)
-//   cron 12:00 + 13:00 UTC               — lead welcome/follow-up emails at 8 AM America/New_York
+//   cron 12,13,17,22 UTC                 — lead emails at 8 AM America/New_York; Google new-review check every run
 
-import { handleGoogleReviews } from './google-reviews.js';
+import { handleGoogleReviews, checkNewGoogleReviews } from './google-reviews.js';
 import { runLeadEmails, postRunSummary, scheduledLeadEmails, unsubscribeToken, welcomeEmail, followupEmail } from './lead-emails.js';
 
 const enc = new TextEncoder();
@@ -828,5 +828,6 @@ export default {
 
   async scheduled(event, env, ctx) {
     ctx.waitUntil(scheduledLeadEmails(env));
+    ctx.waitUntil(checkNewGoogleReviews(env));
   },
 };
