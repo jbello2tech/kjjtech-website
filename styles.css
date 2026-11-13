@@ -1580,3 +1580,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .pricing-card__note { margin: 0.25rem 0 1rem; font-size: 0.85rem; line-height: 1.45; color: var(--gray-500); }
 
 .testimonials__nav[hidden] { display: none; }
+
+/* Remote support join (getintouch.html) */
+.remote-join { max-width: var(--max-w); margin: 0 auto 1rem; padding: 1.1rem 1.5rem; border: 1px solid var(--gray-100); border-radius: var(--radius); background: var(--gray-50); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
+.remote-join__text { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; align-items: baseline; font-family: var(--font-body); }
+.remote-join__title { font-weight: 600; color: var(--accent); }
+.remote-join__hint { font-size: 0.9rem; color: var(--gray-500); }
+@media (max-width: 600px) { .remote-join__btn { width: 100%; text-align: center; } }

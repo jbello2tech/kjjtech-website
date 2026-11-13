@@ -116,6 +116,8 @@ document.addEventListener('click', (e) => {
     gtag('event', 'phone_click', { page_path: location.pathname });
   } else if (href.startsWith('mailto:')) {
     gtag('event', 'email_click', { page_path: location.pathname });
+  } else if (href.includes('join.zoho.com')) {
+    gtag('event', 'remote_session_click', { page_path: location.pathname });
   }
 });
 
