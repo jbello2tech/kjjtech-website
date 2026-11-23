@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home VPN: How to Make Your Traffic Show Your Home IP (UniFi & GL.iNet)</title>
-  <meta name="description" content="Use a home VPN so your traffic exits through your own internet connection while travelling. Set it up with UniFi WireGuard or Teleport, or GL.iNet Beryl 7 and Mudi 7 travel routers." />
+  <title>Home VPN: Show Your Home IP Anywhere (UniFi & GL.iNet)</title>
+  <meta name="description" content="Travel with your home IP. Set up a home VPN with UniFi WireGuard or Teleport, or a GL.iNet Beryl 7 or 5G Mudi 7 travel router, and avoid leaks." />
   <meta property="og:title" content="Home VPN: Show Your Home IP Anywhere (UniFi & GL.iNet)" />
-  <meta property="og:description" content="Use a home VPN so your traffic exits through your own internet connection while travelling. Set it up with UniFi WireGuard or Teleport, or GL.iNet Beryl 7 and Mudi 7 travel routers." />
+  <meta property="og:description" content="Travel with your home IP. Set up a home VPN with UniFi WireGuard or Teleport, or a GL.iNet Beryl 7 or 5G Mudi 7 travel router, and avoid leaks." />
   <meta property="og:image" content="https://kjjtech.com/blog/img/og/home-vpn-public-ip.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -41,7 +41,7 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "Home VPN: Show Your Home IP Anywhere (UniFi & GL.iNet)",
-    "description": "Use a home VPN so your traffic exits through your own internet connection while travelling. Set it up with UniFi WireGuard or Teleport, or GL.iNet Beryl 7 and Mudi 7 travel routers.",
+    "description": "Travel with your home IP. Set up a home VPN with UniFi WireGuard or Teleport, or a GL.iNet Beryl 7 or 5G Mudi 7 travel router, and avoid leaks.",
     "image": "https://kjjtech.com/blog/img/og/home-vpn-public-ip.png",
     "author": { "@type": "Person", "name": "Jorge Bello", "url": "https://kjjtech.com/#about", "jobTitle": "Founder, KJJ Tech" },
     "publisher": { "@type": "Organization", "name": "KJJ Tech", "logo": { "@type": "ImageObject", "url": "https://kjjtech.com/logo.jpg" } },
@@ -102,7 +102,7 @@
 
       <h2>Why Your Home IP Matters</h2>
 
-      <p>Websites and apps judge you partly by the IP address you connect from. A home internet connection has a <em>residential</em> IP from your ISP. Commercial VPN services give you a shared <em>data center</em> IP that thousands of other people are using, and many services know it. Reasons people want their home IP while travelling:</p>
+      <p>Websites and apps judge you partly by the IP address you connect from. A home internet connection has a <em>residential</em> IP from your ISP. Commercial VPN services give you a shared <em>data center</em> IP that thousands of other people are using, and many services know it. Reasons people want their home IP while traveling:</p>
 
       <ul>
         <li><strong>Fewer fraud flags.</strong> Banks, card issuers and brokerage sites are far less likely to lock your account or demand extra verification when you log in from the same IP you always use.</li>
@@ -169,7 +169,7 @@
       <p>If your home network is UniFi, Ubiquiti's own <strong>UniFi Travel Router</strong> is the most seamless choice: you bind it to your UniFi site, pick which of your home Wi-Fi networks to copy, and it brings up a Teleport tunnel home. Newer firmware also supports standard WireGuard and OpenVPN client configs. The limits: it's Wi-Fi 5 with modest range and a single gigabit LAN port, and its controls live mostly in the app. Great for a hotel room; not built for power users.</p>
 
       <h3>GL.iNet Beryl 7 (GL-MT3600BE)</h3>
-      <p>The <strong>Beryl 7</strong> is our go-to recommendation for most travellers. It's a pocket-sized <strong>Wi-Fi 7</strong> router with <strong>2.5 GbE ports</strong>, USB-C power, and a quad-core 2.0 GHz CPU that GL.iNet rates at up to about <strong>1.1 Gbps of WireGuard</strong> throughput (vendor lab figure, so expect less in a real hotel). It's listed at <strong>$129.99</strong>. GL.iNet's firmware makes the home-VPN setup straightforward, and it adds features the UTR doesn't have:</p>
+      <p>The <strong>Beryl 7</strong> is our go-to recommendation for most travelers. It's a pocket-sized <strong>Wi-Fi 7</strong> router with <strong>2.5 GbE ports</strong>, USB-C power, and a quad-core 2.0 GHz CPU that GL.iNet rates at up to about <strong>1.1 Gbps of WireGuard</strong> throughput (vendor lab figure, so expect less in a real hotel). It's listed at <strong>$129.99</strong>. GL.iNet's firmware makes the home-VPN setup straightforward, and it adds features the UTR doesn't have:</p>
       <ul>
         <li><strong>Block Non-VPN Traffic</strong> (a kill switch): if the tunnel drops, nothing leaks out over the hotel connection.</li>
         <li><strong>Captive portal handling</strong> for hotel login pages, and repeater mode for joining the hotel Wi-Fi.</li>
@@ -211,7 +211,7 @@
           <tr><td style="padding: 0.5rem;"><strong>WireGuard app on each device</strong></td><td style="padding: 0.5rem;">Phones and laptops</td><td style="padding: 0.5rem;">Quick trips, phone-only use</td></tr>
           <tr><td style="padding: 0.5rem;"><strong>UniFi Teleport (WiFiman)</strong></td><td style="padding: 0.5rem;">Phones and computers</td><td style="padding: 0.5rem;">UniFi homes behind CGNAT, no config files</td></tr>
           <tr><td style="padding: 0.5rem;"><strong>UniFi Travel Router</strong></td><td style="padding: 0.5rem;">Every device on its Wi-Fi</td><td style="padding: 0.5rem;">All-UniFi households wanting zero fuss</td></tr>
-          <tr><td style="padding: 0.5rem;"><strong>GL.iNet Beryl 7</strong></td><td style="padding: 0.5rem;">Every device, with kill switch</td><td style="padding: 0.5rem;">Most travellers and remote workers</td></tr>
+          <tr><td style="padding: 0.5rem;"><strong>GL.iNet Beryl 7</strong></td><td style="padding: 0.5rem;">Every device, with kill switch</td><td style="padding: 0.5rem;">Most travelers and remote workers</td></tr>
           <tr><td style="padding: 0.5rem;"><strong>GL.iNet Mudi 7</strong></td><td style="padding: 0.5rem;">Every device, over 5G</td><td style="padding: 0.5rem;">Bad or no Wi-Fi, RVs, road warriors</td></tr>
         </tbody>
       </table>
@@ -246,7 +246,7 @@
       <h3>Can I use the Beryl 7 or Mudi 7 without UniFi?</h3>
       <p>Yes. They work with any WireGuard or OpenVPN server, a GL.iNet router at home, or a Tailscale exit node.</p>
 
-      <h3>What if my home internet goes down while I'm travelling?</h3>
+      <h3>What if my home internet goes down while I'm traveling?</h3>
       <p>The tunnel can't connect, and with a kill switch on, the travel router stops passing traffic. You can turn the VPN off on the GL.iNet temporarily. Putting your UniFi gateway and modem on a small UPS avoids most short outages.</p>
 
       <h2>Need Help?</h2>
