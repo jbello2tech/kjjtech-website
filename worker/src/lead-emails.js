@@ -42,6 +42,10 @@ const TOPICS = {
     topic: 'Sonos + UniFi setup',
     line: "Since you came from the Sonos post: Sonos is picky about multicast, IGMP snooping, and spanning tree, and it gets trickier once it lives on a separate VLAN from the phones controlling it.",
   },
+  'home-vpn-public-ip': {
+    topic: 'home VPN setup',
+    line: "Since you came from the home VPN post: the setups that give people trouble usually involve CGNAT on the home connection, an ISP router sitting in front of the UniFi (double NAT), or DNS and IPv6 quietly leaking around the tunnel. Each one is a quick fix once you know which one you're dealing with.",
+  },
   'network-security-tips': {
     topic: 'network security',
     line: "Since you came from the network security tips post: the biggest wins are usually the boring ones, like firmware updates, removing old port forwards, separating IoT devices, and locking down remote access.",
