@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home VPN: How to Make Your Traffic Show Your Home IP (UniFi & GL.iNet)</title>
+  <meta name="description" content="Use a home VPN so your traffic exits through your own internet connection while travelling. Set it up with UniFi WireGuard or Teleport, or GL.iNet Beryl 7 and Mudi 7 travel routers." />
+  <meta property="og:title" content="Home VPN: Show Your Home IP Anywhere (UniFi & GL.iNet)" />
+  <meta property="og:description" content="Use a home VPN so your traffic exits through your own internet connection while travelling. Set it up with UniFi WireGuard or Teleport, or GL.iNet Beryl 7 and Mudi 7 travel routers." />
+  <meta property="og:image" content="https://kjjtech.com/blog/img/og/home-vpn-public-ip.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://kjjtech.com/blog/img/og/home-vpn-public-ip.png" />
+  <meta property="og:url" content="https://kjjtech.com/blog/home-vpn-public-ip.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="KJJ Tech" />
+  <link rel="canonical" href="https://kjjtech.com/blog/home-vpn-public-ip.html" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="32x32" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png?v=2" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png?v=2" />
+  <link rel="mask-icon" href="/kjjtech_mask_icon.svg" color="#0a0a0a" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="stylesheet" href="/fonts.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBC70RYJEC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZBC70RYJEC');
+  </script>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="blog.css" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Home VPN: Show Your Home IP Anywhere (UniFi & GL.iNet)",
+    "description": "Use a home VPN so your traffic exits through your own internet connection while travelling. Set it up with UniFi WireGuard or Teleport, or GL.iNet Beryl 7 and Mudi 7 travel routers.",
+    "image": "https://kjjtech.com/blog/img/og/home-vpn-public-ip.png",
+    "author": { "@type": "Person", "name": "Jorge Bello", "url": "https://kjjtech.com/#about", "jobTitle": "Founder, KJJ Tech" },
+    "publisher": { "@type": "Organization", "name": "KJJ Tech", "logo": { "@type": "ImageObject", "url": "https://kjjtech.com/logo.jpg" } },
+    "datePublished": "2026-11-23",
+    "dateModified": "2026-11-23",
+    "mainEntityOfPage": "https://kjjtech.com/blog/home-vpn-public-ip.html"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kjjtech.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://kjjtech.com/blog/" },
+      { "@type": "ListItem", "position": 3, "name": "Home VPN: Show Your Home IP Anywhere (UniFi & GL.iNet)", "item": "https://kjjtech.com/blog/home-vpn-public-ip.html" }
+    ]
+  }
+  </script>
+  <!-- RB2B visitor identification -->
+  <script>!function(key) {if (window.reb2b) return;window.reb2b = {loaded: true};var s = document.createElement("script");s.async = true;s.src = "https://ddwl4m2hdecbv.cloudfront.net/b/" + key + "/" + key + ".js.gz";document.getElementsByTagName("script")[0].parentNode.insertBefore(s, document.getElementsByTagName("script")[0]);}("R6G5YH5RE365");</script>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo"><img src="/logo.svg" alt="KJJ Tech" width="234" height="58" /></a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/getintouch.html">Get in Touch</a></li>
+        <li><a href="/assessment.html" class="nav__cta">Free assessment</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <article class="post">
+    <a href="/blog/" class="post__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15,18 9,12 15,6"/></svg>
+      Back to Blog
+    </a>
+
+    <span class="post__tag">Guide</span>
+    <h1 class="post__title">Home VPN: How to Make Your Traffic Show Your Home IP (UniFi &amp; GL.iNet)</h1>
+    <p class="post__meta">By <a href="/#about" rel="author">Jorge Bello</a>, founder &middot; <time datetime="2026-11-23">Nov 23, 2026</time> &middot; 11 min read</p>
+
+    <div class="post__body">
+      <p>Most VPN ads promise to <em>hide</em> where you are. A lot of people actually want the opposite: when they're in a hotel, an Airbnb or a coffee shop, they want their laptop, phone and TV to behave exactly as if they were sitting at home, on their own internet connection, with their own public IP address.</p>
+
+      <p>That's what a <strong>home VPN</strong> does. Instead of paying a VPN company to route you through one of their data centers, you build an encrypted tunnel back to <em>your own router</em>, and everything you do on the road exits through your home internet. This guide covers how to do it with <strong>UniFi</strong>, and with <strong>GL.iNet travel routers</strong> like the <strong>Beryl 7</strong> and the 5G <strong>Mudi 7</strong>.</p>
+
+      <p class="post__callout"><strong>Rather have it done for you?</strong> KJJ Tech sets up home VPNs and travel routers on UniFi, onsite in <a href="/unifi-installation-orlando.html">Orlando</a> or <a href="/remote-unifi-services.html">remotely at a flat price</a> anywhere in the U.S. <a href="/getintouch.html?plan=unifi">Book a free 30-minute call &rarr;</a></p>
+
+      <h2>Why Your Home IP Matters</h2>
+
+      <p>Websites and apps judge you partly by the IP address you connect from. A home internet connection has a <em>residential</em> IP from your ISP. Commercial VPN services give you a shared <em>data center</em> IP that thousands of other people are using, and many services know it. Reasons people want their home IP while travelling:</p>
+
+      <ul>
+        <li><strong>Fewer fraud flags.</strong> Banks, card issuers and brokerage sites are far less likely to lock your account or demand extra verification when you log in from the same IP you always use.</li>
+        <li><strong>Work tools with IP allowlists.</strong> Remote desktops, admin portals and some SaaS tools only accept connections from approved addresses. If your home IP is approved, you're in.</li>
+        <li><strong>Your own subscriptions and local content.</strong> Streaming and local TV services tied to your household or region work the same as they do at home.</li>
+        <li><strong>Safer public Wi-Fi.</strong> Everything is encrypted from your device (or travel router) all the way home, so the hotel network sees nothing but one encrypted connection.</li>
+        <li><strong>Access to your home network.</strong> Cameras, a NAS, printers and smart-home controls are reachable as if you were on the couch.</li>
+      </ul>
+
+      <figure class="post__figure">
+        <a href="/blog/img/home-vpn-vs-commercial-vpn.svg" target="_blank" rel="noopener"><picture><source media="(max-width: 640px)" srcset="/blog/img/home-vpn-vs-commercial-vpn-mobile.svg" width="640" height="1334" /><img src="/blog/img/home-vpn-vs-commercial-vpn.svg" alt="Commercial VPN versus home VPN: a commercial VPN exits from a shared data center IP, a home VPN tunnels back to your own UniFi router so sites see your home IP" width="1200" height="640" loading="lazy" /></picture></a>
+        <figcaption>Both options are encrypted. What changes is where your traffic comes out, and that's the IP every site sees.</figcaption>
+      </figure>
+
+      <h2>How a Home VPN Works</h2>
+
+      <p>Your home router runs a VPN <strong>server</strong>. Your laptop, phone, or a travel router runs a VPN <strong>client</strong> that connects back to it. We recommend <strong>WireGuard</strong>: it's fast, built into UniFi and GL.iNet, and reconnects almost instantly when you switch networks.</p>
+
+      <p>The key setting is a <strong>full tunnel</strong>. In WireGuard terms, the client's <code>AllowedIPs</code> is <code>0.0.0.0/0, ::/0</code>, meaning <em>all</em> traffic goes through the tunnel, not just traffic for your home devices. UniFi's WireGuard client configs are full-tunnel by default. A split tunnel would let you reach your home devices but still show the hotel's IP to everything else.</p>
+
+      <h3>What you need at home</h3>
+      <ul>
+        <li><strong>A router that can be a VPN server.</strong> Any UniFi gateway or Cloud Gateway (UDM, UDM Pro, UDM SE, UCG Ultra / Max / Fiber, UXG) works. No UniFi? A GL.iNet router or a Tailscale exit node can do the same job (covered below).</li>
+        <li><strong>A reachable public IP, or Teleport/Tailscale.</strong> A normal WireGuard server needs a public IP on your router's WAN. Some ISPs (especially fixed wireless, Starlink and 5G home internet) use <strong>CGNAT</strong>, which blocks incoming connections.</li>
+        <li><strong>Decent upload speed.</strong> On the road, your home's <em>upload</em> becomes your <em>download</em>. 20&ndash;50 Mbps upload is fine for browsing, video calls and HD streaming; fiber is ideal.</li>
+      </ul>
+
+      <h3>Quick CGNAT check</h3>
+      <p>In UniFi, open the dashboard and note your <strong>WAN IP</strong>. Then visit <a href="https://whatismyipaddress.com" target="_blank" rel="noopener">whatismyipaddress.com</a> from home. If the two match, you have a real public IP. If UniFi shows something starting with <code>100.64</code>&ndash;<code>100.127</code>, <code>10.</code>, or <code>192.168.</code>, you're behind CGNAT or a second router. Ask your ISP for a public IP, put the ISP modem in bridge mode, or use Teleport or Tailscale, which work around it.</p>
+
+      <h2>Option 1: The WireGuard Server on Your UniFi Gateway</h2>
+
+      <p>This is the most flexible setup and the one we use most. It works with phones, laptops, and any travel router.</p>
+
+      <ol>
+        <li>In UniFi Network, go to <strong>Settings &rarr; VPN &rarr; VPN Server</strong> and click <strong>Create New</strong>.</li>
+        <li>Choose <strong>WireGuard</strong>. Leave the port at <strong>UDP 51820</strong> unless you have a reason to change it. UniFi opens the firewall for it automatically.</li>
+        <li>If your gateway isn't the first device on your internet connection (an ISP router sits in front of it), forward UDP 51820 on that ISP router to your UniFi, or better, put the ISP device in bridge mode.</li>
+        <li>Set up <strong>Dynamic DNS</strong> (<strong>Settings &rarr; Internet &rarr; your WAN &rarr; Dynamic DNS</strong>) so your clients find home even when your ISP changes your IP. Then set the server's address to that hostname.</li>
+        <li>Under <strong>Clients</strong>, add <strong>one client per device</strong> (laptop, phone, travel router). Download the config file, or show the QR code to scan with the WireGuard app on a phone.</li>
+        <li>Import it into the WireGuard app (or your travel router), connect, and check your IP. It should now show your home address.</li>
+      </ol>
+
+      <p>One client per device matters: if a phone is lost, you delete just that client instead of re-keying everything.</p>
+
+      <h2>Option 2: UniFi Teleport (No Port Forwarding)</h2>
+
+      <p><strong>Teleport</strong> is Ubiquiti's one-click VPN. It also uses WireGuard under the hood, but there are no config files: you generate an invite in <strong>Settings &rarr; VPN &rarr; Teleport</strong>, open it in the free <strong>WiFiman</strong> app on your phone or computer, and you're connected. Because Teleport handles the connection setup for you, it's the easiest option if you're behind CGNAT or don't want to touch port forwarding.</p>
+
+      <p>The trade-off: Teleport is app-based, so it covers the devices that can run WiFiman. For TVs, streaming sticks and work laptops you can't install apps on, use a travel router.</p>
+
+      <h2>Option 3: A Travel Router (the Best Way to Look &ldquo;Home&rdquo;)</h2>
+
+      <p>A travel router sits between the hotel network and your devices. It joins the hotel Wi-Fi (or plugs into the room's Ethernet jack), builds <em>one</em> WireGuard tunnel to your home UniFi, and broadcasts its own private Wi-Fi network. Every device that connects to it, including ones that can't run a VPN app, comes out the other end with your home IP.</p>
+
+      <p><strong>Pro tip:</strong> give the travel router the <strong>same Wi-Fi name and password as your home network</strong>. Your phone, laptop, Fire TV and game console join it automatically, with no setup at every new hotel.</p>
+
+      <figure class="post__figure">
+        <a href="/blog/img/home-vpn-unifi-travel-router.svg" target="_blank" rel="noopener"><picture><source media="(max-width: 640px)" srcset="/blog/img/home-vpn-unifi-travel-router-mobile.svg" width="640" height="1573" /><img src="/blog/img/home-vpn-unifi-travel-router.svg" alt="Laptop and phone connect to a travel router such as the GL.iNet Beryl 7 or UniFi Travel Router, which tunnels over hotel Wi-Fi to the WireGuard server on a UniFi gateway at home" width="1200" height="530" loading="lazy" /></picture></a>
+        <figcaption>One tunnel home covers every device on the trip. The hotel only ever sees a single encrypted connection.</figcaption>
+      </figure>
+
+      <h3>UniFi Travel Router (UTR)</h3>
+      <p>If your home network is UniFi, Ubiquiti's own <strong>UniFi Travel Router</strong> is the most seamless choice: you bind it to your UniFi site, pick which of your home Wi-Fi networks to copy, and it brings up a Teleport tunnel home. Newer firmware also supports standard WireGuard and OpenVPN client configs. The limits: it's Wi-Fi 5 with modest range and a single gigabit LAN port, and its controls live mostly in the app. Great for a hotel room; not built for power users.</p>
+
+      <h3>GL.iNet Beryl 7 (GL-MT3600BE)</h3>
+      <p>The <strong>Beryl 7</strong> is our go-to recommendation for most travellers. It's a pocket-sized <strong>Wi-Fi 7</strong> router with <strong>2.5 GbE ports</strong>, USB-C power, and a quad-core 2.0 GHz CPU that GL.iNet rates at up to about <strong>1.1 Gbps of WireGuard</strong> throughput (vendor lab figure, so expect less in a real hotel). It's listed at <strong>$129.99</strong>. GL.iNet's firmware makes the home-VPN setup straightforward, and it adds features the UTR doesn't have:</p>
+      <ul>
+        <li><strong>Block Non-VPN Traffic</strong> (a kill switch): if the tunnel drops, nothing leaks out over the hotel connection.</li>
+        <li><strong>Captive portal handling</strong> for hotel login pages, and repeater mode for joining the hotel Wi-Fi.</li>
+        <li><strong>Built-in Tailscale</strong> and a physical toggle switch you can assign to turn the VPN on and off.</li>
+      </ul>
+
+      <h3>GL.iNet Mudi 7 (GL-E5800): Home VPN Over 5G</h3>
+      <p>Hotel Wi-Fi is often the weakest link: slow, overloaded, or behind a login page that breaks every few hours. The <strong>Mudi 7</strong> skips it entirely. It's a battery-powered <strong>5G</strong> travel router with <strong>dual nano-SIM slots plus eSIM</strong>, <strong>tri-band Wi-Fi 7</strong>, and a <strong>2.5 GbE</strong> port, so it can run your home VPN from a car, a park, a jobsite or an airport gate. It's listed at <strong>$419.99</strong> (GL.iNet frequently runs sales).</p>
+      <p>Bonus: cellular connections are almost always behind CGNAT, which doesn't matter here, because the Mudi 7 is the VPN <em>client</em> connecting <em>out</em> to your home server. Only the home side needs to be reachable.</p>
+
+      <figure class="post__figure">
+        <a href="/blog/img/home-vpn-mudi-7-5g.svg" target="_blank" rel="noopener"><picture><source media="(max-width: 640px)" srcset="/blog/img/home-vpn-mudi-7-5g-mobile.svg" width="640" height="1573" /><img src="/blog/img/home-vpn-mudi-7-5g.svg" alt="GL.iNet Mudi 7 connects over 5G and tunnels back to the WireGuard server on a UniFi gateway at home, so websites see your home IP" width="1200" height="530" loading="lazy" /></picture></a>
+        <figcaption>The Mudi 7 brings its own internet. The tunnel still ends at home, so the IP the world sees doesn't change.</figcaption>
+      </figure>
+
+      <h3>Setting up a GL.iNet router with your UniFi</h3>
+      <ol>
+        <li>On your UniFi WireGuard server, add a new client named after the router (for example &ldquo;Beryl 7&rdquo;) and download its config file.</li>
+        <li>On the GL.iNet admin page, go to <strong>VPN &rarr; WireGuard Client</strong>, add a new provider, and upload the config.</li>
+        <li>Start the connection, then open the <strong>VPN Dashboard</strong> and turn on <strong>Block Non-VPN Traffic</strong>.</li>
+        <li>Under <strong>Wireless</strong>, set the Wi-Fi name and password to match your home network.</li>
+        <li>At the hotel, connect the GL.iNet to the hotel Wi-Fi (or the Mudi 7 to 5G), complete any login page, and your devices are home.</li>
+      </ol>
+
+      <h2>No UniFi at Home? Other Ways to Do It</h2>
+      <ul>
+        <li><strong>A GL.iNet router at home.</strong> Desktop models like the Flint 2 and Flint 3 can run a WireGuard server, and pair neatly with a Beryl 7 or Mudi 7 on the road.</li>
+        <li><strong>A Tailscale exit node.</strong> Install Tailscale on an always-on device at home (a mini PC, a Mac, an Apple TV, or a GL.iNet router) and enable it as an <strong>exit node</strong>. GL.iNet travel routers can use it too. Tailscale works behind CGNAT, which makes it the go-to for Starlink and 5G home internet.</li>
+        <li><strong>Your ISP router.</strong> Some ISP and consumer routers have a built-in VPN server. It works, but options and speed vary widely.</li>
+      </ul>
+
+      <h2>Which Option Should You Choose?</h2>
+
+      <table style="width:100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem;">
+        <thead>
+          <tr style="border-bottom: 1px solid currentColor;"><th style="text-align:left; padding: 0.5rem;">Setup</th><th style="text-align:left; padding: 0.5rem;">Covers</th><th style="text-align:left; padding: 0.5rem;">Best for</th></tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding: 0.5rem;"><strong>WireGuard app on each device</strong></td><td style="padding: 0.5rem;">Phones and laptops</td><td style="padding: 0.5rem;">Quick trips, phone-only use</td></tr>
+          <tr><td style="padding: 0.5rem;"><strong>UniFi Teleport (WiFiman)</strong></td><td style="padding: 0.5rem;">Phones and computers</td><td style="padding: 0.5rem;">UniFi homes behind CGNAT, no config files</td></tr>
+          <tr><td style="padding: 0.5rem;"><strong>UniFi Travel Router</strong></td><td style="padding: 0.5rem;">Every device on its Wi-Fi</td><td style="padding: 0.5rem;">All-UniFi households wanting zero fuss</td></tr>
+          <tr><td style="padding: 0.5rem;"><strong>GL.iNet Beryl 7</strong></td><td style="padding: 0.5rem;">Every device, with kill switch</td><td style="padding: 0.5rem;">Most travellers and remote workers</td></tr>
+          <tr><td style="padding: 0.5rem;"><strong>GL.iNet Mudi 7</strong></td><td style="padding: 0.5rem;">Every device, over 5G</td><td style="padding: 0.5rem;">Bad or no Wi-Fi, RVs, road warriors</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Make It Airtight: Avoiding Leaks</h2>
+
+      <p>A VPN that's &ldquo;on&rdquo; can still leak details that don't match your home connection. Check these:</p>
+      <ul>
+        <li><strong>DNS.</strong> Make sure DNS requests go through the tunnel to your home gateway, not to the hotel's DNS server. UniFi client configs point DNS at your gateway by default; keep it that way.</li>
+        <li><strong>IPv6.</strong> If the hotel offers IPv6 and your tunnel only carries IPv4, some traffic can bypass the VPN. Either include <code>::/0</code> in the tunnel or turn IPv6 off on the travel router.</li>
+        <li><strong>Tunnel drops.</strong> Use a kill switch (GL.iNet's Block Non-VPN Traffic, or &ldquo;Block connections without VPN&rdquo; on Android) so nothing slips out while the tunnel reconnects.</li>
+        <li><strong>WebRTC in browsers.</strong> Video-calling features in browsers can reveal your local network addresses. With a travel router, there's nothing interesting to reveal.</li>
+        <li><strong>Device location settings.</strong> Phones and laptops can also report location from GPS and nearby Wi-Fi, independent of your IP. A VPN changes your IP, not your physical location.</li>
+      </ul>
+
+      <h3>Test it</h3>
+      <p>Once you're connected on the road, visit <a href="https://whatismyipaddress.com" target="_blank" rel="noopener">whatismyipaddress.com</a> (should show your home IP and ISP), <a href="https://www.dnsleaktest.com" target="_blank" rel="noopener">dnsleaktest.com</a> (should show only your home ISP or your chosen DNS provider), and <a href="https://browserleaks.com/webrtc" target="_blank" rel="noopener">browserleaks.com/webrtc</a>.</p>
+
+      <p class="post__callout"><strong>Using this for work?</strong> Check your employer's remote-work and travel policy first. Many companies have rules about working from other states or countries for tax, legal or security reasons, and a home IP doesn't change where you actually are. Done with your IT team's blessing, a home VPN is a great way to keep allowlisted tools working on the road.</p>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>Is a home VPN legal?</h3>
+      <p>Yes. Connecting to your own network over an encrypted tunnel is the same thing businesses do every day for remote staff. Just follow the terms of the services you use and your employer's policies.</p>
+
+      <h3>Will it slow my internet down?</h3>
+      <p>Your speed on the road is limited by the slower of two things: the local connection (hotel Wi-Fi or 5G) and your home <em>upload</em> speed. WireGuard itself adds very little overhead, and routers like the Beryl 7 and Mudi 7 can encrypt far faster than most hotel Wi-Fi delivers.</p>
+
+      <h3>Do I need a commercial VPN subscription?</h3>
+      <p>No. A home VPN replaces it for this purpose. A commercial VPN is still useful if you want to appear somewhere <em>other</em> than home, but it can't give you your home IP.</p>
+
+      <h3>Can I use the Beryl 7 or Mudi 7 without UniFi?</h3>
+      <p>Yes. They work with any WireGuard or OpenVPN server, a GL.iNet router at home, or a Tailscale exit node.</p>
+
+      <h3>What if my home internet goes down while I'm travelling?</h3>
+      <p>The tunnel can't connect, and with a kill switch on, the travel router stops passing traffic. You can turn the VPN off on the GL.iNet temporarily. Putting your UniFi gateway and modem on a small UPS avoids most short outages.</p>
+
+      <h2>Need Help?</h2>
+
+      <p>A home VPN takes about an hour to set up when everything goes right, and much longer when CGNAT, double NAT or a stubborn hotel login page gets in the way. We set up WireGuard and Teleport on UniFi gateways and pre-configure GL.iNet and UniFi travel routers so they work the moment you unpack them.</p>
+
+      <div class="post__lead">
+        <h3>Free: UniFi Security Checklist</h3>
+        <p>26 settings to check on any UniFi network, from admin accounts to firewall zones, on one printable PDF.</p>
+        <form action="https://reviews.kjjtech.com/checklist" method="POST" class="post__lead-form">
+          <input type="hidden" name="source" value="home-vpn-public-ip" />
+          <input type="text" name="website" tabindex="-1" autocomplete="off" class="post__lead-hp" aria-hidden="true" />
+          <input type="email" name="email" placeholder="you@company.com" required aria-label="Email address" />
+          <button type="submit" class="btn btn--primary">Send me the checklist</button>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADlO6Hzgkc_iaMdj" data-size="flexible"></div>
+        </form>
+        <p class="post__lead-fine">No spam. Just the PDF, plus an occasional new guide.</p>
+      </div>
+
+      <div class="post__cta">
+        <h3>Want your home VPN set up for you?</h3>
+        <p>We'll configure your UniFi gateway and travel router, test for leaks, and hand it back ready to pack. Onsite in Orlando or remote anywhere in the U.S.</p>
+        <a href="/getintouch.html?plan=unifi" class="btn btn--primary">Book a free call</a>
+        <a href="/remote-unifi-services.html" class="btn btn--ghost">Remote review: $340 flat</a>
+      </div>
+
+      <div class="post__related">
+        <h3>Related reading</h3>
+        <div class="post__related-grid">
+          <a href="/blog/unifi-zone-based-firewall.html" class="blog-card">
+            <span class="blog-card__tag">Guide</span>
+            <h2 class="blog-card__title">UniFi Zone-Based Firewall: Setup Guide & Best Practices</h2>
+            <p class="blog-card__excerpt">A practical walkthrough of the new zone-based firewall in UniFi Network 9.0+: zones, policies between them, and migration from legacy rules.</p>
+            <div class="blog-card__meta">
+              <span class="blog-card__date">April 2026</span>
+              <span class="blog-card__read">Read &rarr;</span>
+            </div>
+          </a>
+          <a href="/blog/network-security-tips.html" class="blog-card">
+            <span class="blog-card__tag">Security</span>
+            <h2 class="blog-card__title">12 Network Security Tips Every Small Business Should Follow</h2>
+            <p class="blog-card__excerpt">From default credentials to VLAN segmentation: practical, no-nonsense network security tips that actually move the needle.</p>
+            <div class="blog-card__meta">
+              <span class="blog-card__date">September 2026</span>
+              <span class="blog-card__read">Read &rarr;</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__top">
+      <div class="footer__col">
+        <a href="/" class="footer__brand"><img src="/logo.svg" alt="KJJ Tech" width="234" height="58" /></a>
+        <p class="footer__tagline">Technology that works for you.</p>
+        <div class="footer__socials">
+          <a href="https://www.linkedin.com/company/kjjtech" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://maps.google.com/?cid=1704275016395459676" target="_blank" rel="noopener" aria-label="KJJ Tech on Google">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          </a>
+          <a href="mailto:support@kjjtech.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Navigate</p>
+        <ul class="footer__links">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#about">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/getintouch.html">Get in Touch</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Contact</p>
+        <ul class="footer__contact-list">
+          <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
+          <li><a href="tel:+19145279957">(914) 527-9957</a></li>
+          <li><a href="/orlando-it-support.html">Serving Orlando, FL &amp; nationwide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p class="footer__copy">&copy; 2026 KJJ Tech. All rights reserved. <a href="/privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms.html" style="color:inherit;text-decoration:underline;">Terms of Service</a></p>
+      <div class="footer__bottom-contact">
+        <a href="mailto:support@kjjtech.com">support@kjjtech.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>
