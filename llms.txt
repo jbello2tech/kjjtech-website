@@ -12,11 +12,15 @@ Contact: support@kjjtech.com, (914) 527-9957. Labor is $200/hour, or $340 for a 
 - [VPN & remote access setup](https://kjjtech.com/vpn-remote-access-setup.html): WireGuard, Teleport, site-to-site VPN and travel routers on UniFi
 - [Remote UniFi services](https://kjjtech.com/remote-unifi-services.html): fixed-price remote UniFi configuration review ($340) and zone-based firewall setup ($750)
 - [Orlando IT support](https://kjjtech.com/orlando-it-support.html): IT support for Orlando-area homes and businesses
+- [IT support in Winter Park](https://kjjtech.com/it-support-winter-park.html)
+- [IT support in Lake Mary](https://kjjtech.com/it-support-lake-mary.html)
 - [Free network assessment](https://kjjtech.com/assessment.html)
 - [Pricing](https://kjjtech.com/pricing.html)
 
 ## Guides
 
+- [UniFi Protect setup guide](https://kjjtech.com/blog/unifi-protect-setup-guide.html)
+- [Storm-proof your network: UPS, surge protection & 5G backup](https://kjjtech.com/blog/florida-storm-proof-network.html)
 - [Home VPN: show your home IP anywhere (UniFi & GL.iNet)](https://kjjtech.com/blog/home-vpn-public-ip.html)
 - [How to set up VLANs in UniFi](https://kjjtech.com/blog/unifi-vlan-setup-guide.html)
 - [UniFi zone-based firewall setup guide](https://kjjtech.com/blog/unifi-zone-based-firewall.html)

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniFi Protect Setup Guide: Cameras, Storage & Retention</title>
+  <meta name="description" content="How to set up UniFi Protect: choosing a recorder, camera placement, a separate camera VLAN, recording modes, smart detections and retention." />
+  <meta property="og:title" content="UniFi Protect Setup Guide: Cameras, Storage & Best Practices" />
+  <meta property="og:description" content="How to set up UniFi Protect: choosing a recorder, camera placement, a separate camera VLAN, recording modes, smart detections and retention." />
+  <meta property="og:image" content="https://kjjtech.com/blog/img/og/unifi-protect-setup-guide.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://kjjtech.com/blog/img/og/unifi-protect-setup-guide.png" />
+  <meta property="og:url" content="https://kjjtech.com/blog/unifi-protect-setup-guide.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="KJJ Tech" />
+  <link rel="canonical" href="https://kjjtech.com/blog/unifi-protect-setup-guide.html" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="32x32" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png?v=2" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png?v=2" />
+  <link rel="mask-icon" href="/kjjtech_mask_icon.svg" color="#0a0a0a" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="stylesheet" href="/fonts.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBC70RYJEC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZBC70RYJEC');
+  </script>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="blog.css" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "UniFi Protect Setup Guide: Cameras, Storage & Best Practices",
+    "description": "How to set up UniFi Protect: choosing a recorder, camera placement, a separate camera VLAN, recording modes, smart detections and retention.",
+    "image": "https://kjjtech.com/blog/img/og/unifi-protect-setup-guide.png",
+    "author": { "@type": "Person", "name": "Jorge Bello", "url": "https://kjjtech.com/#about", "jobTitle": "Founder, KJJ Tech" },
+    "publisher": { "@type": "Organization", "name": "KJJ Tech", "logo": { "@type": "ImageObject", "url": "https://kjjtech.com/logo.jpg" } },
+    "datePublished": "2026-11-23",
+    "dateModified": "2026-11-23",
+    "mainEntityOfPage": "https://kjjtech.com/blog/unifi-protect-setup-guide.html"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kjjtech.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://kjjtech.com/blog/" },
+      { "@type": "ListItem", "position": 3, "name": "UniFi Protect Setup Guide: Cameras, Storage & Best Practices", "item": "https://kjjtech.com/blog/unifi-protect-setup-guide.html" }
+    ]
+  }
+  </script>
+  <!-- RB2B visitor identification -->
+  <script>!function(key) {if (window.reb2b) return;window.reb2b = {loaded: true};var s = document.createElement("script");s.async = true;s.src = "https://ddwl4m2hdecbv.cloudfront.net/b/" + key + "/" + key + ".js.gz";document.getElementsByTagName("script")[0].parentNode.insertBefore(s, document.getElementsByTagName("script")[0]);}("R6G5YH5RE365");</script>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo"><img src="/logo.svg" alt="KJJ Tech" width="234" height="58" /></a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/getintouch.html">Get in Touch</a></li>
+        <li><a href="/assessment.html" class="nav__cta">Free assessment</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <article class="post">
+    <a href="/blog/" class="post__back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15,18 9,12 15,6"/></svg>
+      Back to Blog
+    </a>
+
+    <span class="post__tag">Guide</span>
+    <h1 class="post__title">UniFi Protect Setup Guide: Cameras, Storage &amp; Best Practices</h1>
+    <p class="post__meta">By <a href="/#about" rel="author">Jorge Bello</a>, founder &middot; <time datetime="2026-11-23">Nov 23, 2026</time> &middot; 9 min read</p>
+
+    <div class="post__body">
+      <p>UniFi Protect is Ubiquiti's security camera system, and it's one of the most popular upgrades we install. Cameras plug into the same network as your Wi-Fi, recordings stay on a drive at your home or business, and there's no monthly fee per camera. Setup is simple, but a few early decisions (where video is stored, how long it's kept, and which network the cameras live on) make the difference between a system you trust and one that quietly stops recording.</p>
+
+      <p>This guide walks through planning and setting up UniFi Protect the way we do it for clients.</p>
+
+      <p class="post__callout"><strong>Rather have it done for you?</strong> We plan and install <a href="/security-camera-installation-orlando.html">UniFi Protect camera systems in Orlando</a>, and configure existing systems remotely anywhere in the U.S. <a href="/getintouch.html?plan=network">Book a free 30-minute call &rarr;</a></p>
+
+      <h2>How UniFi Protect Works</h2>
+
+      <p>A Protect system has three parts:</p>
+      <ul>
+        <li><strong>Cameras</strong> that get power and data over a single network cable (PoE).</li>
+        <li><strong>A PoE switch</strong> that powers the cameras and connects them to the network.</li>
+        <li><strong>A UniFi console with storage</strong> that runs the Protect app and records video to a hard drive or SSD, on site.</li>
+      </ul>
+      <p>You watch live video and recordings in the UniFi Protect app on your phone or computer, at home or remotely.</p>
+
+      <figure class="post__figure">
+        <a href="/blog/img/unifi-protect-layout.svg" target="_blank" rel="noopener"><picture><source media="(max-width: 640px)" srcset="/blog/img/unifi-protect-layout-mobile.svg" width="640" height="1334" /><img src="/blog/img/unifi-protect-layout.svg" alt="UniFi Protect layout: cameras on their own network are powered by a PoE switch, record to a UniFi console with a hard drive, and are viewed remotely in the Protect app" width="1200" height="590" loading="lazy" /></picture></a>
+        <figcaption>One cable per camera, recordings kept on site, and encrypted viewing from anywhere.</figcaption>
+      </figure>
+
+      <h2>Step 1: Choose Where Video Is Recorded</h2>
+
+      <p>Protect runs on a UniFi console with storage. The right one depends on how many cameras you have and how many days of video you want to keep:</p>
+      <ul>
+        <li><strong>A Cloud Gateway with a drive slot</strong> (for example the Cloud Gateway Max, UDM Pro or UDM SE). Your router and camera recorder in one box. Good for homes and small offices with a handful of cameras.</li>
+        <li><strong>A dedicated recorder (UNVR or UNVR Pro)</strong> with multiple drive bays. Better for more cameras, longer retention, or when you want camera recording separate from the router.</li>
+      </ul>
+      <p>Single-drive consoles have no drive redundancy: if that drive fails, its recordings are gone. For a business that may need footage later, a multi-bay recorder with redundant drives is worth it. Check Ubiquiti's <a href="https://techspecs.ui.com" target="_blank" rel="noopener">tech specs</a> for each model's current camera limits before you buy.</p>
+
+      <h2>Step 2: Plan Camera Locations</h2>
+      <ul>
+        <li><strong>Cover entrances first:</strong> front door, back door, garage and any gate. That's where useful footage almost always comes from.</li>
+        <li><strong>Mount high, aim down,</strong> about 8&ndash;10 feet, so faces are visible and the camera is hard to tamper with.</li>
+        <li><strong>Watch the sun and porch lights.</strong> A camera pointed toward a sunrise or a bright light at night records silhouettes. Florida sun is unforgiving; check the angle at different times of day.</li>
+        <li><strong>Use the right camera for the job:</strong> wide-angle for yards and lobbies, longer focal length for driveways and parking lots, and a video doorbell at the front door.</li>
+        <li><strong>One cable per camera</strong> back to the PoE switch. Plan cable paths before you mount anything.</li>
+      </ul>
+
+      <h2>Step 3: Put Cameras on Their Own Network</h2>
+
+      <p>Cameras are among the least-secure devices on any network. We always put them on their own network (VLAN) so a compromised camera can't reach your computers:</p>
+      <ol>
+        <li>In UniFi Network, create a <strong>Cameras</strong> network (for example VLAN 40). Our <a href="/blog/unifi-vlan-setup-guide.html">VLAN setup guide</a> covers the steps.</li>
+        <li>Set the switch ports the cameras plug into to use that network as their native VLAN.</li>
+        <li>With the <a href="/blog/unifi-zone-based-firewall.html">zone-based firewall</a>, put the Cameras network in its own zone and block it from your trusted and IoT zones. If your Protect console is also your gateway, cameras can still reach it, and you view everything through the Protect app as normal.</li>
+      </ol>
+      <p>Never port-forward a camera or recorder to the internet. The Protect app already gives you encrypted remote access without opening ports.</p>
+
+      <h2>Step 4: Adopt and Configure the Cameras</h2>
+      <ol>
+        <li>Plug each camera into the PoE switch. New cameras show up in Protect, ready to adopt.</li>
+        <li>Adopt each one and give it a clear name (&ldquo;Front Door,&rdquo; &ldquo;Driveway&rdquo;) so you can find footage fast.</li>
+        <li>Update camera firmware during setup.</li>
+        <li>Choose a <strong>recording mode</strong> per camera: continuous (<em>Always</em>) for entrances and important areas, or <em>Detections only</em> for low-activity areas to save storage.</li>
+        <li>Turn on <strong>smart detections</strong> (people, vehicles and, on supported models, packages and more) and draw <strong>detection zones</strong> so trees, roads and neighbors' yards don't trigger constant alerts. Use <strong>privacy zones</strong> to mask areas you shouldn't record, like a neighbor's window.</li>
+      </ol>
+      <p>Smart detections run on UniFi's own cameras. Third-party ONVIF cameras can be added to Protect, but need extra hardware for the same AI features.</p>
+
+      <h2>Step 5: Set Retention</h2>
+      <p>Retention is how many days of video you keep. Protect fills the drive and overwrites the oldest footage, so retention depends on the number of cameras, resolution, recording mode and drive size.</p>
+      <ul>
+        <li>Set retention in <strong>Settings &rarr; Storage Manager</strong> (and per camera, or in bulk in the <strong>Recording Manager</strong>).</li>
+        <li>For most homes, 2&ndash;4 weeks is plenty. Businesses often want 30 days or more; check whether your industry or insurer has a requirement.</li>
+        <li>After a week of real recording, check how many days you're actually getting and adjust.</li>
+      </ul>
+
+      <h2>Step 6: Alerts, Users and Remote Access</h2>
+      <ul>
+        <li>Set notifications for the cameras and detections that matter, and schedule them (for example, alerts only when the business is closed).</li>
+        <li>Give each family member or employee their own UniFi account with only the access they need, instead of sharing one login.</li>
+        <li>Turn on two-factor authentication for every account that can view cameras.</li>
+      </ul>
+
+      <h2>Common Mistakes We Fix</h2>
+      <ul>
+        <li><strong>No drive, or the wrong drive:</strong> Protect can't record without storage. Use drives meant for continuous recording.</li>
+        <li><strong>PoE budget exceeded:</strong> the switch can't power every camera, so some reboot randomly or stay offline. Check the switch's total PoE budget against your cameras.</li>
+        <li><strong>Cameras on the main network:</strong> works, but gives every camera a path to your computers.</li>
+        <li><strong>Constant false alerts:</strong> no detection zones, so swaying trees and headlights trigger notifications all day.</li>
+        <li><strong>No battery backup:</strong> a power blip reboots the recorder and cameras, and you lose footage right when something happens. See our guide to <a href="/blog/florida-storm-proof-network.html">keeping your network up through storms</a>.</li>
+      </ul>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>Does UniFi Protect have a monthly fee?</h3>
+      <p>No. Video records to storage at your location, so there's no per-camera subscription. Ubiquiti does offer optional cloud services, but they aren't required.</p>
+
+      <h3>Can I view my cameras away from home?</h3>
+      <p>Yes, through the UniFi Protect app, without opening any ports on your router.</p>
+
+      <h3>How many cameras can I add?</h3>
+      <p>It depends on the console. Small consoles support a handful of cameras; dedicated recorders support many more. Check the model's tech specs, and leave room to grow.</p>
+
+      <h3>Do I need a separate network for cameras?</h3>
+      <p>It isn't required, but we strongly recommend it. A separate camera network with firewall rules is one of the simplest ways to keep a cheap or compromised device away from your computers.</p>
+
+      <h2>Need Help?</h2>
+      <p>We design, install and fix UniFi Protect systems for homes and businesses, from a video doorbell to multi-building systems with dozens of cameras.</p>
+
+      <div class="post__lead">
+        <h3>Free: UniFi Security Checklist</h3>
+        <p>26 settings to check on any UniFi network, from admin accounts to firewall zones, on one printable PDF.</p>
+        <form action="https://reviews.kjjtech.com/checklist" method="POST" class="post__lead-form">
+          <input type="hidden" name="source" value="unifi-protect-setup-guide" />
+          <input type="text" name="website" tabindex="-1" autocomplete="off" class="post__lead-hp" aria-hidden="true" />
+          <input type="email" name="email" placeholder="you@company.com" required aria-label="Email address" />
+          <button type="submit" class="btn btn--primary">Send me the checklist</button>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADlO6Hzgkc_iaMdj" data-size="flexible"></div>
+        </form>
+        <p class="post__lead-fine">No spam. Just the PDF, plus an occasional new guide.</p>
+      </div>
+
+      <div class="post__cta">
+        <h3>Planning a camera system?</h3>
+        <p>We'll map out camera locations, storage and the network behind it. Onsite in Orlando or remote anywhere in the U.S.</p>
+        <a href="/getintouch.html?plan=network" class="btn btn--primary">Book a free call</a>
+        <a href="/security-camera-installation-orlando.html" class="btn btn--ghost">Camera installation</a>
+      </div>
+
+      <div class="post__related">
+        <h3>Related reading</h3>
+        <div class="post__related-grid">
+          <a href="/blog/unifi-vlan-setup-guide.html" class="blog-card">
+            <span class="blog-card__tag">Guide</span>
+            <h2 class="blog-card__title">How to Set Up VLANs in UniFi (2026 Guide)</h2>
+            <p class="blog-card__excerpt">Create networks, map WiFi and switch ports, and lock down traffic with the zone-based firewall. Updated for UniFi Network 11.</p>
+            <div class="blog-card__meta">
+              <span class="blog-card__date">November 2026</span>
+              <span class="blog-card__read">Read &rarr;</span>
+            </div>
+          </a>
+          <a href="/blog/florida-storm-proof-network.html" class="blog-card">
+            <span class="blog-card__tag">Guide</span>
+            <h2 class="blog-card__title">Storm-Proof Your Network: Battery Backup, Surge Protection &amp; 5G Failover</h2>
+            <p class="blog-card__excerpt">Keep your Wi-Fi, cameras and internet running through Florida storms and power outages.</p>
+            <div class="blog-card__meta">
+              <span class="blog-card__date">November 2026</span>
+              <span class="blog-card__read">Read &rarr;</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__top">
+      <div class="footer__col">
+        <a href="/" class="footer__brand"><img src="/logo.svg" alt="KJJ Tech" width="234" height="58" /></a>
+        <p class="footer__tagline">Technology that works for you.</p>
+        <div class="footer__socials">
+          <a href="https://www.linkedin.com/company/kjjtech" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://www.facebook.com/kjjtech" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8V6.2c0-.8.2-1.2 1.4-1.2H17V2h-2.6C11.3 2 10 3.5 10 6v2H8v3h2v11h4V11h2.7l.3-3z"/></svg>
+          </a>
+          <a href="https://maps.google.com/?cid=1704275016395459676" target="_blank" rel="noopener" aria-label="KJJ Tech on Google">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          </a>
+          <a href="mailto:support@kjjtech.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Navigate</p>
+        <ul class="footer__links">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#about">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/getintouch.html">Get in Touch</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Services</p>
+        <ul class="footer__links">
+          <li><a href="/unifi-installation-orlando.html">UniFi installation</a></li>
+          <li><a href="/security-camera-installation-orlando.html">Security cameras</a></li>
+          <li><a href="/managed-it-support.html">Managed IT support</a></li>
+          <li><a href="/vpn-remote-access-setup.html">VPN &amp; remote access</a></li>
+          <li><a href="/remote-unifi-services.html">Remote UniFi services</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Contact</p>
+        <ul class="footer__contact-list">
+          <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
+          <li><a href="tel:+19145279957">(914) 527-9957</a></li>
+          <li><a href="/orlando-it-support.html">Serving Orlando, FL &amp; nationwide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p class="footer__copy">&copy; 2026 KJJ Tech. All rights reserved. <a href="/privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms.html" style="color:inherit;text-decoration:underline;">Terms of Service</a></p>
+      <div class="footer__bottom-contact">
+        <a href="mailto:support@kjjtech.com">support@kjjtech.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>

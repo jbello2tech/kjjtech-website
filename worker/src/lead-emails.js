@@ -46,6 +46,14 @@ const TOPICS = {
     topic: 'home VPN setup',
     line: "Since you came from the home VPN post: the setups that give people trouble usually involve CGNAT on the home connection, an ISP router sitting in front of the UniFi (double NAT), or DNS and IPv6 quietly leaking around the tunnel. Each one is a quick fix once you know which one you're dealing with.",
   },
+  'unifi-protect-setup-guide': {
+    topic: 'UniFi Protect camera setup',
+    line: "Since you came from the UniFi Protect guide: the issues I see most are cameras left on the main network, retention that's far shorter than people assume, and switches that run out of PoE power so cameras drop at random.",
+  },
+  'florida-storm-proof-network': {
+    topic: 'storm-ready network',
+    line: "Since you came from the storm-readiness post: the cheapest win is a UPS on the modem, gateway and main switch. Most outages we get called about are a power blip that rebooted everything at once.",
+  },
   'network-security-tips': {
     topic: 'network security',
     line: "Since you came from the network security tips post: the biggest wins are usually the boring ones, like firmware updates, removing old port forwards, separating IoT devices, and locking down remote access.",
