@@ -445,13 +445,16 @@ async function putIndexHtml(env, newContent, sha, commitMessage) {
 // visitors can see (Google penalizes ratings that don't match on-page reviews).
 function syncAggregateRating(content) {
   const stars = [...content.matchAll(/class="testimonial__stars">(★+)</g)].map(m => m[1].length);
-  if (!stars.length) return content;
+  const blockRe = /[ \t]*"aggregateRating":\s*\{[^}]*\},?\n/;
+  // No on-page reviews: drop aggregateRating entirely (a rating with nothing
+  // visible behind it violates Google's structured-data guidelines).
+  if (!stars.length) return content.replace(blockRe, '');
   const avg = stars.reduce((a, b) => a + b, 0) / stars.length;
   const ratingValue = String(Math.round(avg * 10) / 10);
-  return content.replace(
-    /("aggregateRating":\s*\{[^}]*?"ratingValue":\s*")[^"]*("[^}]*?"reviewCount":\s*")[^"]*(")/,
-    `$1${ratingValue}$2${stars.length}$3`
-  );
+  const block = `    "aggregateRating": {\n      "@type": "AggregateRating",\n      "ratingValue": "${ratingValue}",\n      "bestRating": "5",\n      "reviewCount": "${stars.length}"\n    },\n`;
+  if (blockRe.test(content)) return content.replace(blockRe, block);
+  // Re-add it (e.g. first review after all were removed) just before "hasMap".
+  return content.replace(/([ \t]*"hasMap":)/, `${block}$1`);
 }
 
 async function commitApprovalToGitHub(env, review) {
