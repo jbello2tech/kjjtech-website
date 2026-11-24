@@ -1,0 +1,28 @@
+# KJJ Tech
+
+> KJJ Tech is an Orlando, Florida IT and UniFi networking company founded by Jorge Bello. We plan, install, secure and support UniFi networks (Wi-Fi, gateways, switches, UniFi Protect cameras, VPNs) for homes and small businesses: onsite around Orlando, and remotely anywhere in the U.S.
+
+Contact: support@kjjtech.com, (914) 527-9957. Labor is $200/hour, or $340 for a 2-hour block and $750 for a 5-hour block. Onsite visits within 30 miles of Orlando start at a 2-hour block. Free 30-minute discovery calls and free network assessments are available.
+
+## Services
+
+- [UniFi installation in Orlando](https://kjjtech.com/unifi-installation-orlando.html): Wi-Fi access points, gateways, switches, VLANs and zone-based firewall setup
+- [Security camera installation in Orlando](https://kjjtech.com/security-camera-installation-orlando.html): UniFi Protect cameras with local recording and no monthly cloud fees
+- [Managed IT & network support](https://kjjtech.com/managed-it-support.html): proactive monitoring, updates, security reviews and a dedicated technician for small businesses
+- [VPN & remote access setup](https://kjjtech.com/vpn-remote-access-setup.html): WireGuard, Teleport, site-to-site VPN and travel routers on UniFi
+- [Remote UniFi services](https://kjjtech.com/remote-unifi-services.html): fixed-price remote UniFi configuration review ($340) and zone-based firewall setup ($750)
+- [Orlando IT support](https://kjjtech.com/orlando-it-support.html): IT support for Orlando-area homes and businesses
+- [Free network assessment](https://kjjtech.com/assessment.html)
+- [Pricing](https://kjjtech.com/pricing.html)
+
+## Guides
+
+- [Home VPN: show your home IP anywhere (UniFi & GL.iNet)](https://kjjtech.com/blog/home-vpn-public-ip.html)
+- [How to set up VLANs in UniFi](https://kjjtech.com/blog/unifi-vlan-setup-guide.html)
+- [UniFi zone-based firewall setup guide](https://kjjtech.com/blog/unifi-zone-based-firewall.html)
+- [UniFi access point placement guide](https://kjjtech.com/blog/unifi-ap-placement-guide.html)
+- [Sonos on UniFi best practices](https://kjjtech.com/blog/sonos-unifi-best-practices.html)
+- [How much UniFi installation costs](https://kjjtech.com/blog/unifi-installation-cost.html)
+- [UniFi vs Meraki](https://kjjtech.com/blog/unifi-vs-meraki.html)
+- [12 network security tips for small businesses](https://kjjtech.com/blog/network-security-tips.html)
+- [7 signs your network needs an upgrade](https://kjjtech.com/blog/network-upgrade-signs.html)

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VPN & Remote Access Setup for UniFi | KJJ Tech</title>
+  <meta name="description" content="Secure VPN and remote access on UniFi: WireGuard and Teleport for remote staff, site-to-site VPN between offices, and travel routers set up for you." />
+  <link rel="canonical" href="https://kjjtech.com/vpn-remote-access-setup.html" />
+  <meta property="og:site_name" content="KJJ Tech" />
+  <meta property="og:title" content="VPN & Remote Access Setup for UniFi | KJJ Tech" />
+  <meta property="og:description" content="Secure VPN and remote access on UniFi: WireGuard and Teleport for remote staff, site-to-site VPN between offices, and travel routers set up for you." />
+  <meta property="og:image" content="https://kjjtech.com/og-image.png" />
+  <meta property="og:url" content="https://kjjtech.com/vpn-remote-access-setup.html" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="32x32" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/icon-48.png?v=2" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png?v=2" />
+  <link rel="mask-icon" href="/kjjtech_mask_icon.svg" color="#0a0a0a" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="stylesheet" href="/fonts.css" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZBC70RYJEC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZBC70RYJEC');
+  </script>
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "VPN & Remote Access Setup",
+  "serviceType": "VPN Setup",
+  "url": "https://kjjtech.com/vpn-remote-access-setup.html",
+  "description": "Secure VPN and remote access on UniFi: WireGuard and Teleport for remote staff, site-to-site VPN between offices, and travel routers set up for you.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "KJJ Tech",
+    "url": "https://kjjtech.com",
+    "hasMap": "https://maps.google.com/?cid=1704275016395459676",
+    "sameAs": [
+      "https://www.linkedin.com/company/kjjtech",
+      "https://www.facebook.com/kjjtech",
+      "https://maps.google.com/?cid=1704275016395459676"
+    ],
+    "telephone": "+1-914-527-9957",
+    "email": "support@kjjtech.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Orlando",
+      "addressRegion": "FL",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Orlando",
+      "containedInPlace": {
+        "@type": "State",
+        "name": "Florida"
+      }
+    },
+    {
+      "@type": "Country",
+      "name": "United States"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://kjjtech.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "VPN & Remote Access Setup",
+      "item": "https://kjjtech.com/vpn-remote-access-setup.html"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which VPN do you recommend on UniFi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WireGuard for most setups: it's fast, built into UniFi gateways, and reconnects quickly when you change networks. Teleport is great when your internet provider blocks incoming connections or you want one-click setup on phones and laptops."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you set up a VPN remotely?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Most VPN work is done remotely, anywhere in the U.S. We just need access to your UniFi console. Onsite help is available around Orlando."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I make my traffic show my home IP while traveling?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, with a home VPN back to your own router, ideally through a travel router so every device is covered. Our home VPN guide walks through it, or we can set it up for you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is port forwarding a safe way to access my cameras or NAS remotely?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Generally no. Port forwarding exposes those devices to the whole internet. A VPN keeps them private and only lets in people with a VPN profile."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does VPN setup cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Labor is billed hourly from $200/hr, with discounted 2- and 5-hour blocks. A single-site VPN often fits in a 2-hour block ($340), and we estimate the time on the free call before anything is scheduled. See pricing."
+      }
+    }
+  ]
+}
+  </script>
+  <!-- RB2B visitor identification -->
+  <script>!function(key) {if (window.reb2b) return;window.reb2b = {loaded: true};var s = document.createElement("script");s.async = true;s.src = "https://ddwl4m2hdecbv.cloudfront.net/b/" + key + "/" + key + ".js.gz";document.getElementsByTagName("script")[0].parentNode.insertBefore(s, document.getElementsByTagName("script")[0]);}("R6G5YH5RE365");</script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo"><img src="/logo.svg" alt="KJJ Tech" width="234" height="58" /></a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/pricing.html">Pricing</a></li>
+        <li><a href="/getintouch.html">Get in Touch</a></li>
+        <li><a href="/assessment.html" class="nav__cta">Free assessment</a></li>
+      </ul>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__content">
+      <p class="hero__eyebrow">Remote anywhere in the U.S. &middot; Onsite in Orlando</p>
+      <h1 class="hero__heading">VPN &amp; remote<br/>access, done safely.</h1>
+      <p class="hero__sub">Give your team secure access to the office from anywhere, connect multiple locations together, or travel with your home internet connection. We set up WireGuard, Teleport and site-to-site VPNs on UniFi, without the open ports and shortcuts that make remote access risky.</p>
+      <div class="hero__cta">
+        <a href="/getintouch.html?plan=unifi" class="btn btn--primary">Book a free call</a>
+        <a href="/blog/home-vpn-public-ip.html" class="btn btn--ghost">Read our home VPN guide</a>
+      </div>
+      <p class="hero__availability">
+        <span class="availability-dot"></span>
+        Most VPN setups are done remotely, within days.
+      </p>
+    </div>
+      <div class="hero__graphic">
+      <div class="hero-card">
+        <p class="hero-card__title">Every VPN setup includes</p>
+        <ul class="hero-card__list">
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,8 6,12 14,4"/></svg>One VPN profile per person and device</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,8 6,12 14,4"/></svg>Access limited to what each person needs</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,8 6,12 14,4"/></svg>No admin pages exposed to the internet</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,8 6,12 14,4"/></svg>Dynamic DNS so connections survive IP changes</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,8 6,12 14,4"/></svg>Leak testing (DNS and IPv6) before handoff</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,8 6,12 14,4"/></svg>Simple setup instructions for your team</li>
+        </ul>
+        <a href="/blog/home-vpn-public-ip.html" class="hero-card__link">How a home VPN works &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">What we set up</p>
+        <h2>Remote access for every situation</h2>
+      </div>
+      <div class="services__grid">
+        <div class="card">
+          <div class="card__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          </div>
+          <h3>Remote Workers</h3>
+          <p>WireGuard VPN on your UniFi gateway so staff can reach office files, printers and systems from home, with access limited to what each person actually needs.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 22v-4h6v4M8 6h2M14 6h2M8 10h2M14 10h2M8 14h2M14 14h2"/></svg>
+          </div>
+          <h3>Site-to-Site VPN</h3>
+          <p>Connect offices, stores or warehouses so they share resources over an encrypted link, managed from one UniFi console.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg>
+          </div>
+          <h3>One-Click Teleport</h3>
+          <p>UniFi's Teleport VPN through the WiFiman app. No config files, and it works even when your internet provider blocks incoming connections (CGNAT).</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+          </div>
+          <h3>Travel Routers</h3>
+          <p>GL.iNet Beryl 7, Mudi 7 or UniFi Travel Router, pre-configured to tunnel home so every device on the trip uses your home or office IP. <a href="/blog/home-vpn-public-ip.html" style="text-decoration:underline;">See how it works</a>.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          </div>
+          <h3>Secure Admin Access</h3>
+          <p>Manage cameras, NAS drives and network equipment remotely without port forwarding the admin pages to the whole internet.</p>
+        </div>
+        <div class="card">
+          <div class="card__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <h3>Fix an Existing VPN</h3>
+          <p>Slow, dropping or half-working VPN? We sort out double NAT, CGNAT, DNS and routing problems, and clean up old L2TP or PPTP setups.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="how">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">The process</p>
+        <h2>How a VPN setup works</h2>
+      </div>
+      <div class="how__steps">
+        <div class="how__step">
+          <span class="how__num">01</span>
+          <h3>Free call</h3>
+          <p>We talk through who needs access, from where, and to what, and check your internet connection for CGNAT or double NAT.</p>
+        </div>
+        <div class="how__connector" aria-hidden="true"></div>
+        <div class="how__step">
+          <span class="how__num">02</span>
+          <h3>Remote setup</h3>
+          <p>We configure the VPN on your UniFi gateway (and travel routers if needed), then test from outside your network, including leak tests.</p>
+        </div>
+        <div class="how__connector" aria-hidden="true"></div>
+        <div class="how__step">
+          <span class="how__num">03</span>
+          <h3>Handoff</h3>
+          <p>Each person gets their own profile and short instructions, and you get a summary of everything configured.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container faq__inner">
+      <div class="section-header">
+        <p class="section-tag">FAQ</p>
+        <h2>VPN &amp; remote access questions</h2>
+      </div>
+      <div class="faq__list">
+        <details class="faq__item">
+          <summary class="faq__question">Which VPN do you recommend on UniFi?</summary>
+          <p class="faq__answer">WireGuard for most setups: it's fast, built into UniFi gateways, and reconnects quickly when you change networks. Teleport is great when your internet provider blocks incoming connections or you want one-click setup on phones and laptops.</p>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">Can you set up a VPN remotely?</summary>
+          <p class="faq__answer">Yes. Most VPN work is done remotely, anywhere in the U.S. We just need access to your UniFi console. Onsite help is available around Orlando.</p>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">Can I make my traffic show my home IP while traveling?</summary>
+          <p class="faq__answer">Yes, with a home VPN back to your own router, ideally through a travel router so every device is covered. Our <a href="/blog/home-vpn-public-ip.html" style="text-decoration:underline;">home VPN guide</a> walks through it, or we can set it up for you.</p>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">Is port forwarding a safe way to access my cameras or NAS remotely?</summary>
+          <p class="faq__answer">Generally no. Port forwarding exposes those devices to the whole internet. A VPN keeps them private and only lets in people with a VPN profile.</p>
+        </details>
+        <details class="faq__item">
+          <summary class="faq__question">How much does VPN setup cost?</summary>
+          <p class="faq__answer">Labor is billed hourly from $200/hr, with discounted 2- and 5-hour blocks. A single-site VPN often fits in a 2-hour block ($340), and we estimate the time on the free call before anything is scheduled. See <a href="/pricing.html" style="text-decoration:underline;">pricing</a>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOK A CALL BANNER -->
+  <section class="cta-banner">
+    <div class="container cta-banner__inner">
+      <div>
+        <h2>Need secure access from anywhere?</h2>
+        <p>Book a free 30-minute call and we'll plan the right VPN for your team. Running UniFi? See our <a href="/remote-unifi-services.html" style="color:inherit;text-decoration:underline;">fixed-price remote UniFi services</a>.</p>
+      </div>
+      <a href="/getintouch.html?plan=unifi" class="btn btn--primary">Book a free call</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__top">
+      <div class="footer__col">
+        <a href="/" class="footer__brand"><img src="/logo.svg" alt="KJJ Tech" loading="lazy" width="234" height="58" /></a>
+        <p class="footer__tagline">Technology that works for you.</p>
+        <div class="footer__socials">
+          <a href="https://www.linkedin.com/company/kjjtech" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://www.facebook.com/kjjtech" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8V6.2c0-.8.2-1.2 1.4-1.2H17V2h-2.6C11.3 2 10 3.5 10 6v2H8v3h2v11h4V11h2.7l.3-3z"/></svg>
+          </a>
+          <a href="https://maps.google.com/?cid=1704275016395459676" target="_blank" rel="noopener" aria-label="KJJ Tech on Google">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          </a>
+          <a href="mailto:support@kjjtech.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,4 12,13 2,4"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Navigate</p>
+        <ul class="footer__links">
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/#about">About</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/getintouch.html">Get in Touch</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Services</p>
+        <ul class="footer__links">
+          <li><a href="/unifi-installation-orlando.html">UniFi installation</a></li>
+          <li><a href="/security-camera-installation-orlando.html">Security cameras</a></li>
+          <li><a href="/managed-it-support.html">Managed IT support</a></li>
+          <li><a href="/vpn-remote-access-setup.html">VPN &amp; remote access</a></li>
+          <li><a href="/remote-unifi-services.html">Remote UniFi services</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-heading">Contact</p>
+        <ul class="footer__contact-list">
+          <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
+          <li><a href="tel:+19145279957">(914) 527-9957</a></li>
+          <li><a href="/orlando-it-support.html">Serving Orlando, FL &amp; nationwide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p class="footer__copy">&copy; 2026 KJJ Tech. All rights reserved. <a href="/privacy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a> &middot; <a href="/terms.html" style="color:inherit;text-decoration:underline;">Terms of Service</a></p>
+      <div class="footer__bottom-contact">
+        <a href="mailto:support@kjjtech.com">support@kjjtech.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/main.js"></script>
+</body>
+</html>

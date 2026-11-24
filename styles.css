@@ -1150,7 +1150,7 @@ input::placeholder, textarea::placeholder { color: var(--gray-300); }
 
 .footer__top {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
   gap: 3rem;
   padding-top: 3rem;
   padding-bottom: 3rem;
