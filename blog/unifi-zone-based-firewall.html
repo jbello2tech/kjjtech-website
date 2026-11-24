@@ -6,7 +6,7 @@
   <title>UniFi Zone-Based Firewall: Setup Guide & Best Practices</title>
   <meta name="description" content="Step-by-step UniFi zone-based firewall setup: IoT, guest and DMZ zones, policy best practices, and migrating from legacy firewall rules safely." />
   <meta property="og:title" content="UniFi Zone-Based Firewall: Setup Guide & Best Practices" />
-  <meta property="og:description" content="How to set up the new zone-based firewall in UniFi Network 9.0+: zones, policies, and migration tips." />
+  <meta property="og:description" content="How to set up the UniFi zone-based firewall in Network 11: zones, the Policy Table, and checking your migration from legacy rules." />
   <meta property="og:image" content="https://kjjtech.com/blog/img/og/unifi-zone-based-firewall.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -41,12 +41,12 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "UniFi Zone-Based Firewall: Setup Guide & Best Practices",
-    "description": "How to set up the new zone-based firewall in UniFi Network 9.0+: zones, policies, and migration tips from legacy firewall rules.",
+    "description": "How to set up the UniFi zone-based firewall in Network 11: zones, the Policy Table, and checking your migration from legacy firewall rules.",
     "image": "https://kjjtech.com/blog/img/og/unifi-zone-based-firewall.png",
     "author": { "@type": "Person", "name": "Jorge Bello", "url": "https://kjjtech.com/#about", "jobTitle": "Founder, KJJ Tech" },
     "publisher": { "@type": "Organization", "name": "KJJ Tech", "logo": { "@type": "ImageObject", "url": "https://kjjtech.com/logo.jpg" } },
     "datePublished": "2026-04-13",
-    "dateModified": "2026-04-13",
+    "dateModified": "2026-11-23",
     "mainEntityOfPage": "https://kjjtech.com/blog/unifi-zone-based-firewall.html"
   }
   </script>
@@ -91,10 +91,10 @@
 
     <span class="post__tag">Guide</span>
     <h1 class="post__title">UniFi Zone-Based Firewall: Setup Guide & Best Practices</h1>
-    <p class="post__meta">By <a href="/#about" rel="author">Jorge Bello</a>, founder &middot; <time datetime="2026-04-13">Apr 13, 2026</time> &middot; 10 min read</p>
+    <p class="post__meta">By <a href="/#about" rel="author">Jorge Bello</a>, founder &middot; <time datetime="2026-04-13">Apr 13, 2026</time> &middot; Updated <time datetime="2026-11-23">Nov 23, 2026</time> &middot; 10 min read</p>
 
     <div class="post__body">
-      <p>Starting with UniFi Network 9.0, Ubiquiti introduced a <strong>zone-based firewall</strong> that replaces the old per-rule model with something closer to what enterprise firewalls (Palo Alto, Fortinet) have used for years. Instead of writing individual allow/deny rules between networks, you group networks into <em>zones</em> and define policies <em>between</em> zones.</p>
+      <p><em>Updated for UniFi Network 11.</em> Starting with UniFi Network 9.0, Ubiquiti introduced a <strong>zone-based firewall</strong> that replaces the old per-rule model with something closer to what enterprise firewalls (Palo Alto, Fortinet) have used for years. Instead of writing individual allow/deny rules between networks, you group networks into <em>zones</em> and define policies <em>between</em> zones.</p>
 
       <p>If you've ever hand-crafted dozens of LAN In rules to isolate an IoT VLAN from your trusted network, you already know why this matters. Zones scale better, are easier to audit, and dramatically reduce the chance of a misconfigured rule.</p>
 
@@ -122,17 +122,19 @@
       <h2>Prerequisites</h2>
 
       <ul>
-        <li>A UniFi gateway running <strong>Network 9.0 or newer</strong> (UDM, UDM Pro, UDM SE, UXG, UCG, Cloud Gateway, etc.)</li>
+        <li>A UniFi gateway running <strong>Network 9.0 or newer</strong> (UDM, UDM Pro, UDM SE, UXG, UCG, Cloud Gateway, etc.). Menu names in this guide are from <strong>Network 11</strong>; older 9.x versions use slightly different labels.</li>
         <li>At least two VLANs already configured (if you haven't set those up yet, start with our <a href="/blog/unifi-vlan-setup-guide.html">VLAN setup guide</a>)</li>
         <li>A device you can test with on each VLAN</li>
       </ul>
 
-      <h2>Step 1: Enable the Zone-Based Firewall</h2>
+      <h2>Step 1: Find the Zone-Based Firewall</h2>
 
-      <p>Navigate to <strong>Settings &rarr; Security &rarr; Zone-Based Firewall</strong>. If you're on a fresh install with Network 9.0+, this is already the default. If you're upgrading from an older firmware, you'll see an option to enable it.</p>
+      <p>Go to <strong>Settings &rarr; Policy Engine</strong>. <strong>Zones</strong> shows the zone matrix, and the <strong>Policy Table</strong> lists every firewall policy in one place. On Network 11 the zone-based firewall is the only firewall: sites still on the legacy LAN In / LAN Out rules were migrated to zones automatically during the upgrade.</p>
+
+      <p>Also check the <strong>Default Security Posture</strong> (on the <strong>Settings &rarr; Networks</strong> page, below the network list). <em>Allow All</em> is the default and lets your internal networks reach each other; <em>Block All</em> blocks everything between networks until you allow it. Most homes and small offices are best served by leaving it on Allow All and using custom zones, below, to contain untrusted devices.</p>
 
       <blockquote class="post__callout">
-        <strong>Important:</strong> Enabling zones <em>converts</em> your existing legacy rules automatically, but the auto-conversion isn't always perfect. Before flipping the switch, export your current config or take screenshots of your existing rules so you can verify nothing is missing afterward.
+        <strong>Important:</strong> The automatic migration from legacy rules isn't always perfect. If your site was upgraded from older firmware, open the zone matrix and the Policy Table and confirm your inter-VLAN blocks still behave the way you intended.
       </blockquote>
 
       <h2>Step 2: Plan Your Zones</h2>
@@ -150,7 +152,7 @@
 
       <h2>Step 3: Create Your Custom Zones</h2>
 
-      <p>In <strong>Settings &rarr; Security &rarr; Zone-Based Firewall &rarr; Zones</strong>, click <strong>Create Zone</strong>:</p>
+      <p>In <strong>Settings &rarr; Policy Engine &rarr; Zones</strong>, click <strong>Create Zone</strong>:</p>
 
       <ol>
         <li>Give the zone a clear name (e.g., <code>IoT</code>, <code>Guest</code>, <code>Trusted</code>)</li>
@@ -162,7 +164,7 @@
 
       <h2>Step 4: Define Policies Between Zones</h2>
 
-      <p>This is where the zone model shines. Click <strong>Policies</strong> and you'll see a matrix: rows are source zones, columns are destination zones. Each cell represents the traffic flow between them.</p>
+      <p>This is where the zone model shines. The <strong>Zones</strong> view is a matrix: rows are source zones, columns are destination zones, and each cell is the traffic flow between them. Traffic between the built-in Internal zone and a new custom zone is blocked by default, so you only add allow policies for what should cross. Return traffic for an allowed connection is permitted automatically.</p>
 
       <p>For a typical home/SMB setup, you want something like:</p>
 
@@ -185,7 +187,7 @@
 
       <p>Trusted can reach IoT (so you can control your smart lights), but IoT can't reach Trusted (so a compromised smart plug can't pivot to your laptop). Guest can reach the internet and other Guests, and nothing else.</p>
 
-      <p>Click any cell to edit that policy. You can add exceptions within a block, for example, <strong>Block IoT &rarr; Trusted, except allow IoT to reach 192.168.1.50 on port 80</strong> (for a shared printer).</p>
+      <p>Click any cell and choose <strong>Create Policy</strong> to add one; every policy then appears in the <strong>Policy Table</strong>, where you can edit and reorder them. You can add exceptions within a block, for example, <strong>Block IoT &rarr; Trusted, except allow IoT to reach 192.168.1.50 on port 80</strong> (for a shared printer).</p>
 
       <figure class="post__figure">
         <a href="/blog/img/unifi-zone-policy-matrix.svg" target="_blank" rel="noopener"><picture><source media="(max-width: 640px)" srcset="/blog/img/unifi-zone-policy-matrix-mobile.svg" width="640" height="601" /><img src="/blog/img/unifi-zone-policy-matrix.svg" alt="UniFi zone-based firewall policy matrix: Trusted, IoT, Guest and External zones with allow and block rules" width="1200" height="520" loading="lazy" decoding="async" /></picture></a>
@@ -207,12 +209,12 @@
 
       <h2>Migrating From Legacy Firewall Rules</h2>
 
-      <p>If you had a lot of existing rules before enabling zones, here's the process I recommend:</p>
+      <p>On Network 11 the migration happens automatically when you upgrade. If you had a lot of legacy rules, here's how to make sure nothing broke:</p>
 
       <ol>
-        <li><strong>Screenshot everything.</strong> Every legacy rule, every group. You'll thank yourself later.</li>
-        <li><strong>Enable zones in a maintenance window.</strong> Don't do this on a Friday afternoon when the office is trying to leave.</li>
-        <li><strong>Let UniFi auto-convert</strong> your rules into zone policies. Then open each policy and verify it matches your intent.</li>
+        <li><strong>Screenshot everything before upgrading.</strong> Every legacy rule, every group. You'll thank yourself later.</li>
+        <li><strong>Upgrade in a maintenance window.</strong> Don't do this on a Friday afternoon when the office is trying to leave.</li>
+        <li><strong>Review the converted policies</strong> in the Policy Table. Open each one and verify it matches your intent.</li>
         <li><strong>Consolidate redundant rules.</strong> A lot of legacy rules become unnecessary under zones. You were often writing the same rule 3 times for 3 different VLANs that could've been in one zone.</li>
         <li><strong>Keep the exception rules.</strong> Anywhere you had a specific "allow X device to reach Y" rule, that needs to live on as a specific allow inside the zone policy.</li>
       </ol>
@@ -321,7 +323,7 @@
         <ul class="footer__contact-list">
           <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
           <li><a href="tel:+19145279957">(914) 527-9957</a></li>
-          <li><a href="/orlando-it-support.html">Serving Orlando, FL &amp; nationwide</a></li>
+          <li>Serving <a href="/orlando-it-support.html">Orlando</a>, <a href="/it-support-winter-park.html">Winter Park</a>, <a href="/it-support-lake-mary.html">Lake Mary</a> &amp; nationwide</li>
         </ul>
       </div>
     </div>

@@ -54,6 +54,18 @@ const TOPICS = {
     topic: 'storm-ready network',
     line: "Since you came from the storm-readiness post: the cheapest win is a UPS on the modem, gateway and main switch. Most outages we get called about are a power blip that rebooted everything at once.",
   },
+  'unifi-installation-cost': {
+    topic: 'UniFi installation',
+    line: "Since you came from the installation cost post: the budget surprises I see most are cabling (especially in finished homes or older buildings) and buying more access points than the space needs. A quick look at a floor plan usually tightens the estimate a lot.",
+  },
+  'unifi-vs-meraki': {
+    topic: 'UniFi vs Meraki decision',
+    line: "Since you came from the UniFi vs Meraki post: the deciding factors are usually license costs over five years and who will manage the network day to day. Happy to walk through your numbers if you're weighing a switch.",
+  },
+  'network-upgrade-signs': {
+    topic: 'network upgrade',
+    line: "Since you came from the network upgrade post: before replacing everything, it's worth checking whether a few changes (access point placement, an old ISP router, or one bad switch) fix most of the problem. That's often cheaper than a full rebuild.",
+  },
   'network-security-tips': {
     topic: 'network security',
     line: "Since you came from the network security tips post: the biggest wins are usually the boring ones, like firmware updates, removing old port forwards, separating IoT devices, and locking down remote access.",

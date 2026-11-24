@@ -35,6 +35,7 @@
   </script>
   <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="blog.css" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -213,6 +214,19 @@
       <h3>What's the best alternative to Cisco Meraki for business Wi-Fi?</h3>
       <p>For small and mid-sized businesses, UniFi is the most common alternative: similar features for the majority of use cases, cameras and door access in the same ecosystem, and no recurring license fees.</p>
 
+      <div class="post__lead">
+        <h3>Free: UniFi Security Checklist</h3>
+        <p>26 settings to check on any UniFi network, from admin accounts to firewall zones, on one printable PDF.</p>
+        <form action="https://reviews.kjjtech.com/checklist" method="POST" class="post__lead-form">
+          <input type="hidden" name="source" value="unifi-vs-meraki" />
+          <input type="text" name="website" tabindex="-1" autocomplete="off" class="post__lead-hp" aria-hidden="true" />
+          <input type="email" name="email" placeholder="you@company.com" required aria-label="Email address" />
+          <button type="submit" class="btn btn--primary">Send me the checklist</button>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADlO6Hzgkc_iaMdj" data-size="flexible"></div>
+        </form>
+        <p class="post__lead-fine">No spam. Just the PDF, plus an occasional new guide.</p>
+      </div>
+
       <div class="post__cta">
         <h3>Not sure which platform is right for you?</h3>
         <p>We'll assess your needs and recommend the best fit, with no vendor bias and no pressure.</p>
@@ -291,7 +305,7 @@
         <ul class="footer__contact-list">
           <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
           <li><a href="tel:+19145279957">(914) 527-9957</a></li>
-          <li><a href="/orlando-it-support.html">Serving Orlando, FL &amp; nationwide</a></li>
+          <li>Serving <a href="/orlando-it-support.html">Orlando</a>, <a href="/it-support-winter-park.html">Winter Park</a>, <a href="/it-support-lake-mary.html">Lake Mary</a> &amp; nationwide</li>
         </ul>
       </div>
     </div>

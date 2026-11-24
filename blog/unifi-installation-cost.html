@@ -33,6 +33,7 @@
   </script>
   <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="blog.css" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -159,7 +160,7 @@
       <ul>
         <li><strong>Concrete, brick or metal construction:</strong> more APs to get through the walls.</li>
         <li><strong>Multiple floors or buildings:</strong> more APs, plus switches or point-to-point links.</li>
-        <li><strong>Cameras and door access:</strong> UniFi Protect and Access hardware, plus a bigger PoE budget.</li>
+        <li><strong>Cameras and door access:</strong> UniFi Protect and Access hardware, plus a bigger PoE budget. See our <a href="/blog/unifi-protect-setup-guide.html">UniFi Protect setup guide</a>.</li>
         <li><strong>High device density:</strong> busy offices, restaurants and event spaces need more APs per square foot.</li>
       </ul>
 
@@ -175,6 +176,19 @@
       <h2>Is UniFi Worth It vs. a Consumer Mesh System?</h2>
 
       <p>Consumer mesh kits are cheaper upfront, but they're built for a few rooms and a few dozen devices. UniFi gives you business-grade Wi-Fi, proper network segmentation, a real firewall, cameras in the same system, and no subscription. For most homes over 2,500 sq ft and nearly every business, it's the better long-term buy.</p>
+
+      <div class="post__lead">
+        <h3>Free: UniFi Security Checklist</h3>
+        <p>26 settings to check on any UniFi network, from admin accounts to firewall zones, on one printable PDF.</p>
+        <form action="https://reviews.kjjtech.com/checklist" method="POST" class="post__lead-form">
+          <input type="hidden" name="source" value="unifi-installation-cost" />
+          <input type="text" name="website" tabindex="-1" autocomplete="off" class="post__lead-hp" aria-hidden="true" />
+          <input type="email" name="email" placeholder="you@company.com" required aria-label="Email address" />
+          <button type="submit" class="btn btn--primary">Send me the checklist</button>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADlO6Hzgkc_iaMdj" data-size="flexible"></div>
+        </form>
+        <p class="post__lead-fine">No spam. Just the PDF, plus an occasional new guide.</p>
+      </div>
 
       <div class="post__cta">
         <h3>Want an exact quote?</h3>
@@ -254,7 +268,7 @@
         <ul class="footer__contact-list">
           <li><a href="mailto:support@kjjtech.com">support@kjjtech.com</a></li>
           <li><a href="tel:+19145279957">(914) 527-9957</a></li>
-          <li><a href="/orlando-it-support.html">Serving Orlando, FL &amp; nationwide</a></li>
+          <li>Serving <a href="/orlando-it-support.html">Orlando</a>, <a href="/it-support-winter-park.html">Winter Park</a>, <a href="/it-support-lake-mary.html">Lake Mary</a> &amp; nationwide</li>
         </ul>
       </div>
     </div>
