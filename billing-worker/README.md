@@ -1,6 +1,6 @@
 # KJJ Tech billing alerts (Cloudflare Worker)
 
-Receives Stripe webhooks at `https://billing.kjjtech.com/stripe` and sends each alert to Discord and to email (Microsoft Graph, from `MAIL_FROM` to `NOTIFY_TO`).
+Receives Stripe webhooks at `https://kjjtech-billing.kjj-tech.workers.dev/stripe` (also served at `billing.kjjtech.com`) and sends each alert to Discord and to email (Microsoft Graph, from `MAIL_FROM` to `NOTIFY_TO`).
 
 | Stripe event | Alert |
 |---|---|
@@ -12,6 +12,9 @@ Receives Stripe webhooks at `https://billing.kjjtech.com/stripe` and sends each 
 
 ## Setup
 
+Set secrets from a real Terminal, or pipe the clipboard: `pbpaste | npx wrangler secret put NAME`. Running `wrangler secret put` from Claude Code's `!` prompt saves an empty value.
+
+
 ```sh
 cd billing-worker
 npm install
@@ -20,7 +23,6 @@ npx wrangler secret put DISCORD_WEBHOOK_URL     # Discord channel > Edit Channel
 npx wrangler secret put MS_TENANT_ID            # same values as the reviews worker
 npx wrangler secret put MS_CLIENT_ID
 npx wrangler secret put MS_CLIENT_SECRET
-npx wrangler secret put DISCORD_MENTION_USER_ID # optional: your Discord user ID
 npx wrangler deploy
 ```
 

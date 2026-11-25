@@ -25,11 +25,21 @@ export default {
     const alert = await buildAlert(event, env);
     if (alert) {
       const results = await Promise.allSettled([sendDiscord(env, alert), sendEmail(env, alert)]);
-      results.forEach((r, i) => { if (r.status === 'rejected') console.error(i ? 'email' : 'discord', r.reason); });
+      // Log only a safe summary: errors can contain URLs or values from secrets.
+      results.forEach((r, i) => {
+        if (r.status === 'rejected') console.error(i ? 'email failed' : 'discord failed', safeError(r.reason));
+      });
     }
     return new Response(JSON.stringify({ received: true }), { headers: { 'content-type': 'application/json' } });
   },
 };
+
+function safeError(err) {
+  const msg = String((err && err.message) || err || '');
+  if (/^(Discord|Graph sendMail) \d{3}/.test(msg)) return msg.slice(0, 40);
+  if (/^Graph token failed/.test(msg)) return msg.slice(0, 60);
+  return (err && err.name) || 'Error';
+}
 
 // ---- Stripe signature (Stripe-Signature: t=...,v1=...) -------------------
 
@@ -206,7 +216,7 @@ async function sendDiscord(env, a) {
       embeds: [{ title: a.title, color: a.color, fields: a.fields, timestamp: new Date().toISOString() }],
     }),
   });
-  if (!res.ok) throw new Error(`Discord ${res.status} ${await res.text()}`);
+  if (!res.ok) throw new Error(`Discord ${res.status}`);
 }
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
