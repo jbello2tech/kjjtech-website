@@ -2,3 +2,4 @@
 CleanShot*.png
 Screenshot*.png
 *.log
+billing-worker/node_modules/
