@@ -1668,3 +1668,8 @@ a.g-review__name:hover { text-decoration: underline; }
 .sim-info__box { max-width: 640px; margin: 0 auto; padding: 2.5rem 2rem; background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius); text-align: center; }
 .sim-info__box h2 { margin-bottom: 0.75rem; }
 .sim-info__box > p { font-size: 0.9rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+
+/* ─── 5G hero topology extras ─── */
+.topo-link--5g { stroke-dasharray: 4 4; }
+.topo-pill > rect { fill: #eef3ff; stroke: none; }
+.topo-pill text { font-family: var(--font); font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; fill: var(--accent); text-anchor: middle; font-weight: 500; }
