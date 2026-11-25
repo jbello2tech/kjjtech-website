@@ -1673,3 +1673,8 @@ a.g-review__name:hover { text-decoration: underline; }
 .topo-link--5g { stroke-dasharray: 4 4; }
 .topo-pill > rect { fill: #eef3ff; stroke: none; }
 .topo-pill text { font-family: var(--font); font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; fill: var(--accent); text-anchor: middle; font-weight: 500; }
+
+/* ─── Homepage hero: "New" 5G link ─── */
+.hero__new { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem; padding: 0.35rem 0.85rem 0.35rem 0.35rem; border: 1px solid var(--gray-100); border-radius: 999px; font-size: 0.82rem; color: var(--black); background: var(--white); transition: border-color 0.2s; }
+.hero__new:hover { border-color: var(--accent); color: var(--accent); }
+.hero__new-tag { padding: 0.15rem 0.55rem; border-radius: 999px; background: var(--accent); color: #fff; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; }
