@@ -122,7 +122,7 @@
       "name": "How much does it cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "$149 per month, month-to-month, or $1,440 when you pay for a year up front, which works out to $120 per month and saves $348. There's no activation fee. A static IP is an optional add-on."
+        "text": "$149 per month, month-to-month, or $1,440 when you pay for a year up front, which works out to $120 per month and saves $348. There's no activation fee. A static IP is an optional add-on for $10/month ($120/year on the yearly plan)."
       }
     },
     {
@@ -213,7 +213,7 @@
         <ul class="hero-card__list">
           <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,8 6,12 14,4"/></svg>Unlimited data: no caps, throttling or overages</li>
           <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,8 6,12 14,4"/></svg>Public IPv4 address in most locations</li>
-          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,8 6,12 14,4"/></svg>Optional static IP add-on</li>
+          <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,8 6,12 14,4"/></svg>Optional static IP: +$10/month</li>
           <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,8 6,12 14,4"/></svg>T-Mobile 5G &amp; 4G network</li>
           <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,8 6,12 14,4"/></svg>No activation fee</li>
           <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,8 6,12 14,4"/></svg>Router and VPN setup help</li>
@@ -259,7 +259,7 @@
           <div class="card__icon">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
           </div>
-          <h3>Static IP Add-On</h3>
+          <h3>Static IP Add-On: $10/mo</h3>
           <p>A public address that never changes, for VPN servers, site-to-site tunnels, allowlists and routing traffic through the 5G line.</p>
         </div>
 
@@ -306,7 +306,8 @@
           <a href="#sim-info" class="btn btn--primary price-box__cta" data-order="yearly">Order yearly</a>
         </div>
       </div>
-      <p class="sim-plans__note">Data-only physical nano-SIM on the T-Mobile 5G &amp; 4G network. Coverage: lower 48 states, Hawaii and Puerto Rico. Static IP is an optional add-on. Typical 5G speeds are roughly 90&ndash;700 Mbps down and 20&ndash;40 Mbps up, depending on signal.</p>
+      <p class="sim-plans__note">Secure checkout by Stripe. Add a static IP at checkout. Questions first? <a href="#sim-info" style="text-decoration:underline;">Send us a message</a> or <a href="https://calendly.com/jbello-kjjtech/30min" target="_blank" rel="noopener" style="text-decoration:underline;">book a call</a>.</p>
+      <p class="sim-plans__note">Data-only physical nano-SIM on the T-Mobile 5G &amp; 4G network. Coverage: lower 48 states, Hawaii and Puerto Rico. Static IP is an optional add-on: $10/month, or $120/year on the yearly plan. Typical 5G speeds are roughly 90&ndash;700 Mbps down and 20&ndash;40 Mbps up, depending on signal.</p>
     </div>
   </section>
 
@@ -371,7 +372,7 @@
           <label>Static IP?
             <select name="static_ip">
               <option>Not sure</option>
-              <option>Yes, I want a static IP</option>
+              <option>Yes, add a static IP (+$10/month)</option>
               <option>No</option>
             </select>
           </label>
@@ -397,7 +398,7 @@
         </details>
         <details class="faq__item">
           <summary class="faq__question">How much does it cost?</summary>
-          <p class="faq__answer">$149 per month, month-to-month, or $1,440 when you pay for a year up front, which works out to $120 per month and saves $348. There's no activation fee. A static IP is an optional add-on.</p>
+          <p class="faq__answer">$149 per month, month-to-month, or $1,440 when you pay for a year up front, which works out to $120 per month and saves $348. There's no activation fee. A static IP is an optional add-on for $10/month ($120/year on the yearly plan).</p>
         </details>
         <details class="faq__item">
           <summary class="faq__question">Do I get a public IP address?</summary>
@@ -439,7 +440,7 @@
     // Order buttons: set Stripe Payment Link URLs here once they exist.
     // Until then, the buttons jump to the order form with the plan preselected.
     (function () {
-      var STRIPE = { monthly: '', yearly: '' };
+      var STRIPE = { monthly: 'https://payment.kjjtech.com/b/28E4gyfXY0YM1PLfOOgEg04', yearly: 'https://payment.kjjtech.com/b/eVq8wO3bc8re7a5466gEg05' };
       var labels = { monthly: 'Monthly ($149/month)', yearly: 'Yearly ($1,440/year)' };
       document.querySelectorAll('[data-order]').forEach(function (a) {
         var plan = a.getAttribute('data-order');

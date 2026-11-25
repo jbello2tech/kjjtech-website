@@ -10,7 +10,7 @@ Contact: support@kjjtech.com, (914) 527-9957. Labor is $200/hour, or $340 for a 
 - [Security camera installation in Orlando](https://kjjtech.com/security-camera-installation-orlando.html): UniFi Protect cameras with local recording and no monthly cloud fees
 - [Managed IT & network support](https://kjjtech.com/managed-it-support.html): proactive monitoring, updates, security reviews and a dedicated technician for small businesses
 - [VPN & remote access setup](https://kjjtech.com/vpn-remote-access-setup.html): WireGuard, Teleport, site-to-site VPN and travel routers on UniFi
-- [Unlimited 5G data SIMs](https://kjjtech.com/5g-data-sim.html): data-only 5G SIMs with a public IP in most locations and an optional static IP, for the GL.iNet Mudi 7 and UniFi 5G Max; $149/month or $1,440/year
+- [Unlimited 5G data SIMs](https://kjjtech.com/5g-data-sim.html): data-only 5G SIMs with a public IP in most locations and an optional static IP, for the GL.iNet Mudi 7 and UniFi 5G Max; $149/month or $1,440/year; static IP add-on $10/month ($120/year)
 - [Remote UniFi services](https://kjjtech.com/remote-unifi-services.html): fixed-price remote UniFi configuration review ($340) and zone-based firewall setup ($750)
 - [Orlando IT support](https://kjjtech.com/orlando-it-support.html): IT support for Orlando-area homes and businesses
 - [IT support in Winter Park](https://kjjtech.com/it-support-winter-park.html)
