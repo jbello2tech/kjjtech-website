@@ -34,6 +34,13 @@ for (const ev of events) {
 const body = JSON.stringify(events[0]);
 calls.length = 0;
 let r = await worker.fetch(new Request('https://billing.test/stripe', { method: 'POST', body, headers: { 'stripe-signature': await sign(body) } }), env);
+const store = new Map(); env.SEEN = { get: async k => store.get(k) || null, put: async (k, v) => { store.set(k, v); } };
+const dupBody = JSON.stringify({ ...events[0], id: 'evt_dup' });
+let c1 = calls.length; await worker.fetch(new Request('https://billing.test/stripe', { method: 'POST', body: dupBody, headers: { 'stripe-signature': await sign(dupBody) } }), env);
+let first = calls.length - c1; c1 = calls.length;
+const r2 = await worker.fetch(new Request('https://billing.test/stripe', { method: 'POST', body: dupBody, headers: { 'stripe-signature': await sign(dupBody) } }), env);
+console.log('dedupe: first sent', first, 'calls; repeat sent', calls.length - c1, 'calls ->', await r2.text());
+delete env.SEEN;
 console.log('\nvalid sig ->', r.status, '| outbound calls:', calls.map(c => c.url.split('/')[2]).join(', '));
 const d = JSON.parse(calls.find(c => c.url.includes('discord')).body); console.log('discord content:', d.content, '| mention allowed:', JSON.stringify(d.allowed_mentions));
 r = await worker.fetch(new Request('https://billing.test/stripe', { method: 'POST', body, headers: { 'stripe-signature': 't=1,v1=abc' } }), env); console.log('bad sig ->', r.status);

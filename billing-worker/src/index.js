@@ -22,6 +22,15 @@ export default {
     let event;
     try { event = JSON.parse(body); } catch { return new Response('Bad JSON', { status: 400 }); }
 
+    // Stripe retries and manual resends reuse the same event ID: alert only once per event.
+    if (env.SEEN && event.id) {
+      const key = `evt:${event.id}`;
+      if (await env.SEEN.get(key)) {
+        return new Response(JSON.stringify({ received: true, duplicate: true }), { headers: { 'content-type': 'application/json' } });
+      }
+      await env.SEEN.put(key, '1', { expirationTtl: 7 * 24 * 3600 });
+    }
+
     const alert = await buildAlert(event, env);
     if (alert) {
       const results = await Promise.allSettled([sendDiscord(env, alert), sendEmail(env, alert)]);

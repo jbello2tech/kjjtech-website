@@ -25,3 +25,8 @@ DISCORD_MENTION_USER_ID = "1197638562041036824"
 [[routes]]
 pattern = "billing.kjjtech.com"
 custom_domain = true
+
+# Remembers processed Stripe event IDs for 7 days so retries/resends never alert twice
+[[kv_namespaces]]
+binding = "SEEN"
+id = "947b515308ac47fb88b898498c5d2b21"
