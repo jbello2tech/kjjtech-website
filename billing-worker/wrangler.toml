@@ -13,12 +13,13 @@ NOTIFY_TO = "jbello@kjjtech.com"
 # Payment links for the 5G data SIM (used to label new orders)
 SIM_MONTHLY_LINK = "plink_1UfYRkD3xMZIuk8aL8bg23Ls"
 SIM_YEARLY_LINK = "plink_1UfYUBD3xMZIuk8a3vc6Qvnf"
+# Discord user pinged on failed payments and cancellations
+DISCORD_MENTION_USER_ID = "1197638562041036824"
 
 # Secrets (set with `npx wrangler secret put NAME`):
 #   STRIPE_WEBHOOK_SECRET   whsec_... from the Stripe webhook endpoint (required)
 #   DISCORD_WEBHOOK_URL     Discord channel webhook for billing alerts (required)
 #   MS_TENANT_ID, MS_CLIENT_ID, MS_CLIENT_SECRET   same Microsoft Graph app as the reviews worker (for email)
-#   DISCORD_MENTION_USER_ID optional: your Discord user ID, pinged on failed payments and cancellations
 #   STRIPE_READ_KEY         optional: restricted read-only Stripe key, adds customer names to subscription alerts
 
 [[routes]]

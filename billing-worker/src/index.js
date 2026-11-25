@@ -34,6 +34,7 @@ export default {
 // ---- Stripe signature (Stripe-Signature: t=...,v1=...) -------------------
 
 export async function verifyStripeSignature(payload, header, secret, toleranceSec = 300) {
+  secret = (secret || '').trim();
   if (!header || !secret) return false;
   const parts = {};
   const sigs = [];
