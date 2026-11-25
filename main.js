@@ -211,3 +211,15 @@ document.addEventListener('click', (e) => {
   const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); load(); } }, { rootMargin: '300px' });
   io.observe(box.closest('section') || box);
 })();
+
+// Announcement bar (dismissible, remembered per browser)
+const promoBar = document.getElementById('promoBar');
+if (promoBar) {
+  const KEY = 'promo-5g-dismissed';
+  try { if (localStorage.getItem(KEY)) promoBar.remove(); } catch (e) {}
+  const close = promoBar.querySelector('.promo-bar__close');
+  if (close) close.addEventListener('click', () => {
+    promoBar.remove();
+    try { localStorage.setItem(KEY, '1'); } catch (e) {}
+  });
+}
