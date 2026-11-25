@@ -316,3 +316,13 @@
 .blog-card:hover { border-color: var(--accent); }
 .blog-card__read { color: var(--accent); }
 .blog-card__title { font-family: var(--font-body); font-weight: 600; letter-spacing: 0; font-size: 1.05rem; line-height: 1.4; color: var(--black); }
+
+/* Inline info-request box (service posts) */
+.post__info { scroll-margin-top: 6rem; }
+.post__info-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-bottom: 1.25rem; }
+.post__info-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; max-width: 520px; margin: 0 auto; text-align: left; }
+.post__info-form label { display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.8rem; }
+.post__info-form .post__info-wide { grid-column: 1 / -1; }
+.post__info-form select { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--gray-100); border-radius: 8px; font-size: 0.9rem; background: var(--white); color: var(--black); }
+.post__info-form button { grid-column: 1 / -1; justify-self: center; }
+@media (max-width: 600px) { .post__info-form { grid-template-columns: 1fr; } }

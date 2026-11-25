@@ -19,6 +19,7 @@ Contact: support@kjjtech.com, (914) 527-9957. Labor is $200/hour, or $340 for a 
 
 ## Guides
 
+- [Unlimited 5G data SIMs with a public IP and optional static IP](https://kjjtech.com/blog/5g-data-sim-public-ip.html)
 - [UniFi Protect setup guide](https://kjjtech.com/blog/unifi-protect-setup-guide.html)
 - [Storm-proof your network: UPS, surge protection & 5G backup](https://kjjtech.com/blog/florida-storm-proof-network.html)
 - [Home VPN: show your home IP anywhere (UniFi & GL.iNet)](https://kjjtech.com/blog/home-vpn-public-ip.html)
