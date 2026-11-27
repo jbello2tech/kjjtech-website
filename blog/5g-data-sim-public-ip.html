@@ -101,7 +101,7 @@
     <div class="post__body">
       <p>In our <a href="/blog/home-vpn-public-ip.html">home VPN guide</a>, we showed how a travel router like the GL.iNet Mudi 7 tunnels every device back home, so you show up online with your home IP from anywhere. That setup is only as good as the data plan behind it. Most phone hotspot and &ldquo;unlimited&rdquo; cellular plans cap or slow your hotspot data after a set amount, and nearly all of them put you behind carrier-grade NAT (CGNAT), which means nobody on the internet can reach your device directly.</p>
 
-      <p>That's why we now offer <strong>data-only 5G SIMs</strong> built for routers: unlimited data, a <strong>public IP address</strong> in most locations, and an optional <strong>static IP</strong>. Plans are <strong>$149/month</strong>, or <strong>$1,440/year</strong> ($120/month) paid annually. They work in the <a href="https://www.amazon.com/dp/B0GT4VH5M7?tag=kjjtech0124-20" target="_blank" rel="sponsored nofollow noopener">GL.iNet Mudi 7</a>, the UniFi 5G Max (indoor and outdoor models), and most other 5G routers that take a nano-SIM.</p>
+      <p>That's why we now offer <strong>data-only 5G SIMs</strong> built for routers: unlimited data, a <strong>public IP address</strong> in most locations, and an optional <strong>static IP</strong>. Plans are <strong>$149/month</strong>, or <strong>$1,440/year</strong> ($120/month) paid annually. They work in the <a href="https://www.amazon.com/dp/B0GT4VH5M7?tag=kjjtech0124-20" target="_blank" rel="sponsored nofollow noopener">GL.iNet Mudi 7</a>, the UniFi 5G Max (indoor and outdoor models), the UniFi Dream Router 5G Max, and most other 5G routers that take a nano-SIM.</p>
 
       <p class="post__callout"><strong>Want one?</strong> See <a href="/5g-data-sim.html">plans and ordering</a>, or <a href="#sim-info">get more info or book a call &rarr;</a></p>
 
@@ -170,7 +170,7 @@
       <p>With CGNAT, your router shares one public address with many other customers. You can browse and stream fine, but the connection only works <em>outbound</em>. Nothing can connect <em>in</em>: you can't host a VPN server, reach your cameras directly, or forward a port.</p>
       <p>With a public IP, a 5G connection behaves like a real internet line. That opens up setups that don't work on a regular cellular plan:</p>
       <ul>
-        <li><strong>5G as your main internet at a second location.</strong> A cabin, RV, jobsite, construction trailer or small shop with no cable or fiber can run a UniFi 5G Max (an outdoor one on the roof or a pole if the signal inside is weak) and still host a WireGuard VPN server, so you can reach the cameras and devices there from anywhere.</li>
+        <li><strong>5G as your main internet at a second location.</strong> A cabin, RV, jobsite, construction trailer or small shop with no cable or fiber can run a UniFi Dream Router 5G Max, or a UniFi 5G Max (an outdoor one on the roof or a pole if the signal inside is weak), and still host a WireGuard VPN server, so you can reach the cameras and devices there from anywhere.</li>
         <li><strong>Remote access that survives a failover.</strong> If your UniFi gateway fails over to 5G backup when the main line goes down, a public IP on the backup means your VPN and remote access keep working. See our <a href="/blog/florida-storm-proof-network.html">storm-ready network guide</a> for setting up failover.</li>
         <li><strong>Site-to-site VPNs</strong> between a 5G location and your office or home.</li>
       </ul>
@@ -189,7 +189,7 @@
         <li><strong>You need to be on an allowlist.</strong> Business apps, cloud firewalls, client portals and some banking systems only accept connections from approved IPs.</li>
         <li><strong>You're routing traffic through the 5G line,</strong> for example sending inbound connections or specific services over it from your UniFi gateway with port forwarding and policy-based routes.</li>
       </ul>
-      <p>The static IP works by switching the router's cellular APN to a dedicated one. We set that up for you, on the UniFi 5G Max, GL.iNet routers and Peplink.</p>
+      <p>The static IP works by switching the router's cellular APN to a dedicated one. We set that up for you, on the UniFi 5G Max, the Dream Router 5G Max, GL.iNet routers and Peplink.</p>
 
       <h2>Which Router to Pair It With</h2>
       <h3>GL.iNet Mudi 7: Travel</h3>
@@ -197,6 +197,8 @@
       <p style="font-size: 0.85rem; opacity: 0.75;"><em>Affiliate disclosure: as an Amazon Associate, KJJ Tech earns from qualifying purchases, at no extra cost to you.</em></p>
       <h3>UniFi 5G Max (Indoor and Outdoor): Fixed Locations and Backup</h3>
       <p>Ubiquiti's 5G modem for UniFi networks comes in two versions. The <strong>indoor UniFi 5G Max</strong> sits on a desk or wall near a window. The <strong>UniFi 5G Max Outdoor</strong> is weatherproof, with directional antennas, and mounts on a roof, wall or pole to pull in a stronger signal at rural sites, jobsites and buildings with poor reception indoors. Both take a nano-SIM and are powered over a single network cable (PoE). Use either one as the main internet at a 5G-only site, or as automatic backup internet on your UniFi gateway. It shows up in UniFi alongside the rest of your network, and with a public or static IP, your UniFi VPN server, Teleport and camera access keep working over 5G.</p>
+      <h3>UniFi Dream Router 5G Max: All-in-One</h3>
+      <p>The <strong>Dream Router 5G Max</strong> is a complete UniFi gateway with a 5G modem built in, plus Wi-Fi 7, a 2.5 GbE switch and a 10G SFP+ port. The SIM goes straight into the router, so a 5G-only office, shop or home runs on one box: firewall, Wi-Fi, VPN server and UniFi management included. Ubiquiti requires a data-only plan for it, which is exactly what our SIMs are.</p>
       <p>The SIMs also work in most other unlocked 5G routers and hotspots that take a nano-SIM, including other GL.iNet and Peplink models. If you're not sure about yours, ask.</p>
 
       <h2>Good to Know</h2>
@@ -219,7 +221,7 @@
       <p>Not for travel with a Mudi 7. Your router connects out to your home VPN, which works on any connection. Consider a static IP if the 5G connection is the one hosting something, like a VPN server or camera access, or if you need to be on an allowlist.</p>
 
       <h3>Will it work with my UniFi 5G Max or UniFi gateway?</h3>
-      <p>Yes. The SIM goes in the indoor or outdoor UniFi 5G Max, which connects to your UniFi gateway as primary or backup internet. We can set up failover, the static IP APN and your VPN.</p>
+      <p>Yes. The SIM goes in the indoor or outdoor UniFi 5G Max, which connects to your UniFi gateway as primary or backup internet, or straight into a UniFi Dream Router 5G Max, which has 5G built in. We can set up failover, the static IP APN and your VPN.</p>
 
       <h3>Can I use it outside the U.S.?</h3>
       <p>No. Coverage is the lower 48 states, Hawaii and Puerto Rico.</p>
