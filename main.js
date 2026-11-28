@@ -223,3 +223,26 @@ if (promoBar) {
     try { localStorage.setItem(KEY, '1'); } catch (e) {}
   });
 }
+
+// Mobile call / text / assessment bar
+(function () {
+  if (document.querySelector('.mcta')) return;
+  var phone = '+19145279957';
+  var bar = document.createElement('div');
+  bar.className = 'mcta';
+  bar.setAttribute('aria-label', 'Contact KJJ Tech');
+  bar.innerHTML =
+    '<a href="tel:' + phone + '" data-mcta="call"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call</a>' +
+    '<a href="sms:' + phone + '?&body=' + encodeURIComponent('Hi KJJ Tech, ') + '" data-mcta="text"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>' +
+    (/5g/i.test(location.pathname)
+      ? '<a href="/5g-data-sim.html#plans" class="mcta__main" data-mcta="5g_plans">See 5G plans</a>'
+      : '<a href="/assessment.html" class="mcta__main" data-mcta="assessment">Free assessment</a>');
+  document.body.appendChild(bar);
+  document.body.classList.add('has-mcta');
+  bar.addEventListener('click', function (e) {
+    var a = e.target.closest('a');
+    if (a && typeof window.gtag === 'function') {
+      window.gtag('event', 'mobile_cta_click', { method: a.getAttribute('data-mcta'), page: location.pathname });
+    }
+  });
+})();
