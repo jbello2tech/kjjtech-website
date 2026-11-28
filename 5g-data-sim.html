@@ -365,26 +365,26 @@
         <p class="sim-kits__lead">Don't have a router? We'll supply one with your SIM, configured and tested, for one complete price.</p>
       </div>
       <div class="services__grid">
-        <div class="card">
+        <a href="#sim-info" class="card sim-kits__card" data-kit="GL.iNet Mudi 7">
           <h3>GL.iNet Mudi 7</h3>
           <p>Battery-powered 5G travel router with Wi-Fi 7. Pocket-sized, with the home VPN set up for you.</p>
-          <span class="sim-kits__price">Contact for pricing</span>
-        </div>
-        <div class="card">
+          <span class="sim-kits__price">Contact for pricing &rarr;</span>
+        </a>
+        <a href="#sim-info" class="card sim-kits__card" data-kit="UniFi 5G Max Indoor or Outdoor">
           <h3>UniFi 5G Max Indoor or Outdoor</h3>
           <p>For UniFi networks: main internet at a 5G-only site or automatic backup internet. The Outdoor model mounts on a roof or pole for a stronger signal.</p>
-          <span class="sim-kits__price">Contact for pricing</span>
-        </div>
-        <div class="card">
+          <span class="sim-kits__price">Contact for pricing &rarr;</span>
+        </a>
+        <a href="#sim-info" class="card sim-kits__card" data-kit="UniFi Dream Router 5G Max">
           <h3>UniFi Dream Router 5G Max</h3>
           <p>An all-in-one UniFi gateway with 5G built in, Wi-Fi 7 and a 2.5 GbE switch. One box runs a 5G-only office, shop or home.</p>
-          <span class="sim-kits__price">Contact for pricing</span>
-        </div>
-        <div class="card">
+          <span class="sim-kits__price">Contact for pricing &rarr;</span>
+        </a>
+        <a href="#sim-info" class="card sim-kits__card" data-kit="Pepwave 5G Adapter">
           <h3>Pepwave 5G Adapter</h3>
           <p>Adds 5G to a router you already have, as the main connection or as backup internet.</p>
-          <span class="sim-kits__price">Contact for pricing</span>
-        </div>
+          <span class="sim-kits__price">Contact for pricing &rarr;</span>
+        </a>
       </div>
       <p class="sim-kits__cta"><a href="#sim-info" class="btn btn--primary" data-kit>Ask about a complete kit</a></p>
     </div>
@@ -534,10 +534,17 @@
           if (sel) sel.value = labels[plan];
         });
       });
-      var kit = document.querySelector('[data-kit]');
-      if (kit) kit.addEventListener('click', function () {
-        var sel = document.getElementById('sim-plan');
-        if (sel) sel.value = 'Complete kit (router + SIM)';
+      document.querySelectorAll('[data-kit]').forEach(function (kit) {
+        kit.addEventListener('click', function () {
+          var sel = document.getElementById('sim-plan');
+          if (sel) sel.value = 'Complete kit (router + SIM)';
+          var router = kit.getAttribute('data-kit');
+          var msg = document.querySelector('#sim-info textarea[name="message"]');
+          if (router && msg && (!msg.value || msg.dataset.kitFilled)) {
+            msg.value = 'Complete kit with the ' + router + '.';
+            msg.dataset.kitFilled = '1';
+          }
+        });
       });
     })();
   </script>
